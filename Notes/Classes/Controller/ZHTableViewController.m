@@ -7,8 +7,12 @@
 //
 
 #import "ZHTableViewController.h"
+#import "ZHNoteCell.h"
+#import "ZHNote.h"
 
 @interface ZHTableViewController ()
+
+@property (nonatomic, strong)NSMutableArray *dataArr;
 
 @end
 
@@ -18,11 +22,27 @@
 {
     [super viewDidLoad];
     NSLog(@"table view did load");
-//    self.tableView.backgroundView = nil;
-//    self.tableView.backgroundColor = [UIColor whiteColor];
     [self setupNavItem];
+    //去掉分割线
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
+
+- (NSMutableArray *)dataArr
+{
+    if (_dataArr == nil) {
+        _dataArr = [NSMutableArray array];
+    
+        for (int  i = 0; i < 20; i++) {
+            NSString *title = [NSString stringWithFormat:@"%02dtitletitletitletitletitletitletitletitle",i];
+            NSString *content = [NSString stringWithFormat:@"content%02d",i];
+            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:content];
+            [_dataArr addObject:note];
+        }
+    }
+    
+    return _dataArr;
+}
 
 #pragma mark - 设置导航栏内容
 /**
@@ -47,24 +67,19 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+    return self.dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellID = @"cellID";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-    }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"text%02d",indexPath.row];
-    UIView *selectedView = [[UIView alloc] init];
-    selectedView.backgroundColor = [UIColor colorWithRed:252/255.0 green:206/255.0 blue:37/255.0 alpha:1.0];
+    //01.创建cell
+    ZHNoteCell *cell = [ZHNoteCell noteCellWithTableView:tableView];
     
-    cell.selectedBackgroundView = selectedView;
-//    cell.backgroundColor = [UIColor redColor];
+    //02.给cell传递模型，设置cell数据
+    cell.note = self.dataArr[indexPath.row];
     
+    //03.返回cell
     return cell;
 }
 
