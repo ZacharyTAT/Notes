@@ -13,4 +13,8 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+
+//整个应用的主题色
+#define kTintColor [UIColor colorWithRed:252/255.0 green:206/255.0 blue:37/255.0 alpha:1.0]
+
 #endif

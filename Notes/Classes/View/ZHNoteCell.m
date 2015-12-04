@@ -93,7 +93,7 @@
     
     //分割线
     CGFloat separatorX = 5;
-    CGFloat separatorH = 2;
+    CGFloat separatorH = 1;
     CGFloat separatorY = CGRectGetMaxY(self.contentView.frame);
     CGFloat separatorW = self.frame.size.width - separatorX - 2;
     self.separator.frame = CGRectMake(separatorX, separatorY, separatorW, separatorH);

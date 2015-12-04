@@ -31,11 +31,10 @@
     
     //文字颜色
     //tintColor\barTintColor
-    navBar.tintColor = [UIColor colorWithRed:252/255.0 green:206/255.0 blue:37/255.0 alpha:1.0];
+    navBar.tintColor = kTintColor;
     
     //穿透效果
-//    self.navigationBar.translucent = NO;
-//    self.navigationBar.alpha = 0.5;
+#warning 有时间再想办法吧
 }
 
 

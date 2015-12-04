@@ -7,8 +7,12 @@
 //
 
 #import "ZHTableViewController.h"
+#import "ZHDetailViewController.h"
+
 #import "ZHNoteCell.h"
 #import "ZHNote.h"
+
+
 
 @interface ZHTableViewController ()
 
@@ -35,7 +39,7 @@
     
         for (int  i = 0; i < 20; i++) {
             NSString *title = [NSString stringWithFormat:@"%02dtitletitletitletitletitletitletitletitle",i];
-            NSString *content = [NSString stringWithFormat:@"content%02d",i];
+            NSString *content = [NSString stringWithFormat:@"content%@",title];
             ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:content];
             [_dataArr addObject:note];
         }
@@ -51,6 +55,7 @@
 - (void)setupNavItem
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"新建" style:UIBarButtonItemStylePlain target:self action:@selector(newBtnClick)];
+    self.navigationItem.title = @"Notes";
 }
 
 #pragma mark - 新建按钮点击事件
@@ -86,6 +91,16 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     return [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //获取数据
+    ZHNote *note = self.dataArr[indexPath.row];
+    ZHDetailViewController *dvc = [[ZHDetailViewController alloc] init];
+    dvc.content = [NSString stringWithFormat:@"%@---%@",note.modifydate,note.content];
+    [self.navigationController pushViewController:dvc animated:YES];
 }
 
 @end

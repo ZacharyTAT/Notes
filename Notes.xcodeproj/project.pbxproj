@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181311A21C1185A700BA7874 /* ZHDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181311A11C1185A700BA7874 /* ZHDetailViewController.m */; };
+		181311A51C11895F00BA7874 /* ZHBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 181311A41C11895F00BA7874 /* ZHBottomBar.m */; };
 		18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A071C0D88BB00D5AE9F /* ZHNote.m */; };
 		18981A0B1C0D89F600D5AE9F /* ZHNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */; };
 		18F301A11C0D6C4A00D9C398 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A01C0D6C4A00D9C398 /* Foundation.framework */; };
@@ -36,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		181311A01C1185A700BA7874 /* ZHDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDetailViewController.h; sourceTree = "<group>"; };
+		181311A11C1185A700BA7874 /* ZHDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDetailViewController.m; sourceTree = "<group>"; };
+		181311A31C11895F00BA7874 /* ZHBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHBottomBar.h; sourceTree = "<group>"; };
+		181311A41C11895F00BA7874 /* ZHBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHBottomBar.m; sourceTree = "<group>"; };
 		18981A061C0D88BB00D5AE9F /* ZHNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNote.h; sourceTree = "<group>"; };
 		18981A071C0D88BB00D5AE9F /* ZHNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNote.m; sourceTree = "<group>"; };
 		18981A091C0D89F600D5AE9F /* ZHNoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNoteCell.h; sourceTree = "<group>"; };
@@ -171,6 +177,8 @@
 				18F301E01C0D6ED500D9C398 /* ZHNavigationController.m */,
 				18F301E21C0D6EFF00D9C398 /* ZHTableViewController.h */,
 				18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */,
+				181311A01C1185A700BA7874 /* ZHDetailViewController.h */,
+				181311A11C1185A700BA7874 /* ZHDetailViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -200,6 +208,8 @@
 			children = (
 				18981A091C0D89F600D5AE9F /* ZHNoteCell.h */,
 				18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */,
+				181311A31C11895F00BA7874 /* ZHBottomBar.h */,
+				181311A41C11895F00BA7874 /* ZHBottomBar.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -303,6 +313,8 @@
 				18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */,
 				18981A0B1C0D89F600D5AE9F /* ZHNoteCell.m in Sources */,
 				18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */,
+				181311A21C1185A700BA7874 /* ZHDetailViewController.m in Sources */,
+				181311A51C11895F00BA7874 /* ZHBottomBar.m in Sources */,
 				18F301DE1C0D6E1500D9C398 /* ZHAppDelegate.m in Sources */,
 				18F301DD1C0D6E1500D9C398 /* main.m in Sources */,
 				18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */,
