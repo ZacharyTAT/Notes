@@ -1,0 +1,22 @@
+//
+//  NSDate+ZH.m
+//  Notes
+//
+//  Created by apple on 12/6/15.
+//  Copyright (c) 2015 swjtu. All rights reserved.
+//
+
+#import "NSDate+ZH.h"
+
+@implementation NSDate (ZH)
+
+#pragma mark - 将日期转为中文字符串
+- (NSString *)toLocaleString
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents *cmpt = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute fromDate:self];
+    return [NSString stringWithFormat:@"%d年%d月%d日 %d:%d",[cmpt year],[cmpt month],[cmpt day],[cmpt hour],[cmpt minute]];
+}
+
+@end

@@ -10,4 +10,7 @@
 
 @interface ZHTextView : UITextView
 
+/** 显示本笔记的修改时间 */
+@property(nonatomic,weak)UILabel *modifydateLbl;
+
 @end

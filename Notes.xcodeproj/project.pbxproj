@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		181311A21C1185A700BA7874 /* ZHDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181311A11C1185A700BA7874 /* ZHDetailViewController.m */; };
 		181311A51C11895F00BA7874 /* ZHBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 181311A41C11895F00BA7874 /* ZHBottomBar.m */; };
+		185794B71C144EE70050F62D /* NSDate+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794B61C144EE70050F62D /* NSDate+ZH.m */; };
 		18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A071C0D88BB00D5AE9F /* ZHNote.m */; };
 		18981A0B1C0D89F600D5AE9F /* ZHNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */; };
 		18BE50CD1C14122900C77A3C /* ZHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE50CC1C14122900C77A3C /* ZHTextView.m */; };
@@ -43,6 +44,8 @@
 		181311A11C1185A700BA7874 /* ZHDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDetailViewController.m; sourceTree = "<group>"; };
 		181311A31C11895F00BA7874 /* ZHBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHBottomBar.h; sourceTree = "<group>"; };
 		181311A41C11895F00BA7874 /* ZHBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHBottomBar.m; sourceTree = "<group>"; };
+		185794B51C144EE70050F62D /* NSDate+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ZH.h"; sourceTree = "<group>"; };
+		185794B61C144EE70050F62D /* NSDate+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ZH.m"; sourceTree = "<group>"; };
 		18981A061C0D88BB00D5AE9F /* ZHNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNote.h; sourceTree = "<group>"; };
 		18981A071C0D88BB00D5AE9F /* ZHNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNote.m; sourceTree = "<group>"; };
 		18981A091C0D89F600D5AE9F /* ZHNoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNoteCell.h; sourceTree = "<group>"; };
@@ -95,6 +98,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		185794B11C144E460050F62D /* Catagory */ = {
+			isa = PBXGroup;
+			children = (
+				185794B51C144EE70050F62D /* NSDate+ZH.h */,
+				185794B61C144EE70050F62D /* NSDate+ZH.m */,
+			);
+			name = Catagory;
+			sourceTree = "<group>";
+		};
 		18F301941C0D6C4A00D9C398 = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +210,7 @@
 		18F301D71C0D6E1500D9C398 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				185794B11C144E460050F62D /* Catagory */,
 				18F301D81C0D6E1500D9C398 /* main.m */,
 				18F301D91C0D6E1500D9C398 /* Notes-Prefix.pch */,
 				18F301DA1C0D6E1500D9C398 /* ZHAppDelegate.h */,
@@ -323,6 +336,7 @@
 				181311A51C11895F00BA7874 /* ZHBottomBar.m in Sources */,
 				18F301DE1C0D6E1500D9C398 /* ZHAppDelegate.m in Sources */,
 				18F301DD1C0D6E1500D9C398 /* main.m in Sources */,
+				185794B71C144EE70050F62D /* NSDate+ZH.m in Sources */,
 				18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,22 +10,31 @@
 
 #define kmodifydateLblH 15
 
-@interface ZHTextView()
-
-/** 显示本笔记的修改时间 */
-@property(nonatomic,weak)UILabel *modifydateLbl;
-
-@end
 
 @implementation ZHTextView
 
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        //01.字体
         self.font = [UIFont systemFontOfSize:18.0];
+        
+        //02.垂直方向始终可拖拽
         self.alwaysBounceVertical = YES;
+        
+        //03.顶部底部空白间距
         self.contentInset = UIEdgeInsetsMake(kmodifydateLblH, 0, 100, 0);
+        
+        //04.初始偏移
         self.contentOffset = CGPointMake(0, kmodifydateLblH * (-1) );
+        
+        //05.文字检测
+        self.dataDetectorTypes = UIDataDetectorTypeLink | UIDataDetectorTypePhoneNumber;
+        
+#warning 在模拟器中没有效果，跑到真机上试试
+        //06.链接文字属性
+        self.linkTextAttributes = @{NSForegroundColorAttributeName : ZHTintColor};
+        
         [self setupModifydateLbl];
         
     }
@@ -44,7 +53,7 @@
     //设置标签属性(字体)
     
     //01.字体大小
-    modifydataLbl.font = [UIFont systemFontOfSize:15.0];
+    modifydataLbl.font = [UIFont systemFontOfSize:13.0];
     
     //02.字体颜色
     modifydataLbl.textColor = [UIColor lightGrayColor];
@@ -53,7 +62,7 @@
     modifydataLbl.textAlignment = NSTextAlignmentCenter;
     
     //用于测试
-    modifydataLbl.text = @"xxxxxxxxxx";
+    //modifydataLbl.text = @"13540359524";
     
     [self addSubview:modifydataLbl];
 }

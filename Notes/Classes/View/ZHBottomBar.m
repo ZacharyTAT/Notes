@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, ZHBarItem)
 - (instancetype)init
 {
     if (self = [super init]) {
+        self.alpha = 0.7; //设置透明度，实现穿透效果
         [self setupSubViews];
     }
     return self;

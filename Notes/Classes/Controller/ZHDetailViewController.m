@@ -11,6 +11,7 @@
 #import "ZHTextView.h"
 #import "ZHBottomBar.h"
 #import "ZHNote.h"
+#import "NSDate+ZH.h"
 
 @interface ZHDetailViewController () <UITextViewDelegate>
 
@@ -32,13 +33,17 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     NSLog(@"%@",self.note);
-    self.textView.text = self.note.content;
+    //文字
+//    self.textView.text = self.note.content;
+    //日期
+    self.textView.modifydateLbl.text = [self.note.modifydate toLocaleString];
+#warning label文字与正文间距相差有点大
     
     //设置textView的frame
     CGFloat width = self.view.frame.size.width;
     CGFloat height = self.view.frame.size.height;
-    
     CGFloat bottomBarX = 0;
     CGFloat bottomBarW = width;
     CGFloat bottomBarH = 44;
