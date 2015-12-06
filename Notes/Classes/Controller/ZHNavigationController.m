@@ -4,7 +4,7 @@
 //
 //  Created by apple on 12/1/15.
 //  Copyright (c) 2015 swjtu. All rights reserved.
-//
+//  自定义的导航控制器
 
 #import "ZHNavigationController.h"
 

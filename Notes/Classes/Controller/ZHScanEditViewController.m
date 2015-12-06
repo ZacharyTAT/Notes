@@ -1,19 +1,19 @@
 //
-//  ZHDetailViewController.m
+//  ZHScanEditViewController.m
 //  Notes
 //
-//  Created by apple on 12/4/15.
+//  Created by apple on 12/6/15.
 //  Copyright (c) 2015 swjtu. All rights reserved.
-//  查看具体笔记内容控制器
+//  此控制器用于笔记的查看和编辑，它同样适用于新建笔记控制器
 
-#import "ZHDetailViewController.h"
+#import "ZHScanEditViewController.h"
 
 #import "ZHTextView.h"
 #import "ZHBottomBar.h"
 #import "ZHNote.h"
 #import "NSDate+ZH.h"
 
-@interface ZHDetailViewController () <UITextViewDelegate>
+@interface ZHScanEditViewController ()<UITextViewDelegate>
 
 /** 展示笔记内容的文本框 */
 @property (nonatomic, weak) ZHTextView *textView;
@@ -21,22 +21,24 @@
 /** 底部工具条 */
 @property (nonatomic, weak) ZHBottomBar *bottomBar;
 
+
 @end
 
-@implementation ZHDetailViewController
+@implementation ZHScanEditViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setupSubViews];
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
     NSLog(@"%@",self.note);
     //文字
-//    self.textView.text = self.note.content;
+    self.textView.text = self.note.content;
     //日期
     self.textView.modifydateLbl.text = [self.note.modifydate toLocaleString];
 #warning label文字与正文间距相差有点大
@@ -93,12 +95,11 @@
 
 - (void)dealloc
 {
-    NSLog(@"detail view controller dealloc...");
+    NSLog(@"%@ dealloc...",[self class]);
 }
 
+
 @end
-
-
 
 
 

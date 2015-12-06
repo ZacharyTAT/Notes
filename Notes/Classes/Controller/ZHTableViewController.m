@@ -4,10 +4,11 @@
 //
 //  Created by apple on 12/1/15.
 //  Copyright (c) 2015 swjtu. All rights reserved.
-//
+//  展示笔记的表格控制器
 
 #import "ZHTableViewController.h"
-#import "ZHDetailViewController.h"
+#import "ZHNewViewController.h"
+#import "ZHScanEditViewController.h"
 
 #import "ZHNoteCell.h"
 #import "ZHNote.h"
@@ -65,6 +66,9 @@
 - (void)newBtnClick
 {
     NSLog(@"new clicked");
+    ZHNewViewController *newVC = [[ZHNewViewController alloc] init];
+    newVC.note = [[ZHNote alloc] initWithTitle:@"" modifydate:[NSDate date] content:@""];
+    [self.navigationController pushViewController:newVC animated:YES];
 }
 
 
@@ -98,7 +102,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //获取数据
     ZHNote *note = self.dataArr[indexPath.row];
-    ZHDetailViewController *dvc = [[ZHDetailViewController alloc] init];
+    ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
     dvc.note = note;
     [self.navigationController pushViewController:dvc animated:YES];
 }
