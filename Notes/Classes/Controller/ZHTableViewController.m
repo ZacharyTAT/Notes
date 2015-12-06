@@ -99,9 +99,11 @@
     //获取数据
     ZHNote *note = self.dataArr[indexPath.row];
     ZHDetailViewController *dvc = [[ZHDetailViewController alloc] init];
-    dvc.content = [NSString stringWithFormat:@"%@---%@",note.modifydate,note.content];
+    dvc.note = note;
     [self.navigationController pushViewController:dvc animated:YES];
 }
+
+
 
 @end
 

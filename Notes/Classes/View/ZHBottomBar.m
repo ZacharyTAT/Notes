@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, ZHBarItem)
     //01.分享按钮
     UIBarButtonItem *shareBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(barItemClick:)];
     shareBtn.tag = ZHBarItemShare;
-    shareBtn.tintColor = kTintColor;
+    shareBtn.tintColor = ZHTintColor;
     self.shareBtn = shareBtn;
     
     //弹簧
@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, ZHBarItem)
     //02.删除按钮
     UIBarButtonItem *deleteBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(barItemClick:)];
     deleteBtn.tag = ZHBarItemDelete;
-    deleteBtn.tintColor = kTintColor;
+    deleteBtn.tintColor = ZHTintColor;
     self.deleteBtn = deleteBtn;
     
     //弹簧
@@ -71,7 +71,7 @@ typedef NS_ENUM(NSInteger, ZHBarItem)
     //03.新建按钮
     UIBarButtonItem *createBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(barItemClick:)];
     createBtn.tag = ZHBarItemCreate;
-    createBtn.tintColor = kTintColor;
+    createBtn.tintColor = ZHTintColor;
     self.createBtn = createBtn;
     
     

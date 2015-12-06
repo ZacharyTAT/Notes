@@ -21,4 +21,9 @@
     return self;
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@\n{\ntitle:%@,\nmodifydate:%@,\ncontent:%@,\naddr:%p\n}",NSStringFromClass([self class]),self.title,self.modifydate,self.content,self];
+}
+
 @end

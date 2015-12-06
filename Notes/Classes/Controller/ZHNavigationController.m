@@ -31,7 +31,7 @@
     
     //文字颜色
     //tintColor\barTintColor
-    navBar.tintColor = kTintColor;
+    navBar.tintColor = ZHTintColor;
     
     //穿透效果
 #warning 有时间再想办法吧

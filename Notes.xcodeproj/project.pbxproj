@@ -11,6 +11,7 @@
 		181311A51C11895F00BA7874 /* ZHBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 181311A41C11895F00BA7874 /* ZHBottomBar.m */; };
 		18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A071C0D88BB00D5AE9F /* ZHNote.m */; };
 		18981A0B1C0D89F600D5AE9F /* ZHNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */; };
+		18BE50CD1C14122900C77A3C /* ZHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE50CC1C14122900C77A3C /* ZHTextView.m */; };
 		18F301A11C0D6C4A00D9C398 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A01C0D6C4A00D9C398 /* Foundation.framework */; };
 		18F301A31C0D6C4A00D9C398 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A21C0D6C4A00D9C398 /* CoreGraphics.framework */; };
 		18F301A51C0D6C4A00D9C398 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A41C0D6C4A00D9C398 /* UIKit.framework */; };
@@ -46,6 +47,8 @@
 		18981A071C0D88BB00D5AE9F /* ZHNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNote.m; sourceTree = "<group>"; };
 		18981A091C0D89F600D5AE9F /* ZHNoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNoteCell.h; sourceTree = "<group>"; };
 		18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNoteCell.m; sourceTree = "<group>"; };
+		18BE50CB1C14122900C77A3C /* ZHTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHTextView.h; sourceTree = "<group>"; };
+		18BE50CC1C14122900C77A3C /* ZHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTextView.m; sourceTree = "<group>"; };
 		18F3019D1C0D6C4A00D9C398 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F301A01C0D6C4A00D9C398 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18F301A21C0D6C4A00D9C398 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -210,6 +213,8 @@
 				18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */,
 				181311A31C11895F00BA7874 /* ZHBottomBar.h */,
 				181311A41C11895F00BA7874 /* ZHBottomBar.m */,
+				18BE50CB1C14122900C77A3C /* ZHTextView.h */,
+				18BE50CC1C14122900C77A3C /* ZHTextView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 				18981A0B1C0D89F600D5AE9F /* ZHNoteCell.m in Sources */,
 				18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */,
 				181311A21C1185A700BA7874 /* ZHDetailViewController.m in Sources */,
+				18BE50CD1C14122900C77A3C /* ZHTextView.m in Sources */,
 				181311A51C11895F00BA7874 /* ZHBottomBar.m in Sources */,
 				18F301DE1C0D6E1500D9C398 /* ZHAppDelegate.m in Sources */,
 				18F301DD1C0D6E1500D9C398 /* main.m in Sources */,

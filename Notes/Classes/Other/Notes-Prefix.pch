@@ -14,7 +14,23 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
-//整个应用的主题色
-#define kTintColor [UIColor colorWithRed:252/255.0 green:206/255.0 blue:37/255.0 alpha:1.0]
+// 整个应用的主题色
+#define ZHTintColor ZHColor(254, 187, 9)
+
+// 自定义Log
+#ifdef DEBUG
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...)
+#endif
+
+// 获得RGB颜色
+#define ZHColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
 
 #endif
+
+
+
+
+
