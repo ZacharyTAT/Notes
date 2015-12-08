@@ -9,6 +9,7 @@
 #import "ZHTextView.h"
 
 #define kmodifydateLblH 15
+#define kmodifydateLblFont 13.0
 
 
 @implementation ZHTextView
@@ -53,7 +54,7 @@
     //设置标签属性(字体)
     
     //01.字体大小
-    modifydataLbl.font = [UIFont systemFontOfSize:13.0];
+    modifydataLbl.font = [UIFont systemFontOfSize:kmodifydateLblFont];
     
     //02.字体颜色
     modifydataLbl.textColor = [UIColor lightGrayColor];

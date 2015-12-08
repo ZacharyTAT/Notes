@@ -10,7 +10,7 @@
 
 @interface NSDate (ZH)
 
-/** 将日期转为中文字符串 */
+/** 将日期转为本地化字符串 */
 - (NSString *)toLocaleString;
 
 @end

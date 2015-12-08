@@ -10,7 +10,7 @@
 
 @implementation NSDate (ZH)
 
-#pragma mark - 将日期转为中文字符串
+#pragma mark - 将日期转为本地化字符串
 - (NSString *)toLocaleString
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];

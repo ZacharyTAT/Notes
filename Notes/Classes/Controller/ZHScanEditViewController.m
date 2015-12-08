@@ -21,6 +21,9 @@
 /** 底部工具条 */
 @property (nonatomic, weak) ZHBottomBar *bottomBar;
 
+/** 记录文本是否修改过 */
+@property (nonatomic, assign,getter = isTextViewChanged)BOOL textViewChanged;
+
 
 @end
 
@@ -29,6 +32,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.textViewChanged = NO;
+    [self setupLeftNavItem];
     [self setupSubViews];
 }
 
@@ -53,6 +58,17 @@
     self.bottomBar.frame = CGRectMake(bottomBarX, bottomBarY, bottomBarW, bottomBarH);
 }
 
+#pragma mark - 初始化左边返回按钮
+/**
+ *  初始化左边返回按钮
+ */
+- (void)setupLeftNavItem
+{
+    [self.navigationItem setHidesBackButton:YES];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:0 target:self action:@selector(backBtnClick)];
+}
+
+#pragma mark - 初始化所有子视图
 /**
  *  初始化所有子视图
  */
@@ -82,15 +98,114 @@
 {
     NSLog(@"done clicked...");
     NSLog(@"%@",self.textView.text);
+    
+    if (!self.isTextViewChanged) {
+        
+        //01.退出键盘
+        [self.view endEditing:YES];
+        
+        //02.去掉完成编辑按钮
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    
+    //截取第一行有效字符为title
+    NSString *title = [self noteTitle];
+    if (title == nil) { // 没有有效字符
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+
+    //编辑内容有效，更新视图
+    
+    //01.退出键盘
     [self.view endEditing:YES];
+    
+    
+    //02.去掉完成编辑按钮
     self.navigationItem.rightBarButtonItem = nil;
+    
+    //03.更新顶部的时间标签
+    self.textView.modifydateLbl.text = [[NSDate date] toLocaleString];
+    
+    
+    //保存
+    [self saveWithTitle:title];
+}
+
+#pragma mark - 返回按钮点击事件
+- (void)backBtnClick
+{
+    NSLog(@"back button clicked...");
+    
+    if (!self.textViewChanged) { //没有更改文本,则直接返回
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+    NSLog(@"words make sense...");
+    
+    //执行完成按钮的操作，这其中会更新note属性
+    [self doneBtnClick];
+    
+    //通知代理
+    if ([self.delegate respondsToSelector:@selector(scanEditViewController:didClickBackBtnWithNote:)]) {
+        [self.delegate scanEditViewController:self didClickBackBtnWithNote:self.note];
+    }
+    
+    //返回到上层
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+#pragma mark - 保存数据
+/**
+ *  保存数据
+ */
+- (void)saveWithTitle:(NSString *)title
+{
+    //00.建立note模型
+    ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:self.textView.text];
+    
+    //01.保存到note属性中以备后用
+    self.note = note;
+    
+    //02.保存到磁盘
+    NSString *fileName = [NSString stringWithFormat:@"%lf.data",[note.modifydate timeIntervalSince1970]];
+    
+    NSString *filePath = [ZHDocumentPath stringByAppendingPathComponent:fileName];
+    
+    [NSKeyedArchiver archiveRootObject:note toFile:filePath];
+    
+}
+
+#pragma mark - 获取文本框当前第一行有效内容
+/**
+ *  获取文本框当前第一行有效内容
+ */
+- (NSString *)noteTitle
+{
+    //拷贝一份，不能破坏原文
+    NSString *content = [self.textView.text copy];
+    
+    NSString *trimedStr = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([@"" isEqualToString:trimedStr]) { //内容只有空格或回车
+        return nil;
+    }
+    
+    NSString *titleTobeTrimed = [[trimedStr componentsSeparatedByString:@"\n"] firstObject]; //到这里是第一行有效的内容，不过可能有尾部有空格，要去掉
+    
+    return [titleTobeTrimed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
 #pragma mark - UItextView delegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneBtnClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:0 target:self action:@selector(doneBtnClick)];
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    self.textViewChanged = YES;
 }
 
 - (void)dealloc

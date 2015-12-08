@@ -15,7 +15,7 @@
 
 
 
-@interface ZHTableViewController ()
+@interface ZHTableViewController ()<ZHScanEditViewControllerDelegate>
 
 @property (nonatomic, strong)NSMutableArray *dataArr;
 
@@ -32,18 +32,36 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
-
+#pragma mark - 数据源
+/**
+ *  数据源
+ */
 - (NSMutableArray *)dataArr
 {
     if (_dataArr == nil) {
         _dataArr = [NSMutableArray array];
-    
-        for (int  i = 0; i < 20; i++) {
-            NSString *title = [NSString stringWithFormat:@"%02dtitletitletitletitletitletitletitletitle",i];
-            NSString *content = [NSString stringWithFormat:@"content%@",title];
-            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:content];
+        
+        //从document中加载数据
+        
+        //01.获取文件列表
+        NSString *docPath = ZHDocumentPath;
+        NSFileManager *fileMgr = [NSFileManager defaultManager];
+        NSArray *lists = [fileMgr contentsOfDirectoryAtPath:docPath error:nil];
+        
+        //02.转模型后存入数组
+        for (int i = 0; i < lists.count; i++) {
+            //02-1.获取文件决定路径(包括文件名)
+            NSString *filePath = [docPath stringByAppendingPathComponent:lists[i]];
+            
+            //02-2.转化为模型
+            ZHNote *note = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+            
+            //02-3.存入对象
             [_dataArr addObject:note];
         }
+        
+        //更新表格数据
+        [self.tableView reloadData];
     }
     
     return _dataArr;
@@ -104,10 +122,21 @@
     ZHNote *note = self.dataArr[indexPath.row];
     ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
     dvc.note = note;
+    dvc.delegate = self;
     [self.navigationController pushViewController:dvc animated:YES];
 }
 
-
+#pragma mark - Scan Edit ViewController Delegate
+- (void)scanEditViewController:(ZHScanEditViewController *)sevc didClickBackBtnWithNote:(ZHNote *)note
+{
+#warning 目前只实现添加，不实现删除和修改
+#warning 数据传过来之后不能显示，今天先到这吧！！！！
+    //更新模型
+    [self.dataArr insertObject:note atIndex:0];
+    
+    //更新表格视图
+    [self.tableView reloadData];
+}
 
 @end
 
