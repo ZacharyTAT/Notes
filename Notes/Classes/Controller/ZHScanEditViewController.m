@@ -117,6 +117,12 @@
     //截取第一行有效字符为title
     NSString *title = [self noteTitle];
     if (title == nil) { // 没有有效字符
+        /*
+         *  若进行了保存，后清空了内容后，则保存了的模型也要从磁盘上删掉
+         */
+        [ZHDataUtil removeNote:self.latestNote];
+        [ZHDataUtil removeNote:self.note];  //这里可能会多删一次，不过不要紧，删除方法里面已经做过判断
+        
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }

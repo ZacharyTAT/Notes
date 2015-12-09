@@ -14,6 +14,7 @@
 
 #import "NSDate+ZH.h"
 #import "ZHKeyboardJudge.h"
+#import "ZHDataUtil.h"
 
 @interface ZHNewViewController ()
 
@@ -70,7 +71,7 @@
     //截取第一行有效字符为title
     NSString *title = [self performSelector:@selector(noteTitle)];
     if (title == nil) { // 没有有效字符
-        
+        [ZHDataUtil removeNote:self.latestNote];
         [self.navigationController popViewControllerAnimated:YES];
         
         return;
