@@ -86,6 +86,7 @@
     NSLog(@"new clicked");
     ZHNewViewController *newVC = [[ZHNewViewController alloc] init];
     newVC.note = [[ZHNote alloc] initWithTitle:@"" modifydate:[NSDate date] content:@""];
+    newVC.delegate = self;
     [self.navigationController pushViewController:newVC animated:YES];
 }
 
@@ -130,12 +131,17 @@
 - (void)scanEditViewController:(ZHScanEditViewController *)sevc didClickBackBtnWithNote:(ZHNote *)note
 {
 #warning 目前只实现添加，不实现删除和修改
-#warning 数据传过来之后不能显示，今天先到这吧！！！！
     //更新模型
     [self.dataArr insertObject:note atIndex:0];
     
     //更新表格视图
     [self.tableView reloadData];
+}
+
+
+- (void)dealloc
+{
+    NSLog(@"%@ dealloc",[self class]);
 }
 
 @end
