@@ -15,7 +15,7 @@
 
 
 
-@interface ZHTableViewController ()<ZHScanEditViewControllerDelegate>
+@interface ZHTableViewController ()<ZHNewViewControllerDelegate>
 
 @property (nonatomic, strong)NSMutableArray *dataArr;
 
@@ -127,14 +127,26 @@
     [self.navigationController pushViewController:dvc animated:YES];
 }
 
-#pragma mark - Scan Edit ViewController Delegate
-- (void)scanEditViewController:(ZHScanEditViewController *)sevc didClickBackBtnWithNote:(ZHNote *)note
+#pragma mark - new ViewController Delegate
+- (void)newViewController:(ZHNewViewController *)newViewController didClickBackBtnWithNewNote:(ZHNote *)note
 {
-#warning 目前只实现添加，不实现删除和修改
-    //更新模型
-    [self.dataArr insertObject:note atIndex:0];
+    //01.添加新模型
+    if (note) [self.dataArr insertObject:note atIndex:0];
     
-    //更新表格视图
+    //02.更新表格视图
+    [self.tableView reloadData];
+}
+
+#pragma mark - Scan Edit ViewController Delegate
+- (void)scanEditViewController:(ZHScanEditViewController *)sevc didClickBackBtnWithNote:(ZHNote *)note lastestNote:(ZHNote *)lastestNote
+{
+    //01.删除旧模型
+    [self.dataArr removeObject:note];
+    
+    //02.添加新模型
+    if (lastestNote) [self.dataArr insertObject:lastestNote atIndex:0];
+    
+    //03.更新表格视图
     [self.tableView reloadData];
 }
 

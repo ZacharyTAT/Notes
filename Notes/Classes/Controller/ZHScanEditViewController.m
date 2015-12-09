@@ -11,7 +11,10 @@
 #import "ZHTextView.h"
 #import "ZHBottomBar.h"
 #import "ZHNote.h"
+
 #import "NSDate+ZH.h"
+#import "ZHKeyboardJudge.h"
+#import "ZHDataUtil.h"
 
 @interface ZHScanEditViewController ()<UITextViewDelegate>
 
@@ -23,6 +26,9 @@
 
 /** 记录文本是否修改过 */
 @property (nonatomic, assign,getter = isTextViewChanged)BOOL textViewChanged;
+
+/** 记录最新的一条笔记记录 */
+@property(nonatomic, strong)ZHNote *latestNote;
 
 
 @end
@@ -91,9 +97,6 @@
 }
 
 #pragma mark - 完成按钮点击事件
-/**
- *  完成按钮点击事件
- */
 - (void)doneBtnClick
 {
     NSLog(@"done clicked...");
@@ -106,7 +109,10 @@
         
         //02.去掉完成编辑按钮
         self.navigationItem.rightBarButtonItem = nil;
+        
+        return;
     }
+    
     
     //截取第一行有效字符为title
     NSString *title = [self noteTitle];
@@ -138,17 +144,20 @@
     NSLog(@"back button clicked...");
     
     if (!self.textViewChanged) { //没有更改文本,则直接返回
+        NSLog(@"文本没有改变...");
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
-    NSLog(@"words make sense...");
+    NSLog(@"text changed...");
     
     //执行完成按钮的操作，这其中会更新note属性
-    [self doneBtnClick];
+    if ([[ZHKeyboardJudge judgeInstance] keyboardOpened]) { //键盘打开了，才要模拟完成按钮
+        [self doneBtnClick];
+    }
     
     //通知代理
-    if ([self.delegate respondsToSelector:@selector(scanEditViewController:didClickBackBtnWithNote:)]) {
-        [self.delegate scanEditViewController:self didClickBackBtnWithNote:self.note];
+    if ([self.delegate respondsToSelector:@selector(scanEditViewController:didClickBackBtnWithNote:lastestNote:)]) {
+        [self.delegate scanEditViewController:self didClickBackBtnWithNote:self.note lastestNote:self.latestNote];
     }
     
     //返回到上层
@@ -162,20 +171,23 @@
  */
 - (void)saveWithTitle:(NSString *)title
 {
+    //先删除之前的记录
+    if (self.latestNote == nil) { //删除self.note
+        [ZHDataUtil removeNote:self.note];
+    }else{ //删除self.latestNote
+        [ZHDataUtil removeNote:self.latestNote];
+    }
+    
     //00.建立note模型
     ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:self.textView.text];
     
     //01.保存到note属性中以备后用
-    self.note = note;
+    self.latestNote = note;
     
     //02.保存到磁盘
-    NSString *fileName = [NSString stringWithFormat:@"%lf.data",[note.modifydate timeIntervalSince1970]];
-    
-    NSString *filePath = [ZHDocumentPath stringByAppendingPathComponent:fileName];
-    
-    [NSKeyedArchiver archiveRootObject:note toFile:filePath];
-    
+    [ZHDataUtil saveWithNote:note];
 }
+
 
 #pragma mark - 获取文本框当前第一行有效内容
 /**

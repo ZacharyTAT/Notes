@@ -13,10 +13,13 @@
 @protocol ZHScanEditViewControllerDelegate <NSObject>
 
 @optional
+
 /**
  *  点击了返回的按钮
+ *  @param note        原始传进来的模型，应该是数据源中删除
+ *  @param lastestNote 新模型，应该在数据源中添加
  */
-- (void)scanEditViewController:(ZHScanEditViewController *)sevc didClickBackBtnWithNote:(ZHNote *)note;
+- (void)scanEditViewController:(ZHScanEditViewController *)sevc didClickBackBtnWithNote:(ZHNote *)note lastestNote:(ZHNote *)lastestNote;
 
 @end
 
