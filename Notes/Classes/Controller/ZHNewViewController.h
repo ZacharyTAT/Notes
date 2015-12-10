@@ -20,6 +20,12 @@
  */
 - (void)newViewController:(ZHNewViewController *)newViewController didClickBackBtnWithNewNote:(ZHNote *)note;
 
+/**
+ *  点击了删除按钮
+ *  @param latestNote   最新的模型，应该删除
+ */
+- (void)newViewController:(ZHNewViewController *)newViewController didClickDeleteItemWithLatestNote:(ZHNote *)latestNote;
+
 @end
 
 @interface ZHNewViewController : ZHScanEditViewController

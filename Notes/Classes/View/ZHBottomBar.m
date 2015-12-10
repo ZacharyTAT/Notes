@@ -8,12 +8,7 @@
 
 #import "ZHBottomBar.h"
 
-typedef NS_ENUM(NSInteger, ZHBarItem)
-{
-    ZHBarItemShare,
-    ZHBarItemDelete,
-    ZHBarItemCreate
-};
+
 
 @interface ZHBottomBar()
 
@@ -38,6 +33,8 @@ typedef NS_ENUM(NSInteger, ZHBarItem)
     }
     return self;
 }
+
+
 
 #pragma mark - 迅速创建一个底部栏
 + (instancetype)bottomBar
@@ -79,17 +76,12 @@ typedef NS_ENUM(NSInteger, ZHBarItem)
     self.items = @[shareBtn,spring1,deleteBtn,spring2,createBtn];
 }
 
-#pragma mark - layoutSubviews
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-}
-
 - (void)barItemClick:(UIBarButtonItem *)barItem
 {
-    NSLog(@"baritem clicked...%d",barItem.tag);
+    //通知代理，按钮被点击了
+    if ([self.delegate respondsToSelector:@selector(bottomBar:didClickItem:)]) {
+        [self.delegate bottomBar:self didClickItem:barItem];
+    }
 }
 
 @end

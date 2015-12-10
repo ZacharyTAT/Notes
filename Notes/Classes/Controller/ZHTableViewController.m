@@ -84,12 +84,15 @@
 - (void)newBtnClick
 {
     NSLog(@"new clicked");
+    [self newBtnWithAnimated:YES];
+}
+-(void)newBtnWithAnimated:(BOOL)animated
+{
     ZHNewViewController *newVC = [[ZHNewViewController alloc] init];
     newVC.note = [[ZHNote alloc] initWithTitle:@"" modifydate:[NSDate date] content:@""];
     newVC.delegate = self;
-    [self.navigationController pushViewController:newVC animated:YES];
+    [self.navigationController pushViewController:newVC animated:animated];
 }
-
 
 #pragma mark - table view delegate
 
@@ -134,6 +137,12 @@
     if (note) [self.dataArr insertObject:note atIndex:0];
     
     //02.更新表格视图
+    [self.tableView reloadData];
+}
+
+- (void)newViewController:(ZHNewViewController *)newViewController didClickDeleteItemWithLatestNote:(ZHNote *)latestNote
+{
+    if (latestNote) [self.dataArr removeObject:latestNote];
     [self.tableView reloadData];
 }
 

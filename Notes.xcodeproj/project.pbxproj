@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		181311A51C11895F00BA7874 /* ZHBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 181311A41C11895F00BA7874 /* ZHBottomBar.m */; };
+		183664751C195D6000AA1DFF /* NSString+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 183664741C195D6000AA1DFF /* NSString+ZH.m */; };
 		185794B71C144EE70050F62D /* NSDate+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794B61C144EE70050F62D /* NSDate+ZH.m */; };
 		185794BD1C1463B10050F62D /* ZHScanEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794BC1C1463B10050F62D /* ZHScanEditViewController.m */; };
 		185794C01C1467460050F62D /* ZHNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794BF1C1467460050F62D /* ZHNewViewController.m */; };
@@ -45,6 +46,8 @@
 /* Begin PBXFileReference section */
 		181311A31C11895F00BA7874 /* ZHBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHBottomBar.h; sourceTree = "<group>"; };
 		181311A41C11895F00BA7874 /* ZHBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHBottomBar.m; sourceTree = "<group>"; };
+		183664731C195D6000AA1DFF /* NSString+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZH.h"; sourceTree = "<group>"; };
+		183664741C195D6000AA1DFF /* NSString+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZH.m"; sourceTree = "<group>"; };
 		185794B51C144EE70050F62D /* NSDate+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ZH.h"; sourceTree = "<group>"; };
 		185794B61C144EE70050F62D /* NSDate+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ZH.m"; sourceTree = "<group>"; };
 		185794BB1C1463B10050F62D /* ZHScanEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHScanEditViewController.h; sourceTree = "<group>"; };
@@ -119,6 +122,8 @@
 		18E884071C181FA300A6A1E0 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				183664731C195D6000AA1DFF /* NSString+ZH.h */,
+				183664741C195D6000AA1DFF /* NSString+ZH.m */,
 				18E883C21C1804FF00A6A1E0 /* ZHKeyboardJudge.h */,
 				18E883C31C1804FF00A6A1E0 /* ZHKeyboardJudge.m */,
 				18E884081C181FBC00A6A1E0 /* ZHDataUtil.h */,
@@ -364,6 +369,7 @@
 				18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */,
 				18E883C41C1804FF00A6A1E0 /* ZHKeyboardJudge.m in Sources */,
 				185794C01C1467460050F62D /* ZHNewViewController.m in Sources */,
+				183664751C195D6000AA1DFF /* NSString+ZH.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,16 +7,18 @@
 //  此控制器用于笔记的查看和编辑，它同样适用于新建笔记控制器
 
 #import "ZHScanEditViewController.h"
+#import <objc/message.h>
 
 #import "ZHTextView.h"
 #import "ZHBottomBar.h"
 #import "ZHNote.h"
 
 #import "NSDate+ZH.h"
+#import "NSString+ZH.h"
 #import "ZHKeyboardJudge.h"
 #import "ZHDataUtil.h"
 
-@interface ZHScanEditViewController ()<UITextViewDelegate>
+@interface ZHScanEditViewController ()<UITextViewDelegate,UIActionSheetDelegate,ZHBottomBarDelegate>
 
 /** 展示笔记内容的文本框 */
 @property (nonatomic, weak) ZHTextView *textView;
@@ -93,6 +95,8 @@
     ZHBottomBar *bottomBar = [ZHBottomBar bottomBar];
     self.bottomBar = bottomBar;
     [self.view addSubview:bottomBar];
+    //设置代理
+    bottomBar.delegate = self;
     
 }
 
@@ -115,7 +119,7 @@
     
     
     //截取第一行有效字符为title
-    NSString *title = [self noteTitle];
+    NSString *title = [NSString TitleWithString:self.textView.text];
     if (title == nil) { // 没有有效字符
         /*
          *  若进行了保存，后清空了内容后，则保存了的模型也要从磁盘上删掉
@@ -123,11 +127,20 @@
         [ZHDataUtil removeNote:self.latestNote];
         [ZHDataUtil removeNote:self.note];  //这里可能会多删一次，不过不要紧，删除方法里面已经做过判断
         
+        //通知代理
+        if ([self.delegate respondsToSelector:@selector(scanEditViewController:didClickBackBtnWithNote:lastestNote:)]) {
+            self.latestNote = nil;
+            [self.delegate scanEditViewController:self didClickBackBtnWithNote:self.note lastestNote:self.latestNote];
+        }
+        
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
 
     //编辑内容有效，更新视图
+    
+    //更新状态
+    self.textViewChanged = NO;
     
     //01.退出键盘
     [self.view endEditing:YES];
@@ -139,9 +152,13 @@
     //03.更新顶部的时间标签
     self.textView.modifydateLbl.text = [[NSDate date] toLocaleString];
     
-    
     //保存
     [self saveWithTitle:title];
+    //通知代理
+    if ([self.delegate respondsToSelector:@selector(scanEditViewController:didClickBackBtnWithNote:lastestNote:)]) {
+        [self.delegate scanEditViewController:self didClickBackBtnWithNote:self.note lastestNote:self.latestNote];
+        self.note = self.latestNote;
+    }
 }
 
 #pragma mark - 返回按钮点击事件
@@ -156,15 +173,11 @@
     }
     NSLog(@"text changed...");
     
-    //执行完成按钮的操作，这其中会更新note属性
+    //执行完成按钮的操作，这其中会更新lastest属性
     if ([[ZHKeyboardJudge judgeInstance] keyboardOpened]) { //键盘打开了，才要模拟完成按钮
         [self doneBtnClick];
     }
     
-    //通知代理
-    if ([self.delegate respondsToSelector:@selector(scanEditViewController:didClickBackBtnWithNote:lastestNote:)]) {
-        [self.delegate scanEditViewController:self didClickBackBtnWithNote:self.note lastestNote:self.latestNote];
-    }
     
     //返回到上层
     [self.navigationController popViewControllerAnimated:YES];
@@ -194,26 +207,6 @@
     [ZHDataUtil saveWithNote:note];
 }
 
-
-#pragma mark - 获取文本框当前第一行有效内容
-/**
- *  获取文本框当前第一行有效内容
- */
-- (NSString *)noteTitle
-{
-    //拷贝一份，不能破坏原文
-    NSString *content = [self.textView.text copy];
-    
-    NSString *trimedStr = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([@"" isEqualToString:trimedStr]) { //内容只有空格或回车
-        return nil;
-    }
-    
-    NSString *titleTobeTrimed = [[trimedStr componentsSeparatedByString:@"\n"] firstObject]; //到这里是第一行有效的内容，不过可能有尾部有空格，要去掉
-    
-    return [titleTobeTrimed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-}
-
 #pragma mark - UItextView delegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -224,6 +217,54 @@
 - (void)textViewDidChange:(UITextView *)textView
 {
     self.textViewChanged = YES;
+}
+
+#pragma mark - BottomBar Delegate
+- (void)bottomBar:(ZHBottomBar *)bottomBar didClickItem:(UIBarButtonItem *)barItem
+{
+    switch (barItem.tag) {
+        case ZHBarItemShare: //分享按钮
+            
+            break;
+        case ZHBarItemDelete:   //删除按钮
+            [self deleteItemHandler];
+            break;
+        case ZHBarItemCreate:   //新建按钮
+            [self createItemHandler];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - 删除按钮的处理事件
+- (void)deleteItemHandler
+{
+    [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除笔记" otherButtonTitles:nil, nil] showInView:self.view];
+}
+
+#pragma mark - 新建按钮的处理事件
+- (void)createItemHandler
+{
+    UINavigationController *nav = self.navigationController;
+    
+    //01.销毁当前控制器
+    [self.navigationController popViewControllerAnimated:NO];
+    
+    //02.压入新建控制器
+    objc_msgSend(nav.topViewController, @selector(newBtnWithAnimated:),NO);
+}
+
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (0 == buttonIndex) {//删除笔记
+        self.textView.text = @"";
+        self.textViewChanged = YES;
+        [self doneBtnClick];
+    }
 }
 
 - (void)dealloc
