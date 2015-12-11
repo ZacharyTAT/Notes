@@ -59,6 +59,8 @@
 {
     NSLog(@"%@ done clicked...",[self class]);
     NSLog(@"%@",self.textView.text);
+    //还原textView的frame
+    self.textView.frame = self.view.bounds;
     
     if (!self.isTextViewChanged) {
         if (self.latestNote == nil) {
@@ -110,9 +112,16 @@
     //03.更新顶部的时间标签
     self.textView.modifydateLbl.text = [[NSDate date] toLocaleString];
     
+    if (self.latestNote) { //若之前存了，还要先删掉
+        if ([self.delegate respondsToSelector:@selector(newViewController:didClickDeleteItemWithLatestNote:)]) {
+            [self.delegate newViewController:self didClickDeleteItemWithLatestNote:self.latestNote];
+        }
+    }
+    
     //保存
     [self performSelector:@selector(saveWithTitle:) withObject:title];
     
+ 
     //通知代理
     if ([self.delegate respondsToSelector:@selector(newViewController:didClickBackBtnWithNewNote:)]) {
         [self.delegate newViewController:self didClickBackBtnWithNewNote:self.latestNote];
