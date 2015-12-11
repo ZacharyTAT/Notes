@@ -13,6 +13,8 @@
 #import "ZHNoteCell.h"
 #import "ZHNote.h"
 
+#import "ZHDataUtil.h"
+
 
 
 @interface ZHTableViewController ()<ZHNewViewControllerDelegate>
@@ -130,6 +132,31 @@
     [self.navigationController pushViewController:dvc animated:YES];
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%d",indexPath.row);
+    if (editingStyle == UITableViewCellEditingStyleDelete) { //删除
+        
+        NSLog(@"UITableViewCellEditingStyleDelete,%@",indexPath);
+        
+        ZHNote *note = self.dataArr[indexPath.row];
+        
+        //01.从数据源中删除
+        [self.dataArr removeObjectAtIndex:indexPath.row];
+        
+        //02.从tableView中删除
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+        // !!!!!! 一定是上面这种顺序，先删数据源，再删cell，不然会崩
+        
+        //03.从磁盘删除
+        [ZHDataUtil removeNote:note];
+    }
+    
+}
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
 #pragma mark - new ViewController Delegate
 - (void)newViewController:(ZHNewViewController *)newViewController didClickBackBtnWithNewNote:(ZHNote *)note
 {
