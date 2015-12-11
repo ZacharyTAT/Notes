@@ -15,7 +15,6 @@
 		18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A071C0D88BB00D5AE9F /* ZHNote.m */; };
 		18981A0B1C0D89F600D5AE9F /* ZHNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */; };
 		18BE50CD1C14122900C77A3C /* ZHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE50CC1C14122900C77A3C /* ZHTextView.m */; };
-		18E883C41C1804FF00A6A1E0 /* ZHKeyboardJudge.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E883C31C1804FF00A6A1E0 /* ZHKeyboardJudge.m */; };
 		18E8840A1C181FBC00A6A1E0 /* ZHDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E884091C181FBC00A6A1E0 /* ZHDataUtil.m */; };
 		18F301A11C0D6C4A00D9C398 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A01C0D6C4A00D9C398 /* Foundation.framework */; };
 		18F301A31C0D6C4A00D9C398 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A21C0D6C4A00D9C398 /* CoreGraphics.framework */; };
@@ -31,6 +30,7 @@
 		18F301DE1C0D6E1500D9C398 /* ZHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301DB1C0D6E1500D9C398 /* ZHAppDelegate.m */; };
 		18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301E01C0D6ED500D9C398 /* ZHNavigationController.m */; };
 		18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */; };
+		18F6CB811C1ADE2400CE78BE /* ZHKeyboardJudge.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F6CB801C1ADE2400CE78BE /* ZHKeyboardJudge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,8 +60,6 @@
 		18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNoteCell.m; sourceTree = "<group>"; };
 		18BE50CB1C14122900C77A3C /* ZHTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHTextView.h; sourceTree = "<group>"; };
 		18BE50CC1C14122900C77A3C /* ZHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTextView.m; sourceTree = "<group>"; };
-		18E883C21C1804FF00A6A1E0 /* ZHKeyboardJudge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHKeyboardJudge.h; sourceTree = "<group>"; };
-		18E883C31C1804FF00A6A1E0 /* ZHKeyboardJudge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHKeyboardJudge.m; sourceTree = "<group>"; };
 		18E884081C181FBC00A6A1E0 /* ZHDataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDataUtil.h; sourceTree = "<group>"; };
 		18E884091C181FBC00A6A1E0 /* ZHDataUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDataUtil.m; sourceTree = "<group>"; };
 		18F3019D1C0D6C4A00D9C398 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +82,8 @@
 		18F301E01C0D6ED500D9C398 /* ZHNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNavigationController.m; sourceTree = "<group>"; };
 		18F301E21C0D6EFF00D9C398 /* ZHTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHTableViewController.h; sourceTree = "<group>"; };
 		18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTableViewController.m; sourceTree = "<group>"; };
+		18F6CB7F1C1ADE2400CE78BE /* ZHKeyboardJudge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHKeyboardJudge.h; sourceTree = "<group>"; };
+		18F6CB801C1ADE2400CE78BE /* ZHKeyboardJudge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHKeyboardJudge.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +113,8 @@
 		185794B11C144E460050F62D /* Catagory */ = {
 			isa = PBXGroup;
 			children = (
+				183664731C195D6000AA1DFF /* NSString+ZH.h */,
+				183664741C195D6000AA1DFF /* NSString+ZH.m */,
 				185794B51C144EE70050F62D /* NSDate+ZH.h */,
 				185794B61C144EE70050F62D /* NSDate+ZH.m */,
 			);
@@ -122,10 +124,8 @@
 		18E884071C181FA300A6A1E0 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				183664731C195D6000AA1DFF /* NSString+ZH.h */,
-				183664741C195D6000AA1DFF /* NSString+ZH.m */,
-				18E883C21C1804FF00A6A1E0 /* ZHKeyboardJudge.h */,
-				18E883C31C1804FF00A6A1E0 /* ZHKeyboardJudge.m */,
+				18F6CB7F1C1ADE2400CE78BE /* ZHKeyboardJudge.h */,
+				18F6CB801C1ADE2400CE78BE /* ZHKeyboardJudge.m */,
 				18E884081C181FBC00A6A1E0 /* ZHDataUtil.h */,
 				18E884091C181FBC00A6A1E0 /* ZHDataUtil.m */,
 			);
@@ -360,6 +360,7 @@
 				18981A0B1C0D89F600D5AE9F /* ZHNoteCell.m in Sources */,
 				18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */,
 				18BE50CD1C14122900C77A3C /* ZHTextView.m in Sources */,
+				18F6CB811C1ADE2400CE78BE /* ZHKeyboardJudge.m in Sources */,
 				181311A51C11895F00BA7874 /* ZHBottomBar.m in Sources */,
 				185794BD1C1463B10050F62D /* ZHScanEditViewController.m in Sources */,
 				18E8840A1C181FBC00A6A1E0 /* ZHDataUtil.m in Sources */,
@@ -367,7 +368,6 @@
 				18F301DD1C0D6E1500D9C398 /* main.m in Sources */,
 				185794B71C144EE70050F62D /* NSDate+ZH.m in Sources */,
 				18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */,
-				18E883C41C1804FF00A6A1E0 /* ZHKeyboardJudge.m in Sources */,
 				185794C01C1467460050F62D /* ZHNewViewController.m in Sources */,
 				183664751C195D6000AA1DFF /* NSString+ZH.m in Sources */,
 			);

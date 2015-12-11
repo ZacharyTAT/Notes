@@ -20,4 +20,13 @@
  */
 - (BOOL)keyboardOpened;
 
+/**
+ *  返回键盘frame
+ */
+- (CGRect)keyboardFrame;
+
+/**
+ *  返回键盘高度
+ */
+- (CGFloat)keyboardheight;
 @end

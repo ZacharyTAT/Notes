@@ -13,6 +13,11 @@
 /** 记录键盘是否打开 */
 @property(nonatomic, assign,getter = isOpened)BOOL opened;
 
+/** 记录键盘frame */
+@property(nonatomic, assign)CGRect frame;
+/** 记录键盘高度 */
+@property(nonatomic, assign)CGFloat height;
+
 @end
 
 @implementation ZHKeyboardJudge
@@ -24,6 +29,7 @@
     dispatch_once(&onceToken, ^{
         instance = [super allocWithZone:zone];
         [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(keyboardStatusChanged:) name:UIKeyboardDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(keyboardWillShowHandler:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(keyboardStatusChanged:) name:UIKeyboardDidHideNotification object:nil];
     });
     return instance;
@@ -44,6 +50,14 @@
     return self.isOpened;
 }
 
+- (CGRect)keyboardFrame
+{
+    return self.frame;
+}
+- (CGFloat)keyboardheight
+{
+    return self.height;
+}
 - (void)keyboardStatusChanged:(NSNotification *)notif
 {
     NSString *name = notif.name;
@@ -52,7 +66,15 @@
     }else { //键盘关闭了
         self.opened = NO;
     }
+    self.frame = [notif.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
 }
+
+- (void)keyboardWillShowHandler:(NSNotification *)notif
+{
+    CGRect bounds = [notif.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    self.height = bounds.size.height;
+}
+
 
 @end
 
