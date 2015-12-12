@@ -8,6 +8,7 @@
 
 #import "ZHNoteCell.h"
 #import "ZHNote.h"
+#import "NSDate+ZH.h"
 
 #define kTitleLblRatio 0.7
 #define kTitleDateMargin 9
@@ -22,6 +23,9 @@
 
 /** 分割线 */
 @property (nonatomic, weak)UIView *separator;
+
+/** 时间标签显示文字 */
+@property (nonatomic,copy)NSString *modifydateLblText;
 
 
 @end
@@ -64,10 +68,23 @@
     _note = note;
     
     _titleLbl.text = note.title;
-    _modifydateLbl.text = [note.modifydate description];
-    
+    _modifydateLbl.text = self.modifydateLblText;
+//    _modifydateLbl.text = [_note.modifydate toDisplayString]; //为什么不这么写，看下面
 }
 
+/**
+ *  由于setNote:方法在cell滚动时，不断被调用
+ *  这也导致了toDisplayString方法不断调用，不断计算日期字符串
+ *  而事实上，只需要计算一次，所以用这个属性记录下来，后面就不需要计算
+ */
+- (NSString *)modifydateLblText
+{
+    if (_modifydateLblText == nil) {
+        _modifydateLblText = [self.note.modifydate toDisplayString];
+    }
+    
+    return _modifydateLblText;
+}
 
 #pragma mark - layoutSubviews
 - (void)layoutSubviews
@@ -114,6 +131,7 @@
     //修改日期
     UILabel *modifydateLbl = [[UILabel alloc] init];
     self.modifydateLbl = modifydateLbl;
+    modifydateLbl.textAlignment = NSTextAlignmentRight; //右对齐
     [self.contentView addSubview:modifydateLbl];
     
     //分割线
