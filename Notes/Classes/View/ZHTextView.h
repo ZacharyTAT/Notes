@@ -13,4 +13,14 @@
 /** 显示本笔记的修改时间 */
 @property(nonatomic,weak)UILabel *modifydateLbl;
 
+/**
+ *  修改尺寸
+ */
+- (void)changeFrameInset;
+
+#pragma mark - 恢复尺寸
+/**
+ *  传入父控件设置的frame恢复尺寸
+ */
+- (void)resetFrameInset;
 @end

@@ -68,8 +68,9 @@
     _note = note;
     
     _titleLbl.text = note.title;
-    _modifydateLbl.text = self.modifydateLblText;
-//    _modifydateLbl.text = [_note.modifydate toDisplayString]; //为什么不这么写，看下面
+//    _modifydateLbl.text = self.modifydateLblText;
+    _modifydateLbl.text = [_note.modifydate toDisplayString]; //为什么不这么写，看下面
+    //好吧，打脸了，如果按下面这种方式，编辑笔记然后返回时，cell上的时间不会刷新
 }
 
 /**

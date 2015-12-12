@@ -51,7 +51,7 @@
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
     NSDateComponents *cmpt = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute fromDate:self];
-    return [NSString stringWithFormat:@"%d-%02d-%d",[cmpt year] % 100,[cmpt month],[cmpt day]];
+    return [NSString stringWithFormat:@"%d-%d-%d",[cmpt year] % 100,[cmpt month],[cmpt day]];
 }
 
 

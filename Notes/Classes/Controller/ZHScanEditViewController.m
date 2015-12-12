@@ -105,8 +105,6 @@
 {
     NSLog(@"done clicked...");
     NSLog(@"%@",self.textView.text);
-    //还原textView的frame
-    self.textView.frame = self.view.bounds;
     
     if (!self.isTextViewChanged) {
         
@@ -214,12 +212,18 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:0 target:self action:@selector(doneBtnClick)];
-    CGFloat keyboardHeight = [[ZHKeyboardJudge judgeInstance] keyboardheight];
-    CGRect frame = textView.frame;
-    NSLog(@"%@",NSStringFromCGRect(frame));
-    frame.size.height -= keyboardHeight + 10;
-    textView.frame = frame;
-    NSLog(@"%@",NSStringFromCGRect(frame));
+    
+    //修改frame和contentInset
+    [(ZHTextView *)textView changeFrameInset];
+    
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    NSLog(@"end editing...");
+    
+    //还原frame和contentInset
+    [(ZHTextView *)textView resetFrameInset];
 }
 
 - (void)textViewDidChange:(UITextView *)textView
