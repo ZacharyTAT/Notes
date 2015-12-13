@@ -105,7 +105,7 @@
     //修改日期标签
     CGFloat modifydateLblX = CGRectGetMaxX(self.titleLbl.frame) + kTitleDateMargin;
     CGFloat modifydateLblY = 0;
-    CGFloat modifydateLblW = width * (1 - kTitleLblRatio) - kTitleLblRatio;
+    CGFloat modifydateLblW = width * (1 - kTitleLblRatio) - kTitleDateMargin;
     CGFloat modifydateLblH = height;
     self.modifydateLbl.frame = CGRectMake(modifydateLblX, modifydateLblY, modifydateLblW, modifydateLblH);
     
@@ -133,6 +133,7 @@
     UILabel *modifydateLbl = [[UILabel alloc] init];
     self.modifydateLbl = modifydateLbl;
     modifydateLbl.textAlignment = NSTextAlignmentRight; //右对齐
+//    modifydateLbl.backgroundColor = [UIColor cyanColor];
     [self.contentView addSubview:modifydateLbl];
     
     //分割线

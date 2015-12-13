@@ -18,7 +18,7 @@
 #import "ZHKeyboardJudge.h"
 #import "ZHDataUtil.h"
 
-@interface ZHScanEditViewController ()<UITextViewDelegate,UIActionSheetDelegate,ZHBottomBarDelegate>
+@interface ZHScanEditViewController ()<ZHTextViewDelegate,UIActionSheetDelegate,ZHBottomBarDelegate>
 
 /** 展示笔记内容的文本框 */
 @property (nonatomic, weak) ZHTextView *textView;
@@ -214,10 +214,14 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:0 target:self action:@selector(doneBtnClick)];
     
     //修改frame和contentInset
-    [(ZHTextView *)textView changeFrameInset];
+    //[(ZHTextView *)textView changeFrameInset];
     
 }
-
+- (void)textViewDidBeginEditingAfterKeyboardTotallyShowUp:(UITextView *)textView
+{
+    //修改frame和contentInset
+    [(ZHTextView *)textView changeFrameInset];
+}
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     NSLog(@"end editing...");

@@ -55,9 +55,11 @@
     //05.文字检测
     self.dataDetectorTypes = UIDataDetectorTypeLink | UIDataDetectorTypePhoneNumber;
     
-#warning 在模拟器中没有效果，跑到真机上试试
-    //06.链接文字属性
-    self.linkTextAttributes = @{NSForegroundColorAttributeName : ZHTintColor};
+    //06.链接文字属性,主题色，下划线
+    self.linkTextAttributes = @{
+                                NSForegroundColorAttributeName  :   ZHTintColor ,
+                                NSUnderlineStyleAttributeName   :   @(1)
+                                };
     
     //07.设置不可编辑(这样文字检测才能使用)
     self.editable = NO;
@@ -70,6 +72,19 @@
 
     //10.关闭自动打开大写键
     self.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
+    //监听键盘弹出事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+}
+
+#pragma mark - 键盘完全弹出时触发
+- (void)keyboardDidShow:(NSNotification *)notif
+{
+    if ([self isFirstResponder] && self.isEditable) {
+        if ([self.delegate respondsToSelector:@selector(textViewDidBeginEditingAfterKeyboardTotallyShowUp:)]) {
+            [self.delegate textViewDidBeginEditingAfterKeyboardTotallyShowUp:self];
+        }
+    }
 }
 
 #pragma mark - 点击手势，点击之后变成可点击
@@ -77,6 +92,7 @@
 {
     self.editable = YES;
     [self becomeFirstResponder];
+    NSLog(@"%@",NSStringFromRange(self.selectedRange));
 }
 
 #pragma mark - 修改尺寸
@@ -104,11 +120,11 @@
     //变成不可编辑
     self.editable = NO;
     
-    //还原frame
-    self.frame = self.originFrame;
+    //还原frame(self.originFrame非空且不为0)
+    if (!CGRectIsEmpty(self.originFrame) && !CGRectEqualToRect(self.originFrame, CGRectZero)) self.frame = self.originFrame;
     
     //还原contentInset
-    self.contentInset = self.originContentInset;
+    if (!UIEdgeInsetsEqualToEdgeInsets(self.originContentInset, UIEdgeInsetsZero)) self.contentInset = self.originContentInset;
 }
 
 #pragma mark - 添加显示时间标签控件
@@ -152,6 +168,14 @@
     
     self.modifydateLbl.frame = CGRectMake(modifydateLblX, modifydateLblY, modifydateLblW, modifydateLblH);
     
+}
+
+#pragma mark - dealloc
+- (void)dealloc
+{
+    NSLog(@"%@ dealloc...",[self class]);
+    //移除监听
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
