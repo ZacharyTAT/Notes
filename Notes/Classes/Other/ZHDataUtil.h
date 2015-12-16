@@ -22,4 +22,14 @@
  *  将指定的note保存在磁盘上
  */
 + (void)saveWithNote:(ZHNote *)note;
+
+/**
+ *  获取所有笔记列表
+ */
++ (NSMutableArray *)noteList;
 @end
+
+
+
+
+

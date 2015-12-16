@@ -12,14 +12,23 @@
 
 #import "ZHNoteCell.h"
 #import "ZHNote.h"
+#import "ZHSearch.h"
+#import "ZHSearchBar.h"
 
 #import "ZHDataUtil.h"
 
 
 
-@interface ZHTableViewController ()<ZHNewViewControllerDelegate>
+@interface ZHTableViewController ()<ZHNewViewControllerDelegate,ZHSearchDelegate>
 
+/** 数据源 */
 @property (nonatomic, strong)NSMutableArray *dataArr;
+
+/** 搜索结果数据源 */
+@property (nonatomic,strong)NSMutableArray *searchResultArr;
+
+/** 负责搜索的模型 */
+@property (nonatomic,strong)ZHSearch *search;
 
 @end
 
@@ -30,8 +39,10 @@
     [super viewDidLoad];
     NSLog(@"table view did load");
     [self setupNavItem];
+    [self setupTableViewHeaderFooter];
     //去掉分割线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
 }
 
 #pragma mark - 数据源
@@ -41,32 +52,27 @@
 - (NSMutableArray *)dataArr
 {
     if (_dataArr == nil) {
-        _dataArr = [NSMutableArray array];
         
-        //从document中加载数据
-        
-        //01.获取文件列表
-        NSString *docPath = ZHDocumentPath;
-        NSFileManager *fileMgr = [NSFileManager defaultManager];
-        NSArray *lists = [fileMgr contentsOfDirectoryAtPath:docPath error:nil];
-        
-        //02.转模型后存入数组
-        for (int i = 0; i < lists.count; i++) {
-            //02-1.获取文件决定路径(包括文件名)
-            NSString *filePath = [docPath stringByAppendingPathComponent:lists[i]];
-            
-            //02-2.转化为模型
-            ZHNote *note = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-            
-            //02-3.存入对象
-            [_dataArr addObject:note];
-        }
+        //获取数据
+        _dataArr = [ZHDataUtil noteList];
         
         //更新表格数据
         [self.tableView reloadData];
     }
     
     return _dataArr;
+}
+
+#pragma mark - 搜索结果数据源
+/**
+ *  搜索结果数据源
+ */
+- (NSMutableArray *)searchResultArr
+{
+    if (_searchResultArr == nil) {
+        _searchResultArr = [NSMutableArray array];
+    }
+    return _searchResultArr;
 }
 
 #pragma mark - 设置导航栏内容
@@ -77,6 +83,20 @@
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"新建" style:UIBarButtonItemStylePlain target:self action:@selector(newBtnClick)];
     self.navigationItem.title = @"Notes";
+}
+
+#pragma mark - 初始化表格的头部和尾部
+- (void)setupTableViewHeaderFooter
+{
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    ZHSearch *search = [[ZHSearch alloc] initWithcontentController:self dataSource:self.searchResultArr];
+    [search.searchBar donotDoAutoThings];
+    self.search = search;
+    search.delegate = self;
+    
+    self.tableView.tableHeaderView = search.searchBar;
+    
 }
 
 #pragma mark - 新建按钮点击事件
@@ -116,19 +136,19 @@
     return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    return [[UIView alloc] initWithFrame:CGRectZero];
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     //获取数据
     ZHNote *note = self.dataArr[indexPath.row];
+    
+    //创建控制器
     ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
     dvc.note = note;
     dvc.delegate = self;
+    
+    //跳转
     [self.navigationController pushViewController:dvc animated:YES];
 }
 
@@ -158,6 +178,7 @@
     return @"删除";
 }
 #pragma mark - new ViewController Delegate
+
 - (void)newViewController:(ZHNewViewController *)newViewController didClickBackBtnWithNewNote:(ZHNote *)note
 {
     //01.添加新模型
@@ -186,7 +207,51 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - ZHSearchDelegate
 
+#pragma mark - 返回新的搜索结果数据源
+- (NSMutableArray *)search:(ZHSearch *)search shouldReloadTableForSearchString:(NSString *)searchString dataSource:(NSMutableArray *)dataSource
+{
+    self.searchResultArr = [self updateResultDataSourceForSearchText:searchString];
+    
+    return self.searchResultArr;
+}
+
+#pragma mark - 搜索结果表格某一行被点击
+- (void)search:(ZHSearch *)search didSelectTableView:(UITableView *)tableView RowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //获取数据
+    ZHNote *note = self.searchResultArr[indexPath.row];
+    
+    //创建控制器
+    ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
+    dvc.note = note;
+    dvc.delegate = self;
+    
+    //跳转
+    [self.navigationController pushViewController:dvc animated:YES];
+}
+
+#pragma mark - 此方法不是ZHSearch的代理方法，只是服务于代理而已
+-(NSMutableArray *)updateResultDataSourceForSearchText:(NSString*)searchText
+{
+    NSMutableArray *tempResults = [NSMutableArray array];
+    NSUInteger searchOptions = NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch;
+    
+    for (int i = 0; i < self.dataArr.count; i++) {
+        ZHNote *note = self.dataArr[i];
+        NSString *storeString = [NSString stringWithFormat:@"%@ %@",note.title,note.content];
+        NSRange storeRange = NSMakeRange(0, storeString.length);
+        NSRange foundRange = [storeString rangeOfString:searchText options:searchOptions range:storeRange];
+        if (foundRange.length) {
+            [tempResults addObject:note];
+        }
+    }
+    
+    return tempResults;
+}
+
+#pragma mark - dealloc
 - (void)dealloc
 {
     NSLog(@"%@ dealloc",[self class]);

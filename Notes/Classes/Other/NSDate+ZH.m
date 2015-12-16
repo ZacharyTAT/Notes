@@ -44,7 +44,8 @@
         return @"前天";
     }//前天
     
-    if ([NSDate isDate:self sameDayAsDate:[[NSDate date] dateByAddingTimeInterval:(-7 * 24 * 60 * 60)]]) {
+    NSInteger betweenDays = [NSDate daysBetweenDate:self andDate:[[NSDate date] dateByAddingTimeInterval:(-7 * 24 * 60 * 60)]];
+    if (betweenDays >= 0 && betweenDays <= 4) { //本来是7，但前面3天已经自定义，能走到这里肯定是4天前
         return [NSDate weekdayStringFromDate:self];
     }//一个星期之内
     
@@ -73,7 +74,7 @@
     NSDateComponents *difference = [calendar components:NSCalendarUnitDay
                                                fromDate:fromDate toDate:toDate options:0];
     
-    return [difference day];
+    return abs([difference day]);
 }
 
 /**

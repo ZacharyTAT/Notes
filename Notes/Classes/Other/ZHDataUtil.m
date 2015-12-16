@@ -45,5 +45,30 @@
     NSLog(@"保存文件成功");
 }
 
+#pragma mark - 获取所有笔记列表
++ (NSMutableArray *)noteList
+{
+    NSMutableArray *dataArr = [NSMutableArray array];
+    //从document中加载数据
+    
+    //01.获取文件列表
+    NSString *docPath = ZHDocumentPath;
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    NSArray *lists = [fileMgr contentsOfDirectoryAtPath:docPath error:nil];
+    
+    //02.转模型后存入数组
+    for (int i = 0; i < lists.count; i++) {
+        //02-1.获取文件决定路径(包括文件名)
+        NSString *filePath = [docPath stringByAppendingPathComponent:lists[i]];
+        
+        //02-2.转化为模型
+        ZHNote *note = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+        
+        //02-3.存入对象
+//        [dataArr addObject:note];
+        [dataArr insertObject:note atIndex:0];
+    }
+    return dataArr;
+}
 
 @end
