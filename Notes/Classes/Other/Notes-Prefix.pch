@@ -30,7 +30,8 @@
 // document目录路径
 #define ZHDocumentPath NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0]
 
-
+// 外界修改了笔记内容通知名
+#define ZHNoteDataSourceDidChangeNotification @"ZHNoteDataSourceDidChangeNotification"
 
 #endif
 

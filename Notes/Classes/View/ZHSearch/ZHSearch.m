@@ -9,6 +9,7 @@
 #import "ZHSearch.h"
 #import "ZHSearchBar.h"
 #import "ZHNoteCell.h"
+#import "ZHHierarchy+ZHViewHierarchy.h"
 
 @interface ZHSearch()<UISearchBarDelegate,UISearchDisplayDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -20,6 +21,9 @@
 
 /** 没有结果时，显示在tableView上面的字符串，默认是"没有结果" */
 @property(nonatomic,copy)NSString *noResultsText;
+
+/** 搜索栏上的文本框 */
+@property(nonatomic,weak)UITextField *textField;
 
 @end
 
@@ -40,6 +44,14 @@
     return self;
 }
 
+#pragma mark - 外界内容改变了
+- (void)noteDataSourceDidChange
+{
+    BOOL should = [self searchDisplayController:self.sdc shouldReloadTableForSearchString:self.textField.text];
+    if (should) {
+        [self.sdc.searchResultsTableView reloadData];
+    }
+}
 #pragma mark - 初始化DisplayController
 /**
  *  初始化DisplayController
@@ -81,7 +93,7 @@
     
     //02.未开始编辑时显示的占位文字
     searchBar.placeholder = @"搜索";
-    
+//    [ZHHierarchy processWithView:searchBar];
     //03.隐藏背景视图 & 设置文本框的背景色
     UIView *fatherView = searchBar.subviews[0];
     for (UIView *subView in [fatherView subviews]) {
@@ -97,6 +109,8 @@
             UITextField *textField = (UITextField *)subView;
             textField.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1.0];
             [fatherView bringSubviewToFront:subView];
+            
+            self.textField = textField;
         }
     }
 }
@@ -132,12 +146,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteDataSourceDidChange) name:ZHNoteDataSourceDidChangeNotification object:nil];
     
-    //告诉代理，哪一行被人点了，并将模型传过去
+    //告诉代理，哪一行被点了，并将模型传过去
     if ([self.delegate respondsToSelector:@selector(search:didSelectTableView:RowAtIndexPath:)]) {
         [self.delegate search:self didSelectTableView:tableView RowAtIndexPath:indexPath];
     }
-#warning 点击可以进入具体的某一条笔记，但没有考虑修改了笔记的情况(修改\删除)，只能查看笔记
 }
 
 
@@ -177,18 +191,12 @@
     [searchBar endEditing:YES];
     searchBar.showsCancelButton = NO;
     [self changeSearchBarBackgroundViewFrame:NO];
+    
+    //移除通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-
 
 #pragma mark - UISearchDisplayController delegate
-
-#pragma mark - 显示搜索结果之前调用，将"No Results"换成中文
-- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
-{
-    NSLog(@"will show");
-
-}
 
 #pragma mark - 搜索框文字改变即调用此方法，传入新的搜索关键词，一般在此方法里更新搜索的数据源
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -218,6 +226,14 @@
     return NO;
 }
 
+- (void)dealloc
+{
+    NSLog(@"%@",[self class]);
+    
+    //移除通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
 
 @end
 

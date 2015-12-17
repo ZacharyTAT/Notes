@@ -96,7 +96,6 @@
     search.delegate = self;
     
     self.tableView.tableHeaderView = search.searchBar;
-    
 }
 
 #pragma mark - 新建按钮点击事件
@@ -177,6 +176,7 @@
 {
     return @"删除";
 }
+
 #pragma mark - new ViewController Delegate
 
 - (void)newViewController:(ZHNewViewController *)newViewController didClickBackBtnWithNewNote:(ZHNote *)note
@@ -186,12 +186,18 @@
     
     //02.更新表格视图
     [self.tableView reloadData];
+    
+    //发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:ZHNoteDataSourceDidChangeNotification object:nil]];
 }
 
 - (void)newViewController:(ZHNewViewController *)newViewController didClickDeleteItemWithLatestNote:(ZHNote *)latestNote
 {
     if (latestNote) [self.dataArr removeObject:latestNote];
     [self.tableView reloadData];
+    
+    //发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:ZHNoteDataSourceDidChangeNotification object:nil]];
 }
 
 #pragma mark - Scan Edit ViewController Delegate
@@ -205,6 +211,9 @@
     
     //03.更新表格视图
     [self.tableView reloadData];
+    
+    //04.告诉搜索模型，note数据源改了
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:ZHNoteDataSourceDidChangeNotification object:nil]];
 }
 
 #pragma mark - ZHSearchDelegate
@@ -215,21 +224,6 @@
     self.searchResultArr = [self updateResultDataSourceForSearchText:searchString];
     
     return self.searchResultArr;
-}
-
-#pragma mark - 搜索结果表格某一行被点击
-- (void)search:(ZHSearch *)search didSelectTableView:(UITableView *)tableView RowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //获取数据
-    ZHNote *note = self.searchResultArr[indexPath.row];
-    
-    //创建控制器
-    ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
-    dvc.note = note;
-    dvc.delegate = self;
-    
-    //跳转
-    [self.navigationController pushViewController:dvc animated:YES];
 }
 
 #pragma mark - 此方法不是ZHSearch的代理方法，只是服务于代理而已
@@ -250,6 +244,23 @@
     
     return tempResults;
 }
+
+#pragma mark - 搜索结果表格某一行被点击
+- (void)search:(ZHSearch *)search didSelectTableView:(UITableView *)tableView RowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //获取数据
+    ZHNote *note = self.searchResultArr[indexPath.row];
+    
+    //创建控制器
+    ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
+    dvc.note = note;
+    dvc.delegate = self;
+    
+    //跳转
+    [self.navigationController pushViewController:dvc animated:YES];
+}
+
+
 
 #pragma mark - dealloc
 - (void)dealloc
