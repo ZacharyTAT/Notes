@@ -20,6 +20,13 @@
 		18E8840A1C181FBC00A6A1E0 /* ZHDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E884091C181FBC00A6A1E0 /* ZHDataUtil.m */; };
 		18EC0D881C219EFC00442143 /* ZHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC0D851C219EFC00442143 /* ZHSearch.m */; };
 		18EC0D891C219EFC00442143 /* ZHSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC0D871C219EFC00442143 /* ZHSearchBar.m */; };
+		18EF25D11C2545A700873A68 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25C71C2545A700873A68 /* FMDatabase.m */; };
+		18EF25D21C2545A700873A68 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25C91C2545A700873A68 /* FMDatabaseAdditions.m */; };
+		18EF25D31C2545A700873A68 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25CB1C2545A700873A68 /* FMDatabasePool.m */; };
+		18EF25D41C2545A700873A68 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25CD1C2545A700873A68 /* FMDatabaseQueue.m */; };
+		18EF25D51C2545A700873A68 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25D01C2545A700873A68 /* FMResultSet.m */; };
+		18EF25D81C25498800873A68 /* ZHDBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25D71C25498800873A68 /* ZHDBUtil.m */; };
+		18EF25DA1C25522100873A68 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EF25D91C25522100873A68 /* libsqlite3.0.dylib */; };
 		18F301A11C0D6C4A00D9C398 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A01C0D6C4A00D9C398 /* Foundation.framework */; };
 		18F301A31C0D6C4A00D9C398 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A21C0D6C4A00D9C398 /* CoreGraphics.framework */; };
 		18F301A51C0D6C4A00D9C398 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A41C0D6C4A00D9C398 /* UIKit.framework */; };
@@ -74,6 +81,20 @@
 		18EC0D851C219EFC00442143 /* ZHSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSearch.m; sourceTree = "<group>"; };
 		18EC0D861C219EFC00442143 /* ZHSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSearchBar.h; sourceTree = "<group>"; };
 		18EC0D871C219EFC00442143 /* ZHSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSearchBar.m; sourceTree = "<group>"; };
+		18EF25C61C2545A700873A68 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		18EF25C71C2545A700873A68 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		18EF25C81C2545A700873A68 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		18EF25C91C2545A700873A68 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		18EF25CA1C2545A700873A68 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		18EF25CB1C2545A700873A68 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		18EF25CC1C2545A700873A68 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		18EF25CD1C2545A700873A68 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		18EF25CE1C2545A700873A68 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		18EF25CF1C2545A700873A68 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		18EF25D01C2545A700873A68 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		18EF25D61C25498800873A68 /* ZHDBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDBUtil.h; sourceTree = "<group>"; };
+		18EF25D71C25498800873A68 /* ZHDBUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDBUtil.m; sourceTree = "<group>"; };
+		18EF25D91C25522100873A68 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		18F3019D1C0D6C4A00D9C398 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F301A01C0D6C4A00D9C398 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18F301A21C0D6C4A00D9C398 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -103,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18EF25DA1C25522100873A68 /* libsqlite3.0.dylib in Frameworks */,
 				18F301A31C0D6C4A00D9C398 /* CoreGraphics.framework in Frameworks */,
 				18F301A51C0D6C4A00D9C398 /* UIKit.framework in Frameworks */,
 				18F301A11C0D6C4A00D9C398 /* Foundation.framework in Frameworks */,
@@ -148,10 +170,13 @@
 			isa = PBXGroup;
 			children = (
 				1892B2BE1C22967300535B24 /* ZHHierarchy */,
-				18F6CB7F1C1ADE2400CE78BE /* ZHKeyboardJudge.h */,
-				18F6CB801C1ADE2400CE78BE /* ZHKeyboardJudge.m */,
+				18EF25C51C2545A700873A68 /* fmdb */,
 				18E884081C181FBC00A6A1E0 /* ZHDataUtil.h */,
 				18E884091C181FBC00A6A1E0 /* ZHDataUtil.m */,
+				18EF25D61C25498800873A68 /* ZHDBUtil.h */,
+				18EF25D71C25498800873A68 /* ZHDBUtil.m */,
+				18F6CB7F1C1ADE2400CE78BE /* ZHKeyboardJudge.h */,
+				18F6CB801C1ADE2400CE78BE /* ZHKeyboardJudge.m */,
 			);
 			name = lib;
 			sourceTree = "<group>";
@@ -165,6 +190,24 @@
 				18EC0D871C219EFC00442143 /* ZHSearchBar.m */,
 			);
 			path = ZHSearch;
+			sourceTree = "<group>";
+		};
+		18EF25C51C2545A700873A68 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				18EF25C61C2545A700873A68 /* FMDatabase.h */,
+				18EF25C71C2545A700873A68 /* FMDatabase.m */,
+				18EF25C81C2545A700873A68 /* FMDatabaseAdditions.h */,
+				18EF25C91C2545A700873A68 /* FMDatabaseAdditions.m */,
+				18EF25CA1C2545A700873A68 /* FMDatabasePool.h */,
+				18EF25CB1C2545A700873A68 /* FMDatabasePool.m */,
+				18EF25CC1C2545A700873A68 /* FMDatabaseQueue.h */,
+				18EF25CD1C2545A700873A68 /* FMDatabaseQueue.m */,
+				18EF25CE1C2545A700873A68 /* FMDB.h */,
+				18EF25CF1C2545A700873A68 /* FMResultSet.h */,
+				18EF25D01C2545A700873A68 /* FMResultSet.m */,
+			);
+			path = fmdb;
 			sourceTree = "<group>";
 		};
 		18F301941C0D6C4A00D9C398 = {
@@ -189,6 +232,7 @@
 		18F3019F1C0D6C4A00D9C398 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18EF25D91C25522100873A68 /* libsqlite3.0.dylib */,
 				18F301A01C0D6C4A00D9C398 /* Foundation.framework */,
 				18F301A21C0D6C4A00D9C398 /* CoreGraphics.framework */,
 				18F301A41C0D6C4A00D9C398 /* UIKit.framework */,
@@ -395,11 +439,17 @@
 				18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */,
 				18981A0B1C0D89F600D5AE9F /* ZHNoteCell.m in Sources */,
 				18EC0D881C219EFC00442143 /* ZHSearch.m in Sources */,
+				18EF25D81C25498800873A68 /* ZHDBUtil.m in Sources */,
+				18EF25D11C2545A700873A68 /* FMDatabase.m in Sources */,
 				18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */,
+				18EF25D31C2545A700873A68 /* FMDatabasePool.m in Sources */,
+				18EF25D51C2545A700873A68 /* FMResultSet.m in Sources */,
+				18EF25D21C2545A700873A68 /* FMDatabaseAdditions.m in Sources */,
 				18BE50CD1C14122900C77A3C /* ZHTextView.m in Sources */,
 				18EC0D891C219EFC00442143 /* ZHSearchBar.m in Sources */,
 				18F6CB811C1ADE2400CE78BE /* ZHKeyboardJudge.m in Sources */,
 				1892B2C31C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m in Sources */,
+				18EF25D41C2545A700873A68 /* FMDatabaseQueue.m in Sources */,
 				181311A51C11895F00BA7874 /* ZHBottomBar.m in Sources */,
 				1892B2C41C22967300535B24 /* ZHHierarchy.m in Sources */,
 				185794BD1C1463B10050F62D /* ZHScanEditViewController.m in Sources */,

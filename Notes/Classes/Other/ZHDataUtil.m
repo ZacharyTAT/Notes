@@ -7,13 +7,31 @@
 //
 
 #import "ZHDataUtil.h"
+#import "ZHDBUtil.h"
 #import "ZHNote.h"
 
 
 @implementation ZHDataUtil
 
++(void)load
+{
+    ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
+    [dbUtil createTableWithName:@"note"];
+}
+
 #pragma mark - 删除制定note对应的磁盘数据
 + (void)removeNote:(ZHNote *)note
+{
+    if (note == nil) return;
+    
+    ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
+    BOOL res = [dbUtil deleteNoteForId:note.noteId];
+    if (res)
+        NSLog(@"删除成功");
+    else
+        NSLog(@"删除失败");
+}
++ (void)removeNoteInFile:(ZHNote *)note
 {
     if (note == nil) return;
     
@@ -30,9 +48,17 @@
     
     NSLog(@"不存在这样的文件，别删了...");
 }
-
 #pragma mark - 将指定的note保存在磁盘上
 + (void)saveWithNote:(ZHNote *)note
+{
+    if (note == nil) return;
+    
+    ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
+    [dbUtil insertWithNote:note];
+    
+    NSLog(@"保存文件成功");
+}
++ (void)saveInFileWithNote:(ZHNote *)note
 {
     if (note == nil) return;
     
@@ -44,9 +70,14 @@
     
     NSLog(@"保存文件成功");
 }
-
 #pragma mark - 获取所有笔记列表
 + (NSMutableArray *)noteList
+{
+    ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
+    return [dbUtil noteList];
+}
+
++ (NSMutableArray *)noteListFromFile
 {
     NSMutableArray *dataArr = [NSMutableArray array];
     //从document中加载数据
@@ -73,5 +104,7 @@
     }
     return dataArr;
 }
+
+
 
 @end

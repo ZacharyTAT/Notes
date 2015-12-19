@@ -10,6 +10,9 @@
 
 @interface ZHNote : NSObject
 
+/** 笔记的唯一标识 */
+@property (nonatomic,assign)NSInteger noteId;
+
 /** 标题 */
 @property (nonatomic, copy)NSString *title;
 
@@ -30,4 +33,21 @@
  */
 - (instancetype)initWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content;
 
+/**
+ *  快速创建一个note的方法
+ *
+ *  @param title      标题
+ *  @param modifydate 修改日期
+ *  @param content    具体内容
+ *
+ *  @return note模型
+ */
++ (instancetype)noteWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content;
 @end
+
+
+
+
+
+
+
