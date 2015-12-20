@@ -21,6 +21,9 @@
 /** 修改frame之前的contentInset，用于恢复 */
 @property (nonatomic,assign)UIEdgeInsets originContentInset;
 
+/** 判断是否可以修改frame和inset */
+@property (nonatomic,assign)BOOL canChangeFrameInset;
+
 @end
 
 @implementation ZHTextView
@@ -73,8 +76,11 @@
     //10.关闭自动打开大写键
     self.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
-    //监听键盘弹出事件
+    //11.监听键盘弹出事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    
+    //12.默认可以修改frame和inset
+    self.canChangeFrameInset = YES;
 }
 
 #pragma mark - 键盘完全弹出时触发
@@ -98,35 +104,56 @@
 #pragma mark - 修改尺寸
 - (void)changeFrameInset
 {
-    //frame
-    CGFloat keyboardHeight = [[ZHKeyboardJudge judgeInstance] keyboardheight];
-    CGRect frame = self.frame;
-    self.originFrame = self.frame;
-    NSLog(@"%@",NSStringFromCGRect(frame));
-    frame.size.height -= keyboardHeight + 10;
-    self.frame = frame;
-    NSLog(@"%@",NSStringFromCGRect(frame));
-    
-    //contentInset
-    UIEdgeInsets inset = self.contentInset;
-    self.originContentInset = self.contentInset;
-    inset.bottom = 50;
-    self.contentInset = inset;
+    if (self.canChangeFrameInset){
+        //坑啊啊啊啊啊，键盘切换一下输入法，就会发出DidShow通知
+        
+        //frame
+        CGFloat keyboardHeight = [[ZHKeyboardJudge judgeInstance] keyboardheight];
+        CGRect frame = self.frame;
+        self.originFrame = self.frame;
+        NSLog(@"%@",NSStringFromCGRect(frame));
+        frame.size.height -= keyboardHeight + 10;
+        self.frame = frame;
+        NSLog(@"%@",NSStringFromCGRect(frame));
+        
+        //contentInset
+        UIEdgeInsets inset = self.contentInset;
+        self.originContentInset = self.contentInset;
+        inset.bottom = 50;
+        self.contentInset = inset;
+        self.canChangeFrameInset = NO;
+    }else{ //更新高度
+        CGFloat keyboardHeight = [[ZHKeyboardJudge judgeInstance] keyboardheight];
+        CGRect frame = self.originFrame;
+        NSLog(@"%@",NSStringFromCGRect(frame));
+        frame.size.height -= keyboardHeight + 10;
+        self.frame = frame;
+        NSLog(@"%@",NSStringFromCGRect(frame));
+    }
 }
 
 #pragma mark - 恢复尺寸
 - (void)resetFrameInset
 {
-    //变成不可编辑
-    self.editable = NO;
+    if (self.canChangeFrameInset){
     
-    //还原frame(self.originFrame非空且不为0)
-    if (!CGRectIsEmpty(self.originFrame) && !CGRectEqualToRect(self.originFrame, CGRectZero)) self.frame = self.originFrame;
-    
-    //还原contentInset
-    if (!UIEdgeInsetsEqualToEdgeInsets(self.originContentInset, UIEdgeInsetsZero)) self.contentInset = self.originContentInset;
+    }else {
+        //变成不可编辑
+        self.editable = NO;
+        
+        //还原frame(self.originFrame非空且不为0)
+        if (!CGRectIsEmpty(self.originFrame) && !CGRectEqualToRect(self.originFrame, CGRectZero)) self.frame = self.originFrame;
+        
+        NSLog(@"frame = %@,originFrame = %@",NSStringFromCGRect(self.frame),NSStringFromCGRect(self.originFrame));
+        
+        //还原contentInset
+        if (!UIEdgeInsetsEqualToEdgeInsets(self.originContentInset, UIEdgeInsetsZero)) self.contentInset = self.originContentInset;
+        
+        NSLog(@"contentInset = %@,originContentInset = %@",NSStringFromUIEdgeInsets(self.contentInset),NSStringFromUIEdgeInsets(self.originContentInset));
+        
+        self.canChangeFrameInset = YES;
+    }
 }
-
 #pragma mark - 添加显示时间标签控件
 /**
  *  添加显示时间标签控件

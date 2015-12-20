@@ -71,7 +71,7 @@
 
 - (void)keyboardWillShowHandler:(NSNotification *)notif
 {
-    CGRect bounds = [notif.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect bounds = [notif.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.height = bounds.size.height;
 }
 

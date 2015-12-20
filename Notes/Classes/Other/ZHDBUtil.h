@@ -26,10 +26,23 @@
  */
 - (BOOL)insertWithNote:(ZHNote *)note;
 
+
 /**
  *  通过id查询一条记录
  */
-- (void)queryNoteForId:(NSInteger)noteId;
+- (ZHNote *)queryNoteForId:(NSInteger)noteId;
+
+/**
+ *  通过修改日期查询一条记录
+ */
+- (ZHNote *)queryNoteForModifyDate:(NSDate *)modifyDate;
+
+/**
+ *  按照id降序返回搜索笔记列表
+ */
+- (NSMutableArray *)noteList;
+
+
 
 /**
  *  通过id删除一条记录
@@ -37,9 +50,12 @@
 - (BOOL)deleteNoteForId:(NSInteger)noteId;
 
 /**
- *  按照id降序返回搜索笔记列表
+ *  通过修改日期删除笔记
  */
-- (NSMutableArray *)noteList;
+- (BOOL)deleteNoteForModifyDate:(NSDate *)modifyDate;
+
+
+
 
 @end
 

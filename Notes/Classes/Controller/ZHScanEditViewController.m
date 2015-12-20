@@ -90,6 +90,8 @@
     [self.view addSubview:textView];
     //设置代理
     textView.delegate = self;
+    //键盘弹出时，不会自动滚动
+    textView.layoutManager.allowsNonContiguousLayout = NO;
     
     // 02.添加底部工具栏
     ZHBottomBar *bottomBar = [ZHBottomBar bottomBar];

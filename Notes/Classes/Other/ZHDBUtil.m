@@ -67,10 +67,10 @@
                                  )\
                              ",tableName];
             NSLog(@"%@",sql);
-            if ([self.DB executeUpdate:sql]) return YES;
-            return NO;
-            
+            BOOL res = [self.DB executeUpdate:sql];
             [self.DB close];
+            
+            return res ? YES : NO ;
         }
         NSLog(@"数据库打开失败");
         return NO;
@@ -93,8 +93,8 @@
             
             
             [self.DB close];
-            if (0 == count) return NO;
-            return YES;
+            
+            return (0 == count) ? NO : YES;
         }
     }
     return NO;
@@ -107,12 +107,10 @@
         
         NSString * sql = @"insert into note (title, content,modifyDate) values(?, ?, ?) ";
         BOOL res = [self.DB executeUpdate:sql,title,content,modifyDate];
-        if (!res) return NO;
-        
         [self.DB close];
         
-        return YES;
-        }
+        return res ? YES : NO;
+    }
     return NO;
 }
 - (BOOL)insertWithNote:(ZHNote *)note
@@ -120,7 +118,7 @@
     return [self insertNoteWithTitle:note.title content:note.content modifyDate:note.modifydate];
 }
 #pragma mark - 通过id查询一条记录
-- (void)queryNoteForId:(NSInteger)noteId
+- (ZHNote *)queryNoteForId:(NSInteger)noteId
 {
     if ([self.DB open]) {
         NSString * sql =[NSString stringWithFormat:@"select * from note where id = %d",noteId] ;
@@ -131,10 +129,39 @@
             NSDate *modifyDate = [rs dateForColumn:@"modifyDate"];
             
             NSLog(@"id=%d, title=%@, content=%@, modifyDate=%@",noteId,title, content, modifyDate);
+            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:modifyDate content:content];
+            note.noteId = noteId;
+            
+            [self.DB close];
+            return note;
         }
-        [self.DB close];
     }
+    return nil;
 }
+
+#pragma mark - 通过修改日期查询一条记录
+- (ZHNote *)queryNoteForModifyDate:(NSDate *)modifyDate
+{
+    if ([self.DB open]) {
+        NSString * sql = @"select * from note where modifyDate = ?" ;
+        FMResultSet * rs = [self.DB executeQuery:sql,modifyDate];
+        while ([rs next]) {
+            NSInteger noteId = [rs intForColumn:@"noteId"];
+            NSString *title = [rs stringForColumn:@"title"];
+            NSString *content = [rs stringForColumn:@"content"];
+//            NSDate *modifyDate = [rs dateForColumn:@"modifyDate"];
+            
+            NSLog(@"id=%d, title=%@, content=%@, modifyDate=%@",noteId,title, content, modifyDate);
+            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:modifyDate content:content];
+            note.noteId = noteId;
+            
+            [self.DB close];
+            return note;
+        }
+    }
+    return nil;
+}
+
 #pragma mark - 按照id降序返回所有笔记列表
 - (NSMutableArray *)noteList
 {
@@ -165,13 +192,31 @@
         
         NSString *sql = [NSString stringWithFormat:@"delete from note where id = %d",noteId];
         BOOL res = [self.DB executeUpdate:sql];
-        if (!res) return NO;
-        return YES;
+        
         [self.DB close];
+        
+        return res ? YES : NO;
     }
     
     return NO;
 }
+
+#pragma mark - 通过修改日期删除一条记录
+- (BOOL)deleteNoteForModifyDate:(NSDate *)modifyDate
+{
+    if ([self.DB open]) {
+        
+        NSString *sql = @"delete from note where modifyDate = ?";
+        BOOL res = [self.DB executeUpdate:sql,modifyDate];
+        
+        [self.DB close];
+        
+        return res ? YES : NO;
+    }
+    
+    return NO;
+}
+
 @end
 
 

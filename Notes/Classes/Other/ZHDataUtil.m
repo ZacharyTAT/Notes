@@ -25,7 +25,8 @@
     if (note == nil) return;
     
     ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
-    BOOL res = [dbUtil deleteNoteForId:note.noteId];
+//    BOOL res = [dbUtil deleteNoteForId:note.noteId];
+    BOOL res = [dbUtil deleteNoteForModifyDate:note.modifydate];
     if (res)
         NSLog(@"删除成功");
     else
