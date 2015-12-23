@@ -19,7 +19,7 @@
 
 
 
-@interface ZHTableViewController ()<ZHNewViewControllerDelegate,ZHSearchDelegate>
+@interface ZHTableViewController ()<ZHNewViewControllerDelegate,ZHSearchDelegate,ZHMultiButtonTableViewCellDelegate>
 
 /** 数据源 */
 @property (nonatomic, strong)NSMutableArray *dataArr;
@@ -127,7 +127,7 @@
     
     //01.创建cell
     ZHNoteCell *cell = [ZHNoteCell noteCellWithTableView:tableView];
-    
+    cell.cellDelegate = self;
     //02.给cell传递模型，设置cell数据
     cell.note = self.dataArr[indexPath.row];
     
@@ -153,8 +153,15 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+}
+#pragma mark - ZHMultiButtonTableViewCellDelegate
+
+#pragma mark - 删除按钮点击
+- (void)tableViewCellDidClickDelete:(ZHMultiButtonTableViewCell *)tableViewCell
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:tableViewCell];
     NSLog(@"%d",indexPath.row);
-    if (editingStyle == UITableViewCellEditingStyleDelete) { //删除
         
         NSLog(@"UITableViewCellEditingStyleDelete,%@",indexPath);
         
@@ -164,17 +171,18 @@
         [self.dataArr removeObjectAtIndex:indexPath.row];
         
         //02.从tableView中删除
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
         // !!!!!! 一定是上面这种顺序，先删数据源，再删cell，不然会崩
         
         //03.从磁盘删除
         [ZHDataUtil removeNote:note];
-    }
-    
 }
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+
+#pragma mark - 置顶按钮点击
+- (void)tableViewCellDidClickStick:(ZHMultiButtonTableViewCell *)tableViewCell
 {
-    return @"删除";
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:tableViewCell];
+    NSLog(@"置置置置置置置置顶%d",indexPath.row);
 }
 
 #pragma mark - new ViewController Delegate

@@ -16,6 +16,7 @@
 		1892B2C41C22967300535B24 /* ZHHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892B2C21C22967300535B24 /* ZHHierarchy.m */; };
 		18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A071C0D88BB00D5AE9F /* ZHNote.m */; };
 		18981A0B1C0D89F600D5AE9F /* ZHNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */; };
+		18ACE69C1C2AE6F800CB5DD6 /* ZHMultiButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ACE69B1C2AE6F800CB5DD6 /* ZHMultiButtonTableViewCell.m */; };
 		18BE50CD1C14122900C77A3C /* ZHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE50CC1C14122900C77A3C /* ZHTextView.m */; };
 		18E8840A1C181FBC00A6A1E0 /* ZHDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E884091C181FBC00A6A1E0 /* ZHDataUtil.m */; };
 		18EC0D881C219EFC00442143 /* ZHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC0D851C219EFC00442143 /* ZHSearch.m */; };
@@ -73,6 +74,8 @@
 		18981A071C0D88BB00D5AE9F /* ZHNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNote.m; sourceTree = "<group>"; };
 		18981A091C0D89F600D5AE9F /* ZHNoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNoteCell.h; sourceTree = "<group>"; };
 		18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNoteCell.m; sourceTree = "<group>"; };
+		18ACE69A1C2AE6F800CB5DD6 /* ZHMultiButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHMultiButtonTableViewCell.h; sourceTree = "<group>"; };
+		18ACE69B1C2AE6F800CB5DD6 /* ZHMultiButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHMultiButtonTableViewCell.m; sourceTree = "<group>"; };
 		18BE50CB1C14122900C77A3C /* ZHTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHTextView.h; sourceTree = "<group>"; };
 		18BE50CC1C14122900C77A3C /* ZHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTextView.m; sourceTree = "<group>"; };
 		18E884081C181FBC00A6A1E0 /* ZHDataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDataUtil.h; sourceTree = "<group>"; };
@@ -330,6 +333,8 @@
 			isa = PBXGroup;
 			children = (
 				18EC0D831C219EFC00442143 /* ZHSearch */,
+				18ACE69A1C2AE6F800CB5DD6 /* ZHMultiButtonTableViewCell.h */,
+				18ACE69B1C2AE6F800CB5DD6 /* ZHMultiButtonTableViewCell.m */,
 				18981A091C0D89F600D5AE9F /* ZHNoteCell.h */,
 				18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */,
 				181311A31C11895F00BA7874 /* ZHBottomBar.h */,
@@ -441,6 +446,7 @@
 				18EC0D881C219EFC00442143 /* ZHSearch.m in Sources */,
 				18EF25D81C25498800873A68 /* ZHDBUtil.m in Sources */,
 				18EF25D11C2545A700873A68 /* FMDatabase.m in Sources */,
+				18ACE69C1C2AE6F800CB5DD6 /* ZHMultiButtonTableViewCell.m in Sources */,
 				18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */,
 				18EF25D31C2545A700873A68 /* FMDatabasePool.m in Sources */,
 				18EF25D51C2545A700873A68 /* FMResultSet.m in Sources */,

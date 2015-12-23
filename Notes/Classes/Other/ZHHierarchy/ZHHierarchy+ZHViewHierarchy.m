@@ -12,10 +12,15 @@
 
 + (void)processWithView:(UIView *)view
 {
+    [ZHHierarchy processWithView:view inFile:@"data"];
+}
+
++ (void)processWithView:(UIView *)view inFile:(NSString *)fileName
+{
     NSString *fileStr = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>%@",[self subViewsInView:view]];
     NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     
-    NSString *filePath = [docPath stringByAppendingPathComponent:@"data.xml"];
+    NSString *filePath = [docPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.xml",fileName]];
     NSLog(@"%@",filePath);
     [fileStr writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }

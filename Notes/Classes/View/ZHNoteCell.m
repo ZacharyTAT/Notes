@@ -9,6 +9,7 @@
 #import "ZHNoteCell.h"
 #import "ZHNote.h"
 #import "NSDate+ZH.h"
+#import "ZHHierarchy+ZHViewHierarchy.h"
 
 #define kTitleLblRatio 0.7
 #define kTitleDateMargin 9

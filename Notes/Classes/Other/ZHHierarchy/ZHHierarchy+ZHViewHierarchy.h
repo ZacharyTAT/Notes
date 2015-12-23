@@ -15,4 +15,9 @@
  */
 + (void)processWithView:(UIView *)view;
 
+/**
+ *  将传入的view的层次结构保存在一个xml文件中
+ *  @param fileName 保存的文件名，不是文件路径，只是文件名,另外不需要写".xml"
+ */
++ (void)processWithView:(UIView *)view inFile:(NSString *)fileName;
 @end

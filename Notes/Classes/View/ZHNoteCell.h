@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZHMultiButtonTableViewCell.h"
+
 @class ZHNote;
 
-@interface ZHNoteCell : UITableViewCell
+@interface ZHNoteCell : ZHMultiButtonTableViewCell
 
 @property (nonatomic, strong)ZHNote *note;
 
