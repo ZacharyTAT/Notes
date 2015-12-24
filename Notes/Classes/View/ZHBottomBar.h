@@ -23,7 +23,13 @@ typedef NS_ENUM(NSInteger, ZHBarItem)
     ZHBarItemDelete,
     
     /** 新建按钮 */
-    ZHBarItemCreate
+    ZHBarItemCreate,
+    
+    /** 上一页按钮 */
+    ZHBarItemPrePage,
+    
+    /** 下一页按钮 */
+    ZHBarItemNextPage
 };
 
 #pragma mark - 底部栏的代理方法
@@ -51,4 +57,18 @@ typedef NS_ENUM(NSInteger, ZHBarItem)
  */
 + (instancetype)bottomBar;
 
+
+/**
+ *  添加一个显示文字的按钮
+ *
+ *  @param index 添加的位置，不包含弹簧的位置，从0开始.若index大于item个数(不包含弹簧)，则默认加到最后
+ */
+- (void)addTitleBtnWithTitle:(NSString *)title type:(ZHBarItem)barItemType AtIndex:(NSUInteger)index;
+
+
 @end
+
+
+
+
+

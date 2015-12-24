@@ -32,18 +32,11 @@
 /** 记录最新的一条笔记记录 */
 @property(nonatomic, strong)ZHNote *latestNote;
 
-// 这两个方法的方法体在父类中，在此进行声明是为了去掉警告(没错，我就是强迫症TAT)
-- (NSString *)noteTitle;
-- (void)saveWithTitle:(NSString *)title;
-
 @end
 
 @implementation ZHNewViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
+
 
 - (void)viewDidAppear:(BOOL)animated
 {

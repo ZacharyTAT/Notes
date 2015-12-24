@@ -4,13 +4,14 @@
 //
 //  Created by apple on 12/6/15.
 //  Copyright (c) 2015 swjtu. All rights reserved.
-//
+//  查看和修改笔记控制器，笔记列表点击进来的
 
-#import <UIKit/UIKit.h>
+
+#import "ZHDetailNoteViewController.h"
 
 @class ZHNote,ZHScanEditViewController;
 
-@protocol ZHScanEditViewControllerDelegate <NSObject>
+@protocol ZHScanEditViewControllerDelegate <NSObject,ZHDetailNoteViewControllerDelegate>
 
 @optional
 
@@ -23,13 +24,10 @@
 
 @end
 
-@interface ZHScanEditViewController : UIViewController
+@interface ZHScanEditViewController : ZHDetailNoteViewController
 
 /** 存储传递过来的文字 */
 //@property (nonatomic, copy)NSString *content; // 作废，传模型，不能只是简单的字符串
-
-/** 存储一条笔记各种信息的模型 */
-@property(nonatomic, strong)ZHNote *note;
 
 /** 查看和修改笔记控制器的代理 */
 @property(nonatomic, weak)id<ZHScanEditViewControllerDelegate> delegate;

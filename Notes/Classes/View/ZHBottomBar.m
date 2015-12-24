@@ -12,14 +12,10 @@
 
 @interface ZHBottomBar()
 
-/** 分享按钮 */
-@property(nonatomic,weak)UIBarButtonItem *shareBtn;
 
-/** 删除按钮 */
-@property(nonatomic,weak)UIBarButtonItem *deleteBtn;
+/** 存储item数组，不包含弹簧 */
+@property(nonatomic,strong)NSMutableArray *itemArr;
 
-/** 新建按钮 */
-@property(nonatomic,weak)UIBarButtonItem *createBtn;
 
 @end
 
@@ -54,7 +50,6 @@
     }
 }
 
-
 #pragma mark - 初始化所有子控件
 /**
  *  初始化所有子控件
@@ -65,7 +60,7 @@
     UIBarButtonItem *shareBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(barItemClick:)];
     shareBtn.tag = ZHBarItemShare;
     shareBtn.tintColor = ZHTintColor;
-    self.shareBtn = shareBtn;
+    //self.shareBtn = shareBtn;
     
     //弹簧
     UIBarButtonItem *spring1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -74,7 +69,7 @@
     UIBarButtonItem *deleteBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(barItemClick:)];
     deleteBtn.tag = ZHBarItemDelete;
     deleteBtn.tintColor = ZHTintColor;
-    self.deleteBtn = deleteBtn;
+    //self.deleteBtn = deleteBtn;
     
     //弹簧
     UIBarButtonItem *spring2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -83,14 +78,58 @@
     UIBarButtonItem *createBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(barItemClick:)];
     createBtn.tag = ZHBarItemCreate;
     createBtn.tintColor = ZHTintColor;
-    self.createBtn = createBtn;
+    //self.createBtn = createBtn;
     
+    self.itemArr = [NSMutableArray arrayWithArray:@[shareBtn,deleteBtn,createBtn]];
     
     self.items = @[shareBtn,spring1,deleteBtn,spring2,createBtn];
 }
 
+#pragma mark - 添加一个显示文字的按钮
+- (void)addTitleBtnWithTitle:(NSString *)title type:(ZHBarItem)barItemType AtIndex:(NSUInteger)index
+{
+    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.items];
+    
+    //弹簧
+    UIBarButtonItem *spring = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    //上一页按钮
+    UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(barItemClick:)];
+    titleItem.tag = barItemType;
+    titleItem.tintColor = ZHTintColor;
+    
+    //self.createBtn = createBtn;
+    
+    if (index < self.itemArr.count) { //插入
+        
+        UIBarButtonItem *item = self.itemArr[index];
+        
+        //更新itemArr
+        [self.itemArr insertObject:titleItem atIndex:index];
+        
+        //更新items
+        NSArray *insertArr = @[titleItem,spring];
+        
+        NSUInteger itemIndex = [mutableArr indexOfObject:item];
+        [mutableArr insertObjects:insertArr atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(itemIndex, insertArr.count)]];
+        
+    }else{ //最后面追加
+        
+        //更新itemArr
+        [self.itemArr addObject:titleItem];
+        
+        //更新items
+        NSArray *insertArr = @[spring,titleItem];
+        
+        [mutableArr addObjectsFromArray:insertArr];
+    }
+    
+    self.items = mutableArr;
+}
+
 - (void)barItemClick:(UIBarButtonItem *)barItem
 {
+    NSLog(@"%d",barItem.tag);
     //通知代理，按钮被点击了
     if ([self.delegate respondsToSelector:@selector(bottomBar:didClickItem:)]) {
         [self.delegate bottomBar:self didClickItem:barItem];

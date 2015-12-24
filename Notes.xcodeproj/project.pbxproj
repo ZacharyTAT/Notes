@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		181311A51C11895F00BA7874 /* ZHBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 181311A41C11895F00BA7874 /* ZHBottomBar.m */; };
 		183664751C195D6000AA1DFF /* NSString+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 183664741C195D6000AA1DFF /* NSString+ZH.m */; };
+		183A70521C2BC7B70043F552 /* ZHDetailNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A70511C2BC7B70043F552 /* ZHDetailNoteViewController.m */; };
+		183A706F1C2BE16C0043F552 /* ZHPageBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A706E1C2BE16C0043F552 /* ZHPageBottomBar.m */; };
 		185794B71C144EE70050F62D /* NSDate+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794B61C144EE70050F62D /* NSDate+ZH.m */; };
 		185794BD1C1463B10050F62D /* ZHScanEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794BC1C1463B10050F62D /* ZHScanEditViewController.m */; };
 		185794C01C1467460050F62D /* ZHNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794BF1C1467460050F62D /* ZHNewViewController.m */; };
@@ -60,6 +62,10 @@
 		181311A41C11895F00BA7874 /* ZHBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHBottomBar.m; sourceTree = "<group>"; };
 		183664731C195D6000AA1DFF /* NSString+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZH.h"; sourceTree = "<group>"; };
 		183664741C195D6000AA1DFF /* NSString+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZH.m"; sourceTree = "<group>"; };
+		183A70501C2BC7B70043F552 /* ZHDetailNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDetailNoteViewController.h; sourceTree = "<group>"; };
+		183A70511C2BC7B70043F552 /* ZHDetailNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDetailNoteViewController.m; sourceTree = "<group>"; };
+		183A706D1C2BE16C0043F552 /* ZHPageBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPageBottomBar.h; sourceTree = "<group>"; };
+		183A706E1C2BE16C0043F552 /* ZHPageBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPageBottomBar.m; sourceTree = "<group>"; };
 		185794B51C144EE70050F62D /* NSDate+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ZH.h"; sourceTree = "<group>"; };
 		185794B61C144EE70050F62D /* NSDate+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ZH.m"; sourceTree = "<group>"; };
 		185794BB1C1463B10050F62D /* ZHScanEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHScanEditViewController.h; sourceTree = "<group>"; };
@@ -299,6 +305,8 @@
 				18F301E01C0D6ED500D9C398 /* ZHNavigationController.m */,
 				18F301E21C0D6EFF00D9C398 /* ZHTableViewController.h */,
 				18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */,
+				183A70501C2BC7B70043F552 /* ZHDetailNoteViewController.h */,
+				183A70511C2BC7B70043F552 /* ZHDetailNoteViewController.m */,
 				185794BB1C1463B10050F62D /* ZHScanEditViewController.h */,
 				185794BC1C1463B10050F62D /* ZHScanEditViewController.m */,
 				185794BE1C1467460050F62D /* ZHNewViewController.h */,
@@ -339,6 +347,8 @@
 				18981A0A1C0D89F600D5AE9F /* ZHNoteCell.m */,
 				181311A31C11895F00BA7874 /* ZHBottomBar.h */,
 				181311A41C11895F00BA7874 /* ZHBottomBar.m */,
+				183A706D1C2BE16C0043F552 /* ZHPageBottomBar.h */,
+				183A706E1C2BE16C0043F552 /* ZHPageBottomBar.m */,
 				18BE50CB1C14122900C77A3C /* ZHTextView.h */,
 				18BE50CC1C14122900C77A3C /* ZHTextView.m */,
 			);
@@ -442,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */,
+				183A70521C2BC7B70043F552 /* ZHDetailNoteViewController.m in Sources */,
 				18981A0B1C0D89F600D5AE9F /* ZHNoteCell.m in Sources */,
 				18EC0D881C219EFC00442143 /* ZHSearch.m in Sources */,
 				18EF25D81C25498800873A68 /* ZHDBUtil.m in Sources */,
@@ -453,6 +464,7 @@
 				18EF25D21C2545A700873A68 /* FMDatabaseAdditions.m in Sources */,
 				18BE50CD1C14122900C77A3C /* ZHTextView.m in Sources */,
 				18EC0D891C219EFC00442143 /* ZHSearchBar.m in Sources */,
+				183A706F1C2BE16C0043F552 /* ZHPageBottomBar.m in Sources */,
 				18F6CB811C1ADE2400CE78BE /* ZHKeyboardJudge.m in Sources */,
 				1892B2C31C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m in Sources */,
 				18EF25D41C2545A700873A68 /* FMDatabaseQueue.m in Sources */,

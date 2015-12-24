@@ -19,7 +19,7 @@
 
 
 
-@interface ZHTableViewController ()<ZHNewViewControllerDelegate,ZHSearchDelegate,ZHMultiButtonTableViewCellDelegate>
+@interface ZHTableViewController ()<ZHNewViewControllerDelegate,ZHSearchDelegate,ZHMultiButtonTableViewCellDelegate,ZHScanEditViewControllerDelegate>
 
 /** 数据源 */
 @property (nonatomic, strong)NSMutableArray *dataArr;

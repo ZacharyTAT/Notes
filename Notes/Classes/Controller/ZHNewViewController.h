@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 swjtu. All rights reserved.
 //
 
-#import "ZHScanEditViewController.h"
+#import "ZHDetailNoteViewController.h"
 
 @class ZHNewViewController,ZHNote;
 
-@protocol ZHNewViewControllerDelegate <NSObject,ZHScanEditViewControllerDelegate>
+@protocol ZHNewViewControllerDelegate <NSObject,ZHDetailNoteViewControllerDelegate>
 
 @optional
 
@@ -28,7 +28,7 @@
 
 @end
 
-@interface ZHNewViewController : ZHScanEditViewController
+@interface ZHNewViewController : ZHDetailNoteViewController
 
 /** 代理 */
 @property(nonatomic, weak)id<ZHNewViewControllerDelegate> delegate;
