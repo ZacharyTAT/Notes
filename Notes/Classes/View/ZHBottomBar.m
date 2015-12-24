@@ -28,7 +28,6 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-//        self.alpha = 0.7; //设置透明度，实现穿透效果
         [self setupSubViews];
     }
     return self;
@@ -41,6 +40,20 @@
 {
     return [[self alloc] init];
 }
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+//    [ZHHierarchy processWithView:self];
+    //设置背景的透明度
+    for (UIView *subView in self.subviews) {
+        if ([subView isKindOfClass:NSClassFromString(@"_UIToolbarBackground")]) {
+            subView.backgroundColor = [UIColor whiteColor];
+            subView.alpha = 0.9;
+        }
+    }
+}
+
 
 #pragma mark - 初始化所有子控件
 /**

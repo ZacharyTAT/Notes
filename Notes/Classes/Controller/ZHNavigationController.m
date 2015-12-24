@@ -8,6 +8,7 @@
 
 #import "ZHNavigationController.h"
 
+
 @interface ZHNavigationController ()
 
 @end
@@ -27,14 +28,26 @@
  */
 - (void)setup
 {
-    UINavigationBar * navBar = [UINavigationBar appearance];
+    UINavigationBar *appearance = [UINavigationBar appearance];
     
     //文字颜色
     //tintColor\barTintColor
-    navBar.tintColor = ZHTintColor;
+    appearance.tintColor = ZHTintColor;
     
     //穿透效果
-#warning 有时间再想办法吧
+    //直接改navBar的backgroundColor和alpha是不行的
+    //要该背景视图_UINavigationBarBackground,它是负责管理navBar的背景
+    
+//    [ZHHierarchy processWithView:self.navigationBar];
+    UINavigationBar *navBar = self.navigationBar;
+    for (UIView *subView in navBar.subviews) {
+        if ([subView isKindOfClass:NSClassFromString(@"_UINavigationBarBackground")]) {
+//            [subView removeFromSuperview];
+            subView.backgroundColor = [UIColor whiteColor];
+            subView.alpha = 0.9;
+        }
+    }
+    
 }
 
 

@@ -33,6 +33,9 @@
 // 外界修改了笔记内容通知名
 #define ZHNoteDataSourceDidChangeNotification @"ZHNoteDataSourceDidChangeNotification"
 
+// 导入分析工具，以便在所有地方可以使用
+#import "ZHHierarchy+ZHViewHierarchy.h"
+
 #endif
 
 

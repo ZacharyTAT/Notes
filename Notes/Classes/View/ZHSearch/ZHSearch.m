@@ -9,7 +9,6 @@
 #import "ZHSearch.h"
 #import "ZHSearchBar.h"
 #import "ZHNoteCell.h"
-#import "ZHHierarchy+ZHViewHierarchy.h"
 
 @interface ZHSearch()<UISearchBarDelegate,UISearchDisplayDelegate,UITableViewDataSource,UITableViewDelegate>
 
