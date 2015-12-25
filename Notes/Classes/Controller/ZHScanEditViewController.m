@@ -38,10 +38,8 @@
 
 @implementation ZHScanEditViewController
 
-
-
-
 #pragma mark - 重写至父类的方法
+/*
 - (void)setupBottomBar
 {
     ZHBottomBar *bottomBar = [ZHPageBottomBar bottomBar];
@@ -50,7 +48,7 @@
     //设置代理
     bottomBar.delegate = self;
 }
-
+*/
 #pragma mark - 完成按钮点击事件
 - (void)doneBtnClick
 {
@@ -103,6 +101,9 @@
     //03.更新顶部的时间标签
     self.textView.modifydateLbl.text = [[NSDate date] toLocaleString];
     
+    //04.现在是最上面一条，禁用"上一条"按钮
+    self.bottomBar.prePageItem.enabled = NO;
+    
     //保存
     [self saveWithTitle:title];
     //通知代理
@@ -133,9 +134,6 @@
     //返回到上层
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-
-
 
 
 

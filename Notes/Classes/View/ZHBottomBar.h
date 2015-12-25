@@ -51,6 +51,11 @@ typedef NS_ENUM(NSInteger, ZHBarItem)
 /** 代理 */
 @property(nonatomic,weak)id<ZHBottomBarDelegate> delegate;
 
+/** 上一页按钮 */
+@property(nonatomic,weak)UIBarButtonItem *prePageItem;
+
+/** 下一页按钮 */
+@property(nonatomic,weak)UIBarButtonItem *nextPageItem;
 
 /**
  *  迅速创建一个底部栏

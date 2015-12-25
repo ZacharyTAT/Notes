@@ -7,11 +7,40 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ZHNote;
+
+@class ZHNote,ZHDetailNoteViewController;
 
 @protocol ZHDetailNoteViewControllerDelegate <NSObject>
 
+
 @end
+
+@protocol ZHDetailNoteViewControllerDataSource <NSObject>
+
+/**
+ *  查询当前笔记的前一条笔记
+ */
+- (ZHNote *)detailNoteViewController:(ZHDetailNoteViewController *)dnvc previousNoteForNote:(ZHNote *)currentNote;
+/**
+ *  查询当前笔记的下一条笔记
+ */
+- (ZHNote *)detailNoteViewController:(ZHDetailNoteViewController *)dnvc nextNoteForNote:(ZHNote *)currentNote;
+/**
+ *  查询笔记是否最上面一条笔记
+ *
+ *  @param note 待查询的笔记
+ */
+- (BOOL)detailNoteViewController:(ZHDetailNoteViewController *)dnvc isNoteTopNote:(ZHNote *)note;
+/**
+ *  查询笔记是否最下面一条笔记
+ *
+ *  @param note 待查询的笔记
+ */
+- (BOOL)detailNoteViewController:(ZHDetailNoteViewController *)dnvc isNoteBottomNote:(ZHNote *)note;
+
+
+@end
+
 
 @interface ZHDetailNoteViewController : UIViewController
 
@@ -21,6 +50,9 @@
 /** 代理 */
 @property(nonatomic, weak)id<ZHDetailNoteViewControllerDelegate> delegate;
 
+/** 数据源 */
+@property(nonatomic,weak)id<ZHDetailNoteViewControllerDataSource> dataSource;
+
 /**
  *  保存数据
  */
@@ -28,3 +60,9 @@
 
 
 @end
+
+
+
+
+
+

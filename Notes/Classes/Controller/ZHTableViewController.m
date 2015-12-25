@@ -19,7 +19,7 @@
 
 
 
-@interface ZHTableViewController ()<ZHNewViewControllerDelegate,ZHSearchDelegate,ZHMultiButtonTableViewCellDelegate,ZHScanEditViewControllerDelegate>
+@interface ZHTableViewController ()<ZHNewViewControllerDelegate,ZHScanEditViewControllerDelegate,ZHDetailNoteViewControllerDataSource,ZHSearchDelegate,ZHMultiButtonTableViewCellDelegate>
 
 /** 数据源 */
 @property (nonatomic, strong)NSMutableArray *dataArr;
@@ -111,7 +111,10 @@
 {
     ZHNewViewController *newVC = [[ZHNewViewController alloc] init];
     newVC.note = [[ZHNote alloc] initWithTitle:@"" modifydate:[NSDate date] content:@""];
+    
     newVC.delegate = self;
+    newVC.dataSource = self;
+    
     [self.navigationController pushViewController:newVC animated:animated];
 }
 
@@ -146,6 +149,7 @@
     ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
     dvc.note = note;
     dvc.delegate = self;
+    dvc.dataSource = self;
     
     //跳转
     [self.navigationController pushViewController:dvc animated:YES];
@@ -183,6 +187,44 @@
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tableViewCell];
     NSLog(@"置置置置置置置置顶%d",indexPath.row);
+}
+
+#pragma mark - detail note view controller Data Source
+
+#warning 暂不考虑搜索的情况
+
+#pragma mark - 下一条笔记
+- (ZHNote *)detailNoteViewController:(ZHDetailNoteViewController *)dnvc nextNoteForNote:(ZHNote *)currentNote
+{
+    if (currentNote == [self.dataArr lastObject])return nil;
+    
+    NSInteger currentIndex = [self.dataArr indexOfObject:currentNote];
+    
+    return self.dataArr[currentIndex + 1];
+}
+
+#pragma mark - 上一条笔记
+- (ZHNote *)detailNoteViewController:(ZHDetailNoteViewController *)dnvc previousNoteForNote:(ZHNote *)currentNote
+{
+    if (currentNote == [self.dataArr firstObject])return nil;
+    
+    NSInteger currentIndex = [self.dataArr indexOfObject:currentNote];
+    
+    return self.dataArr[currentIndex - 1];
+}
+
+#pragma mark - 是否为最上面一条笔记
+- (BOOL)detailNoteViewController:(ZHDetailNoteViewController *)dnvc isNoteTopNote:(ZHNote *)note
+{
+    if (!self.dataArr.count) return YES;//没有数据，则就是最上面一条
+    return (note == [self.dataArr firstObject]);
+}
+
+#pragma mark - 是否为最下面一条笔记
+- (BOOL)detailNoteViewController:(ZHDetailNoteViewController *)dnvc isNoteBottomNote:(ZHNote *)note
+{
+    if (!self.dataArr.count) return YES;//没有数据，则就是最下面一条
+    return (note == [self.dataArr lastObject]);
 }
 
 #pragma mark - new ViewController Delegate
@@ -263,7 +305,6 @@
     ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
     dvc.note = note;
     dvc.delegate = self;
-    
     //跳转
     [self.navigationController pushViewController:dvc animated:YES];
 }

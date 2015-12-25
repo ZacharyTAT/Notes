@@ -10,6 +10,7 @@
 #import <objc/message.h>
 
 #import "ZHTextView.h"
+#import "ZHPageBottomBar.h"
 #import "ZHBottomBar.h"
 #import "ZHNote.h"
 
@@ -66,8 +67,51 @@
     CGFloat bottomBarH = 44;
     CGFloat bottomBarY = height - bottomBarH;
     self.bottomBar.frame = CGRectMake(bottomBarX, bottomBarY, bottomBarW, bottomBarH);
+    
+    //上一页和下一页是否可用
+    
+    //上一页
+    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:isNoteTopNote:)]) {
+        if ([self.dataSource detailNoteViewController:self isNoteTopNote:self.note]) {//是最上面一条
+            self.bottomBar.prePageItem.enabled = NO;
+        }
+    }
+    //下一页
+    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:isNoteBottomNote:)]) {
+        if ([self.dataSource detailNoteViewController:self isNoteBottomNote:self.note]) { //是最下面一条
+            self.bottomBar.nextPageItem.enabled = NO;
+        }
+    }
 }
 
+#pragma mark - 更新UI，当模型改了之后更新信息
+- (void)updateUI
+{
+    //使用的数据保存在self.note
+    self.textView.text = self.note.content;
+    self.textView.modifydateLbl.text = [self.note.modifydate toLocaleString];
+    
+    //禁止\打开 上一页\下一页
+    
+    //上一页
+    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:isNoteTopNote:)]) {
+        if ([self.dataSource detailNoteViewController:self isNoteTopNote:self.note]) { //是最上面一条，禁止
+            self.bottomBar.prePageItem.enabled = NO;
+        }else{  //解禁,这句不能少，不然当不是最上面一条时，还是处于禁止状态
+            self.bottomBar.prePageItem.enabled = YES;
+        }
+    }
+    
+    //下一页
+    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:isNoteBottomNote:)]) {
+        if ([self.dataSource detailNoteViewController:self isNoteBottomNote:self.note]) { // 是最下面一条，禁止下一页
+            self.bottomBar.nextPageItem.enabled = NO;
+        }else{//不是最下面一条，使用
+            self.bottomBar.nextPageItem.enabled = YES;
+        }
+    }
+    
+}
 
 #pragma mark - 初始化左边返回按钮
 /**
@@ -103,7 +147,7 @@
 #pragma mark - 设置底部工具条
 - (void)setupBottomBar
 {
-    ZHBottomBar *bottomBar = [ZHBottomBar bottomBar];
+    ZHBottomBar *bottomBar = [ZHPageBottomBar bottomBar];
     self.bottomBar = bottomBar;
     [self.view addSubview:bottomBar];
     //设置代理
@@ -133,7 +177,7 @@
     [ZHDataUtil saveWithNote:note];
 }
 
-#pragma mark - UItextView delegate
+#pragma mark - UITextView delegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
@@ -177,9 +221,11 @@
             break;
             
         case ZHBarItemPrePage:   //上一页
+            [self prePageitemHandler];
             break;
             
         case ZHBarItemNextPage:   //下一页
+            [self nextPageitemHandler];
             break;
         
         default:
@@ -187,13 +233,15 @@
     }
 }
 
-#pragma mark - 删除按钮的处理事件
+#pragma mark - 底部工具栏各按钮点击事件
+
+#pragma mark - 点击删除按钮
 - (void)deleteItemHandler
 {
     [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除笔记" otherButtonTitles:nil, nil] showInView:self.view];
 }
 
-#pragma mark - 新建按钮的处理事件
+#pragma mark - 点击新建按钮
 - (void)createItemHandler
 {
     UINavigationController *nav = self.navigationController;
@@ -205,6 +253,44 @@
     objc_msgSend(nav.topViewController, @selector(newBtnWithAnimated:),NO);
 }
 
+#pragma mark - 点击上一页按钮
+- (void)prePageitemHandler
+{
+    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:previousNoteForNote:)]) {
+        ZHNote *currentNote = self.latestNote;
+        if (currentNote == nil) {
+            currentNote = self.note;
+        }
+        ZHNote *preNote = [self.dataSource detailNoteViewController:self previousNoteForNote:currentNote];
+        
+        //更新模型
+        self.note = preNote;
+        self.latestNote = nil;
+        
+        [self updateUI];
+        
+        NSLog(@"preNote = %@",preNote);
+    }
+}
+
+#pragma mark - 点击下一页按钮
+- (void)nextPageitemHandler
+{
+    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:nextNoteForNote:)]) {
+        ZHNote *currentNote = self.latestNote;
+        if (currentNote == nil) {
+            currentNote = self.note;
+        }
+        ZHNote *nextNote = [self.dataSource detailNoteViewController:self nextNoteForNote:currentNote];
+        
+        self.note = nextNote;
+        self.latestNote = nil;
+        
+        [self updateUI];
+        
+        NSLog(@"nextNote = %@",nextNote);
+    }
+}
 
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

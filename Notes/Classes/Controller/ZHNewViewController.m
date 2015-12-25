@@ -41,6 +41,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    //上一页不能用
+    self.bottomBar.prePageItem.enabled = NO;
+    
     self.textView.editable = YES;
     [self.textView becomeFirstResponder];
 }
@@ -104,6 +108,9 @@
     
     //03.更新顶部的时间标签
     self.textView.modifydateLbl.text = [[NSDate date] toLocaleString];
+    
+    //04.禁用"上一页"
+    self.bottomBar.prePageItem.enabled = NO;
     
     if (self.latestNote) { //若之前存了，还要先删掉
         if ([self.delegate respondsToSelector:@selector(newViewController:didClickDeleteItemWithLatestNote:)]) {

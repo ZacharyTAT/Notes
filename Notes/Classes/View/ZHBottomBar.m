@@ -21,6 +21,16 @@
 
 @implementation ZHBottomBar
 
+/**
+ *  第一次使用这个类的时候调用
+ */
++(void)initialize
+{
+    //工具栏的主题
+    [[UIToolbar appearance] setTintColor:ZHTintColor];
+    
+}
+
 - (instancetype)init
 {
     if (self = [super init]) {
@@ -59,7 +69,7 @@
     //01.分享按钮
     UIBarButtonItem *shareBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(barItemClick:)];
     shareBtn.tag = ZHBarItemShare;
-    shareBtn.tintColor = ZHTintColor;
+//    shareBtn.tintColor = ZHTintColor; //由UIToolBar主题设置
     //self.shareBtn = shareBtn;
     
     //弹簧
@@ -68,7 +78,7 @@
     //02.删除按钮
     UIBarButtonItem *deleteBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(barItemClick:)];
     deleteBtn.tag = ZHBarItemDelete;
-    deleteBtn.tintColor = ZHTintColor;
+//    deleteBtn.tintColor = ZHTintColor;
     //self.deleteBtn = deleteBtn;
     
     //弹簧
@@ -77,7 +87,7 @@
     //03.新建按钮
     UIBarButtonItem *createBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(barItemClick:)];
     createBtn.tag = ZHBarItemCreate;
-    createBtn.tintColor = ZHTintColor;
+//    createBtn.tintColor = ZHTintColor;
     //self.createBtn = createBtn;
     
     self.itemArr = [NSMutableArray arrayWithArray:@[shareBtn,deleteBtn,createBtn]];
@@ -93,10 +103,17 @@
     //弹簧
     UIBarButtonItem *spring = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    //上一页按钮
+    //按钮
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(barItemClick:)];
+    
     titleItem.tag = barItemType;
-    titleItem.tintColor = ZHTintColor;
+//    titleItem.tintColor = ZHTintColor;
+    
+    if (barItemType == ZHBarItemPrePage) {
+        self.prePageItem = titleItem;
+    }else if (barItemType == ZHBarItemNextPage) {
+        self.nextPageItem = titleItem;
+    }
     
     //self.createBtn = createBtn;
     
@@ -126,6 +143,7 @@
     
     self.items = mutableArr;
 }
+
 
 - (void)barItemClick:(UIBarButtonItem *)barItem
 {
