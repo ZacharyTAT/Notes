@@ -34,6 +34,8 @@
 
 @implementation ZHTableViewController
 
+
+#pragma mark - Life Cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -44,7 +46,18 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //顶部偏移,使得搜索框不最开始不显示
+    CGFloat headerViewHeight = self.tableView.tableHeaderView.frame.size.height;
+//    self.tableView.contentOffset = CGPointMake(0, headerViewHeight);
+    CGPoint contentOffset = self.tableView.contentOffset;
+    contentOffset.y += headerViewHeight;
+    self.tableView.contentOffset = contentOffset;
+    
+}
 #pragma mark - 数据源
 /**
  *  数据源
@@ -88,7 +101,7 @@
 #pragma mark - 初始化表格的头部和尾部
 - (void)setupTableViewHeaderFooter
 {
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
     
     ZHSearch *search = [[ZHSearch alloc] initWithcontentController:self dataSource:self.searchResultArr];
     [search.searchBar donotDoAutoThings];
