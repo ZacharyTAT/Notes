@@ -27,6 +27,8 @@
 /** 时间标签显示文字 */
 @property (nonatomic,copy)NSString *modifydateLblText;
 
+/** 记录cell中的唯一子视图 */
+@property (nonatomic,weak)UIView *cellScrollView;
 
 @end
 
@@ -112,13 +114,12 @@
     //分割线
     CGFloat separatorX = 5;
     CGFloat separatorH = 1;
-    CGFloat separatorY = CGRectGetMaxY(self.contentView.frame);
+    CGFloat separatorY = CGRectGetMaxY(self.contentView.frame) - 1;
     CGFloat separatorW = self.frame.size.width - separatorX - 2;
     self.separator.frame = CGRectMake(separatorX, separatorY, separatorW, separatorH);
     
     
 }
-
 
 #pragma mark - 添加子控件
 /** 添加子控件 */
@@ -139,7 +140,7 @@
     //分割线
     UIView *separator = [[UIView alloc] init];
     self.separator = separator;
-    [self addSubview:separator];
+    [self.cellScrollView addSubview:separator];
     separator.backgroundColor = [UIColor lightGrayColor];
 }
 

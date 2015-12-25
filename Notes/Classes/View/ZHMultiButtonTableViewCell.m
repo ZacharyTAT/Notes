@@ -8,6 +8,12 @@
 
 #import "ZHMultiButtonTableViewCell.h"
 
+@interface ZHMultiButtonTableViewCell()
+
+/** 记录cell中的唯一子视图 */
+@property (nonatomic,weak)UIView *cellScrollView;
+
+@end
 
 @implementation ZHMultiButtonTableViewCell
 
@@ -86,6 +92,12 @@
         }
     }
 }
+
+- (void)didAddSubview:(UIView *)subview
+{
+    self.cellScrollView = subview;
+}
+
 @end
 
 
