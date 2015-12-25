@@ -256,13 +256,8 @@
 #pragma mark - 点击上一页按钮
 - (void)prePageitemHandler
 {
-    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:previousNoteForNote:)]) {
-        ZHNote *currentNote = self.latestNote;
-        if (currentNote == nil) {
-            currentNote = self.note;
-        }
-        ZHNote *preNote = [self.dataSource detailNoteViewController:self previousNoteForNote:currentNote];
-        
+    ZHNote *preNote = [self previousNote];
+    if (preNote) { //不为空才更新
         //更新模型
         self.note = preNote;
         self.latestNote = nil;
@@ -272,17 +267,30 @@
         NSLog(@"preNote = %@",preNote);
     }
 }
-
-#pragma mark - 点击下一页按钮
-- (void)nextPageitemHandler
+#pragma mark - 获取上一条记录
+/**
+ *  获取当前记录的上一条记录
+ */
+- (ZHNote *)previousNote
 {
-    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:nextNoteForNote:)]) {
+    ZHNote *preNote = nil;
+    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:previousNoteForNote:)]) {
         ZHNote *currentNote = self.latestNote;
         if (currentNote == nil) {
             currentNote = self.note;
         }
-        ZHNote *nextNote = [self.dataSource detailNoteViewController:self nextNoteForNote:currentNote];
-        
+        preNote = [self.dataSource detailNoteViewController:self previousNoteForNote:currentNote];
+    }
+    
+    return preNote;
+}
+
+#pragma mark - 点击下一页按钮
+- (void)nextPageitemHandler
+{
+
+    ZHNote *nextNote = [self nextNote];
+    if (nextNote) {//不为空才更新
         self.note = nextNote;
         self.latestNote = nil;
         
@@ -292,13 +300,61 @@
     }
 }
 
+#pragma mark - 获取当前记录的下一条记录
+- (ZHNote *)nextNote
+{
+    ZHNote *nextNote = nil;
+    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:nextNoteForNote:)]) {
+        ZHNote *currentNote = self.latestNote;
+        if (currentNote == nil) {
+            currentNote = self.note;
+        }
+        nextNote = [self.dataSource detailNoteViewController:self nextNoteForNote:currentNote];
+    }
+    
+    return nextNote;
+}
+
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (0 == buttonIndex) {//删除笔记
-        self.textView.text = @"";
-        self.textViewChanged = YES;
-        [self doneBtnClick];
+    if (0 == buttonIndex) {//删除笔记并显示下一条
+        
+//        self.textView.text = @"";
+//        self.textViewChanged = YES;
+//        [self doneBtnClick];
+        
+        
+        
+        //00.删除之前，获取下一条
+        
+        ZHNote *nextNoteToDisplay = [self nextNote];
+        if (nextNoteToDisplay == nil) {//下一条获取不到，可能当前条是最下面一条，所以就获取上一条
+            nextNoteToDisplay = [self previousNote];
+        }
+        
+        //01.删除
+        //通知代理，从数据源中删除
+        if ([self.delegate respondsToSelector:@selector(detailNoteViewController:DidClickDeleteItemWithNote:latestNote:)]) {
+            [self.delegate detailNoteViewController:self DidClickDeleteItemWithNote:self.note latestNote:self.latestNote];
+        }
+        
+        //从磁盘删除
+        [ZHDataUtil removeNote:self.note];
+        if (self.latestNote) [ZHDataUtil removeNote:self.latestNote];
+        
+        //02.显示下一条
+        //nextNoteToDisplay为空，则说明全部删完了
+        if (nextNoteToDisplay == nil) {//直接返回
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }else{//显示之
+            self.note = nextNoteToDisplay;
+            self.latestNote = nil;
+            [self updateUI];
+            
+        }
     }
 }
 
@@ -312,7 +368,26 @@
 #pragma mark - 返回按钮点击事件
 - (void)backBtnClick
 {
-#warning 这个方法要留给子类去实现
+    NSLog(@"back button clicked...");
+    
+    if (!self.textViewChanged) { //没有更改文本,则直接返回
+        NSLog(@"文本没有改变...");
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+    NSLog(@"text changed...");
+    
+    //执行完成按钮的操作，这其中会更新lastest属性
+    if ([[ZHKeyboardJudge judgeInstance] keyboardOpened]) { //键盘打开了，才要模拟完成按钮
+        [self doneBtnClick];
+    }
+    
+    
+    //返回到上层
+    [self.navigationController popViewControllerAnimated:YES];
+    
+#warning UITableView定位到刚才查看的行
+    
 }
 
 - (void)dealloc

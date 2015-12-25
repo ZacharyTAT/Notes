@@ -19,7 +19,7 @@
 
 
 
-@interface ZHTableViewController ()<ZHNewViewControllerDelegate,ZHScanEditViewControllerDelegate,ZHDetailNoteViewControllerDataSource,ZHSearchDelegate,ZHMultiButtonTableViewCellDelegate>
+@interface ZHTableViewController ()<ZHDetailNoteViewControllerDelegate,ZHDetailNoteViewControllerDataSource,ZHNewViewControllerDelegate,ZHScanEditViewControllerDelegate,ZHSearchDelegate,ZHMultiButtonTableViewCellDelegate>
 
 /** 数据源 */
 @property (nonatomic, strong)NSMutableArray *dataArr;
@@ -187,6 +187,18 @@
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tableViewCell];
     NSLog(@"置置置置置置置置顶%d",indexPath.row);
+}
+
+#pragma mark - detail note view controller Delegate
+
+#pragma mark - 点击了删除按钮
+- (void)detailNoteViewController:(ZHDetailNoteViewController *)dnvc DidClickDeleteItemWithNote:(ZHNote *)note latestNote:(ZHNote *)latestNote
+{
+    //删除这两个note
+    if (note) [self.dataArr removeObject:note];
+    if (latestNote) [self.dataArr removeObject:latestNote];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - detail note view controller Data Source

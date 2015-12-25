@@ -128,27 +128,6 @@
     }
 }
 
-#pragma mark - 返回按钮点击事件
-- (void)backBtnClick
-{
-    NSLog(@"%@ back button clicked...",[self class]);
-    
-    if (!self.textViewChanged) { //没有更改文本,则直接返回
-        NSLog(@"文本没有改变...");
-        [self.navigationController popViewControllerAnimated:YES];
-        return;
-    }
-    NSLog(@"text changed...");
-    
-    //执行完成按钮的操作，这其中会更新lastest属性
-    if ([[ZHKeyboardJudge judgeInstance] keyboardOpened]) { //键盘打开了，才要模拟完成按钮
-        [self doneBtnClick];
-    }
-    
-    //返回到上层
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 @end
 
 

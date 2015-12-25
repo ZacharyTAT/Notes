@@ -12,6 +12,11 @@
 
 @protocol ZHDetailNoteViewControllerDelegate <NSObject>
 
+/**
+ *  点击了删除按钮
+ *  传的两个note都应该删掉，若不为空的话
+ */
+- (void)detailNoteViewController:(ZHDetailNoteViewController *)dnvc DidClickDeleteItemWithNote:(ZHNote *)note latestNote:(ZHNote *)latestNote;
 
 @end
 
