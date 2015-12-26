@@ -39,6 +39,9 @@
 /** 代理 */
 @property(nonatomic,weak)id<ZHSearchDelegate> delegate;
 
+/** 记录是否正处于编辑状态 */
+@property(nonatomic,assign,getter = isEditing)BOOL editing;
+
 /**
  *  必须调用此方法进行初始化，而不是init
  *

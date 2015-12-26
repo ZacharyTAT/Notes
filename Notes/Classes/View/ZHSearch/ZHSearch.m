@@ -160,7 +160,7 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
     searchBar.showsCancelButton = YES;
-    
+    self.editing = YES;
     //调整背景视图尺寸,使之伸长20高度，进入状态栏区域，若考虑屏幕适配，则要进行判断
     [self changeSearchBarBackgroundViewFrame:YES];
     
@@ -188,6 +188,7 @@
 {
     NSLog(@"searchBarCancelButtonClicked...");
     [searchBar endEditing:YES];
+    self.editing = NO;
     searchBar.showsCancelButton = NO;
     [self changeSearchBarBackgroundViewFrame:NO];
     
