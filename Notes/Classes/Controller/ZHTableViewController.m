@@ -51,12 +51,12 @@
     [super viewWillAppear:animated];
     
     //顶部偏移,使得搜索框不最开始不显示
-    CGFloat headerViewHeight = self.tableView.tableHeaderView.frame.size.height;
-//    self.tableView.contentOffset = CGPointMake(0, headerViewHeight);
     CGPoint contentOffset = self.tableView.contentOffset;
-    contentOffset.y += headerViewHeight;
-    self.tableView.contentOffset = contentOffset;
-    
+    if (contentOffset.y < -20){
+        CGFloat headerViewHeight = self.tableView.tableHeaderView.frame.size.height;
+        contentOffset.y += headerViewHeight;
+        self.tableView.contentOffset = contentOffset;
+    }
 }
 #pragma mark - 数据源
 /**
@@ -133,6 +133,25 @@
 
 #pragma mark - table view delegate
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    //获取数据
+    ZHNote *note = self.dataArr[indexPath.row];
+    
+    //创建控制器
+    ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
+    dvc.note = note;
+    dvc.delegate = self;
+    dvc.dataSource = self;
+    
+    //跳转
+    [self.navigationController pushViewController:dvc animated:YES];
+}
+
+#pragma mark - table view data source
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.dataArr.count;
@@ -151,27 +170,13 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    //获取数据
-    ZHNote *note = self.dataArr[indexPath.row];
-    
-    //创建控制器
-    ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
-    dvc.note = note;
-    dvc.delegate = self;
-    dvc.dataSource = self;
-    
-    //跳转
-    [self.navigationController pushViewController:dvc animated:YES];
-}
+
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
 }
+
 #pragma mark - ZHMultiButtonTableViewCellDelegate
 
 #pragma mark - 删除按钮点击

@@ -386,8 +386,6 @@
     //返回到上层
     [self.navigationController popViewControllerAnimated:YES];
     
-#warning UITableView定位到刚才查看的行
-    
 }
 
 - (void)dealloc
