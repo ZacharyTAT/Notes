@@ -170,11 +170,12 @@
     //00.建立note模型
     ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:self.textView.text];
     
-    //01.保存到note属性中以备后用
+    //01.先保存到磁盘，这样可以查询到id
+    [ZHDataUtil saveWithNote:note];
+    
+    //02.保存到note属性中以备后用
     self.latestNote = note;
     
-    //02.保存到磁盘
-    [ZHDataUtil saveWithNote:note];
 }
 
 #pragma mark - UITextView delegate

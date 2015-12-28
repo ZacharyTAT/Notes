@@ -25,8 +25,8 @@
     if (note == nil) return;
     
     ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
-//    BOOL res = [dbUtil deleteNoteForId:note.noteId];
-    BOOL res = [dbUtil deleteNoteForModifyDate:note.modifydate];
+    BOOL res = [dbUtil deleteNoteForId:note.noteId];
+//    BOOL res = [dbUtil deleteNoteForModifyDate:note.modifydate];
     if (res)
         NSLog(@"删除成功");
     else
@@ -57,7 +57,10 @@
     ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
     [dbUtil insertWithNote:note];
     
-    NSLog(@"保存文件成功");
+    //保存后获取加上id
+    note.noteId = [dbUtil noteIdForModifyDate:note.modifydate];
+    
+    NSLog(@"保存文件成功,noteId = %d",note.noteId);
 }
 + (void)saveInFileWithNote:(ZHNote *)note
 {
@@ -106,6 +109,33 @@
     return dataArr;
 }
 
+#pragma mark - Update
 
+#pragma mark - 交换
++ (BOOL)exchangeNote:(ZHNote *)note withNote:(ZHNote *)anotherNote
+{
+    ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
+    
+    NSLog(@"\nnote = %@,\nanotherNote = %@",note,anotherNote);
+    
+    BOOL res1 = [dbUtil updateWithNote:note ForId:anotherNote.noteId];
+    
+    BOOL res2 = [dbUtil updateWithNote:anotherNote ForId:note.noteId];
+    
+    //两者的noteId也要交换
+    NSInteger noteId = note.noteId;
+    note.noteId = anotherNote.noteId;
+    anotherNote.noteId = noteId;
+    
+    BOOL res = res1 && res2;
+    
+    if (res) NSLog(@"交换成功");
+    
+    return res;
+}
 
 @end
+
+
+
+
