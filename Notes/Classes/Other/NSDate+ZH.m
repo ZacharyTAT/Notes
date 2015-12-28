@@ -44,8 +44,9 @@
         return @"前天";
     }//前天
     
-    NSInteger betweenDays = [NSDate daysBetweenDate:self andDate:[[NSDate date] dateByAddingTimeInterval:(-7 * 24 * 60 * 60)]];
-    if (betweenDays >= 0 && betweenDays <= 4) { //本来是7，但前面3天已经自定义，能走到这里肯定是4天前
+    NSInteger betweenDays = [NSDate daysBetweenDate:self andDate:[NSDate date]];    //要显示的日期和当前日期的天数
+    NSLog(@"%d",betweenDays);
+    if (betweenDays >= 3 && betweenDays <= 6) { //3是因为1和2被昨天前天占了
         return [NSDate weekdayStringFromDate:self];
     }//一个星期之内
     

@@ -33,6 +33,9 @@
 /** 搜索栏 */
 @property(nonatomic,strong)ZHSearchBar *searchBar;
 
+/** 搜索控制器 */
+@property(nonatomic,strong)UISearchDisplayController *sdc;
+
 /** 数据源 */
 @property(nonatomic,strong)NSMutableArray *dataSource;
 

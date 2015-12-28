@@ -12,8 +12,6 @@
 
 @interface ZHSearch()<UISearchBarDelegate,UISearchDisplayDelegate,UITableViewDataSource,UITableViewDelegate>
 
-/** 搜索控制器 */
-@property(nonatomic,strong)UISearchDisplayController *sdc;
 
 /** 记录搜索栏的背景视图 */
 @property(nonatomic,weak)UIView *searchBarBackgroundView;

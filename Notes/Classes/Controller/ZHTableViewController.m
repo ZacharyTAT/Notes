@@ -101,7 +101,7 @@
 - (void)setupNavItem
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"新建" style:UIBarButtonItemStylePlain target:self action:@selector(newBtnClick)];
-    self.navigationItem.title = @"Notes";
+    self.navigationItem.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
 }
 
 #pragma mark - 初始化表格的头部和尾部
@@ -225,10 +225,29 @@
 - (void)detailNoteViewController:(ZHDetailNoteViewController *)dnvc DidClickDeleteItemWithNote:(ZHNote *)note latestNote:(ZHNote *)latestNote
 {
     //删除这两个note
-    if (note) [self.dataArr removeObject:note];
-    if (latestNote) [self.dataArr removeObject:latestNote];
+    if (note) {
+        NSUInteger index = [self.dataArr indexOfObject:note];
+        [self.dataArr removeObject:note];
+        //删除表格中对应的行
+        if (index != NSNotFound)
+            [self.tableView deleteRowsAtIndexPaths:@[
+                     [NSIndexPath indexPathForRow:index inSection:0]
+                                                     ]
+                                  withRowAnimation:UITableViewRowAnimationNone];
+    }
+    if (latestNote) {
+        NSUInteger index = [self.dataArr indexOfObject:latestNote];
+        [self.dataArr removeObject:latestNote];
+        //删除表格中对应的行
+        if (index != NSNotFound)
+            [self.tableView deleteRowsAtIndexPaths:@[
+                     [NSIndexPath indexPathForRow:index inSection:0]
+                                                     ]
+                                  withRowAnimation:UITableViewRowAnimationNone];
+        
+    }
     
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
     
     //发送通知
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:ZHNoteDataSourceDidChangeNotification object:nil]];
@@ -291,10 +310,17 @@
 - (void)newViewController:(ZHNewViewController *)newViewController didClickBackBtnWithNewNote:(ZHNote *)note
 {
     //01.添加新模型
-    if (note) [self.dataArr insertObject:note atIndex:0];
+    if (note) {
+        [self.dataArr insertObject:note atIndex:0];
+        //在表格中插入一行
+        [self.tableView insertRowsAtIndexPaths:@[
+            [NSIndexPath indexPathForRow:0 inSection:0]
+                                                 ]
+                              withRowAnimation:UITableViewRowAnimationNone];
+    }
     
     //02.更新表格视图
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
     
     //发送通知
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:ZHNoteDataSourceDidChangeNotification object:nil]];
@@ -302,8 +328,17 @@
 
 - (void)newViewController:(ZHNewViewController *)newViewController didClickDeleteItemWithLatestNote:(ZHNote *)latestNote
 {
-    if (latestNote) [self.dataArr removeObject:latestNote];
-    [self.tableView reloadData];
+    if (latestNote) {
+        NSUInteger index = [self.dataArr indexOfObject:latestNote];
+        [self.dataArr removeObject:latestNote];
+        //在表格中删除
+        if (index != NSNotFound)
+            [self.tableView deleteRowsAtIndexPaths:@[
+                     [NSIndexPath indexPathForRow:index inSection:0]
+                                                     ]
+                                  withRowAnimation:UITableViewRowAnimationNone];
+    }
+//    [self.tableView reloadData];
     
     //发送通知
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:ZHNoteDataSourceDidChangeNotification object:nil]];
@@ -312,14 +347,33 @@
 #pragma mark - Scan Edit ViewController Delegate
 - (void)scanEditViewController:(ZHScanEditViewController *)sevc didClickBackBtnWithNote:(ZHNote *)note lastestNote:(ZHNote *)lastestNote
 {
+    //获取index
+    NSUInteger index = [self.dataArr indexOfObject:note];
+    
     //01.删除旧模型
     [self.dataArr removeObject:note];
     
+    //在表格中删除
+    if (index != NSNotFound)
+        [self.tableView deleteRowsAtIndexPaths:@[
+                     [NSIndexPath indexPathForRow:index inSection:0]
+                                                 ]
+                              withRowAnimation:UITableViewRowAnimationNone];
+    
     //02.添加新模型
-    if (lastestNote) [self.dataArr insertObject:lastestNote atIndex:0];
+    if (lastestNote) {
+        
+        [self.dataArr insertObject:lastestNote atIndex:0];
+        
+        //在表格中插入
+        [self.tableView insertRowsAtIndexPaths:@[
+                                [NSIndexPath indexPathForRow:0 inSection:0]
+                                                 ]
+                              withRowAnimation:UITableViewRowAnimationNone];
+    }
     
     //03.更新表格视图
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
     
     //04.告诉搜索模型，note数据源改了
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:ZHNoteDataSourceDidChangeNotification object:nil]];
@@ -378,8 +432,15 @@
     UILongPressGestureRecognizer *longPress = (UILongPressGestureRecognizer *)sender;
     UIGestureRecognizerState state = longPress.state;
     
-    CGPoint location = [longPress locationInView:self.tableView];
+    //考虑到搜索
+    UITableView *targetTableView = self.tableView;
+    if (self.search.isEditing) targetTableView = self.search.sdc.searchResultsTableView;
+    
+    CGPoint location = [longPress locationInView:targetTableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    
+    
+    indexPath = [targetTableView indexPathForRowAtPoint:location];
     
     static UIView       *snapshot = nil;        ///< A snapshot of the row user is moving.
     static NSIndexPath  *sourceIndexPath = nil; ///< Initial index path, where gesture begins.
@@ -389,7 +450,7 @@
             if (indexPath) {
                 sourceIndexPath = indexPath;
                 
-                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                UITableViewCell *cell = [targetTableView cellForRowAtIndexPath:indexPath];
                 
                 // Take a snapshot of the selected row using helper method.
                 snapshot = [self customSnapshoFromView:cell];
@@ -398,7 +459,9 @@
                 __block CGPoint center = cell.center;
                 snapshot.center = center;
                 snapshot.alpha = 0.0;
-                [self.tableView addSubview:snapshot];
+                    
+                [targetTableView addSubview:snapshot];
+                
                 [UIView animateWithDuration:0.25 animations:^{
                     
                     // Offset for gesture location.
@@ -435,13 +498,30 @@
                 // ... update data source.
                 [targetArr exchangeObjectAtIndex:indexPath.row withObjectAtIndex:sourceIndexPath.row];
                 
+                ZHNote *note1 = targetArr[indexPath.row];
+                ZHNote *note2 = targetArr[sourceIndexPath.row];
+                
+                //搜索模式下也要更新源数据
+                if (self.search.isEditing) {
+                    //获取源数据的两个模型索引
+                    NSInteger index1 = [self.dataArr indexOfObject:note1];
+                    NSInteger index2 = [self.dataArr indexOfObject:note2];
+                    
+                    //交换
+                    [self.dataArr exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
+//                    [self.tableView reloadData];
+                    //也要更新原来的UI
+                    [self.tableView reloadRowsAtIndexPaths:@[
+                                [NSIndexPath indexPathForRow:index1 inSection:0],
+                                [NSIndexPath indexPathForRow:index2 inSection:0]
+                                                             ]
+                                          withRowAnimation:UITableViewRowAnimationNone];
+                }
+                
                 //02.更新UI
                 
                 // ... move the rows.
-                [self.tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:indexPath];
-                
-                ZHNote *note1 = targetArr[indexPath.row];
-                ZHNote *note2 = targetArr[sourceIndexPath.row];
+                [targetTableView moveRowAtIndexPath:sourceIndexPath toIndexPath:indexPath];
                 
                 //03.更新磁盘
                 [ZHDataUtil exchangeNote:note1 withNote:note2];
@@ -454,7 +534,7 @@
             
         default: {
             // Clean up.
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:sourceIndexPath];
+            UITableViewCell *cell = [targetTableView cellForRowAtIndexPath:sourceIndexPath];
             cell.hidden = NO;
             cell.alpha = 0.0;
             
