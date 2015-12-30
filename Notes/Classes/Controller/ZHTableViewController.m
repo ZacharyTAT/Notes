@@ -80,6 +80,25 @@
     return _dataArr;
 }
 
+#pragma mark - 监听dataArr添加\删除元素的两个方法
+- (void)insertObject:(NSObject *)object inDataArrAtIndex:(NSUInteger)index
+{
+    //添加
+    [self.dataArr insertObject:object atIndex:index];
+    
+    //更新标题
+    self.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
+}
+
+- (void)removeObjectFromDataArrAtIndex:(NSUInteger)index
+{
+    //删除
+    [self.dataArr removeObjectAtIndex:index];
+    
+    //更新标题
+    self.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
+}
+
 #pragma mark - 搜索结果数据源
 /**
  *  搜索结果数据源
@@ -92,7 +111,7 @@
     return _searchResultArr;
 }
 
-#pragma mark - 初始化方法
+#pragma mark - Setup Method
 
 #pragma mark - 设置导航栏内容
 /**
@@ -202,8 +221,9 @@
         ZHNote *note = self.dataArr[indexPath.row];
         
         //01.从数据源中删除
-        [self.dataArr removeObjectAtIndex:indexPath.row];
-        
+    //        [self.dataArr removeObjectAtIndex:indexPath.row];
+        [[self mutableArrayValueForKey:@"dataArr"] removeObjectAtIndex:indexPath.row];
+    
         //02.从tableView中删除
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
         // !!!!!! 一定是上面这种顺序，先删数据源，再删cell，不然会崩
@@ -227,7 +247,8 @@
     //删除这两个note
     if (note) {
         NSUInteger index = [self.dataArr indexOfObject:note];
-        [self.dataArr removeObject:note];
+//        [self.dataArr removeObject:note];
+        [[self mutableArrayValueForKey:@"dataArr"] removeObject:note];
         //删除表格中对应的行
         if (index != NSNotFound)
             [self.tableView deleteRowsAtIndexPaths:@[
@@ -237,7 +258,8 @@
     }
     if (latestNote) {
         NSUInteger index = [self.dataArr indexOfObject:latestNote];
-        [self.dataArr removeObject:latestNote];
+        //        [self.dataArr removeObject:latestNote];
+        [[self mutableArrayValueForKey:@"dataArr"] removeObject:latestNote];
         //删除表格中对应的行
         if (index != NSNotFound)
             [self.tableView deleteRowsAtIndexPaths:@[
@@ -311,7 +333,8 @@
 {
     //01.添加新模型
     if (note) {
-        [self.dataArr insertObject:note atIndex:0];
+//        [self.dataArr insertObject:note atIndex:0];
+        [[self mutableArrayValueForKey:@"dataArr"] insertObject:note atIndex:0];
         //在表格中插入一行
         [self.tableView insertRowsAtIndexPaths:@[
             [NSIndexPath indexPathForRow:0 inSection:0]
@@ -330,7 +353,8 @@
 {
     if (latestNote) {
         NSUInteger index = [self.dataArr indexOfObject:latestNote];
-        [self.dataArr removeObject:latestNote];
+//        [self.dataArr removeObject:latestNote];
+        [[self mutableArrayValueForKey:@"dataArr"] removeObject:latestNote];
         //在表格中删除
         if (index != NSNotFound)
             [self.tableView deleteRowsAtIndexPaths:@[
@@ -351,7 +375,8 @@
     NSUInteger index = [self.dataArr indexOfObject:note];
     
     //01.删除旧模型
-    [self.dataArr removeObject:note];
+//    [self.dataArr removeObject:note];
+    [[self mutableArrayValueForKey:@"dataArr"] removeObject:note];
     
     //在表格中删除
     if (index != NSNotFound)
@@ -363,7 +388,8 @@
     //02.添加新模型
     if (lastestNote) {
         
-        [self.dataArr insertObject:lastestNote atIndex:0];
+//        [self.dataArr insertObject:lastestNote atIndex:0];
+        [[self mutableArrayValueForKey:@"dataArr"] insertObject:lastestNote atIndex:0];
         
         //在表格中插入
         [self.tableView insertRowsAtIndexPaths:@[
