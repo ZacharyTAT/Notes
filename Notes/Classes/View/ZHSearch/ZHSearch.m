@@ -9,8 +9,9 @@
 #import "ZHSearch.h"
 #import "ZHSearchBar.h"
 #import "ZHNoteCell.h"
+#import "ZHDataUtil.h"
 
-@interface ZHSearch()<UISearchBarDelegate,UISearchDisplayDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface ZHSearch()<UISearchBarDelegate,UISearchDisplayDelegate,UITableViewDataSource,UITableViewDelegate,ZHMultiButtonTableViewCellDelegate>
 
 
 /** 记录搜索栏的背景视图 */
@@ -131,12 +132,22 @@
     //01.创建cell
     ZHNoteCell *cell = [ZHNoteCell noteCellWithTableView:tableView];
     
+    cell.cellDelegate = self;
+    
     //02.给cell传递模型，设置cell数据
     cell.note = self.dataSource[indexPath.row];
+    
     
     //03.返回cell
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+
 
 #pragma mark - tableView delegate
 
@@ -148,6 +159,45 @@
     //告诉代理，哪一行被点了，并将模型传过去
     if ([self.delegate respondsToSelector:@selector(search:didSelectTableView:RowAtIndexPath:)]) {
         [self.delegate search:self didSelectTableView:tableView RowAtIndexPath:indexPath];
+    }
+}
+#pragma mark - ZHMultiButtonTableViewCellDelegate
+
+#pragma mark - 删除按钮点击
+- (void)tableViewCellDidClickDelete:(ZHMultiButtonTableViewCell *)tableViewCell
+{
+    NSIndexPath *indexPath = [self.sdc.searchResultsTableView indexPathForCell:tableViewCell];
+    NSLog(@"%d",indexPath.row);
+    
+    NSLog(@"UITableViewCellEditingStyleDelete,%@",indexPath);
+    
+    ZHNote *note = self.dataSource[indexPath.row];
+    
+    //01.从数据源中删除
+    //        [self.dataArr removeObjectAtIndex:indexPath.row];
+    [self.dataSource removeObjectAtIndex:indexPath.row];
+    
+    //02.从tableView中删除
+    [self.sdc.searchResultsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    // !!!!!! 一定是上面这种顺序，先删数据源，再删cell，不然会崩
+    
+    //03.通知代理
+    if ([self.delegate respondsToSelector:@selector(search:didDeleteRowWithNote:)]) {
+        [self.delegate search:self didDeleteRowWithNote:note];
+    }
+}
+
+#pragma mark - 置顶按钮点击
+- (void)tableViewCellDidClickStick:(ZHMultiButtonTableViewCell *)tableViewCell
+{
+    NSIndexPath *indexPath = [self.sdc.searchResultsTableView indexPathForCell:tableViewCell];
+    ZHNote *note = self.dataSource[indexPath.row];
+    
+    NSLog(@"置置置置置置置置顶%d",indexPath.row);
+    
+    //通知代理
+    if ([self.delegate respondsToSelector:@selector(search:didStickRowWithNote:)]) {
+        [self.delegate search:self didStickRowWithNote:note];
     }
 }
 

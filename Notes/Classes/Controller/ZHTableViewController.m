@@ -449,6 +449,31 @@
     [self.navigationController pushViewController:dvc animated:YES];
 }
 
+#pragma mark - 删除了某一行
+- (void)search:(ZHSearch *)search didDeleteRowWithNote:(ZHNote *)note
+{
+    NSUInteger index = [self.dataArr indexOfObject:note];
+    
+    if (index != NSNotFound) {
+        //更新数据源
+        [[self mutableArrayValueForKey:@"dataArr"] removeObject:note];
+        
+        //更新表格
+        [self.tableView deleteRowsAtIndexPaths:@[
+                             [NSIndexPath indexPathForRow:index inSection:0]
+                                                 ]
+                              withRowAnimation:UITableViewRowAnimationNone];
+    }
+    
+    //持久化
+    [ZHDataUtil removeNote:note];
+}
+
+#pragma mark - 置顶了某一行
+- (void)search:(ZHSearch *)search didStickRowWithNote:(ZHNote *)note
+{
+    //置顶
+}
 
 #pragma mark - 长按手势识别事件
 //参考自：https://github.com/moayes/UDo/tree/master

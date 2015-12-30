@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class ZHSearch,ZHSearchBar;
+@class ZHSearch,ZHSearchBar,ZHNote;
 
 @protocol ZHSearchDelegate <NSObject>
 @optional
@@ -25,6 +25,13 @@
  *  点击了搜索结果表格中的一行
  */
 - (void)search:(ZHSearch *)search didSelectTableView:(UITableView *)tableView RowAtIndexPath:(NSIndexPath *)indexPath;
+
+/** 删除了某一行,要在原数据源中删除对应模型，需要对磁盘进行操作*/
+- (void)search:(ZHSearch *)search didDeleteRowWithNote:(ZHNote *)note;
+
+/** 置顶某一行 */
+- (void)search:(ZHSearch *)search didStickRowWithNote:(ZHNote *)note;
+
 
 @end
 
