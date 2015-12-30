@@ -19,7 +19,7 @@
 #import "ZHKeyboardJudge.h"
 
 
-@interface ZHScanEditViewController ()<ZHBottomBarDelegate>
+@interface ZHScanEditViewController ()<UIScrollViewDelegate>
 
 /** 展示笔记内容的文本框 */
 @property (nonatomic, weak) ZHTextView *textView;
@@ -49,6 +49,18 @@
     bottomBar.delegate = self;
 }
 */
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //渲染关键字
+    if (self.searchKeyWord && ![self.searchKeyWord isEqualToString:@""]) {
+        NSLog(@"key word %@",self.searchKeyWord);
+        [self.textView highlightString:self.searchKeyWord];
+    }
+}
+
 #pragma mark - 完成按钮点击事件
 - (void)doneBtnClick
 {
@@ -113,7 +125,12 @@
     }
 }
 
+#pragma mark - UIScrollView delegate
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.textView removeAllHighlightView];
+}
 
 @end
 

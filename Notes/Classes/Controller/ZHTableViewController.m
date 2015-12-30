@@ -445,6 +445,7 @@
     dvc.note = note;
     dvc.delegate = self;
     dvc.dataSource = self;
+    dvc.searchKeyWord = search.searchBar.text;
     //跳转
     [self.navigationController pushViewController:dvc animated:YES];
 }

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 swjtu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "ZHHightlightTextView.h"
 
 @protocol ZHTextViewDelegate <NSObject,UITextViewDelegate>
 
@@ -19,7 +19,7 @@
 @end
 
 
-@interface ZHTextView : UITextView
+@interface ZHTextView : ZHHightlightTextView
 
 /** 显示本笔记的修改时间 */
 @property(nonatomic,weak)UILabel *modifydateLbl;

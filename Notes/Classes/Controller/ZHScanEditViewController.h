@@ -34,6 +34,9 @@
 /** 查看和修改笔记控制器的代理 */
 @property(nonatomic, weak)id<ZHScanEditViewControllerDelegate> delegate;
 
+/** 搜索关键词，从外部传进来 */
+@property(nonatomic,copy)NSString *searchKeyWord;
+
 @end
 
 
