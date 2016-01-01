@@ -75,10 +75,25 @@
     NSLog(@"保存文件成功");
 }
 #pragma mark - 获取所有笔记列表
-+ (NSMutableArray *)noteList
++ (NSMutableArray *)noteListIfStick:(BOOL)stick
 {
     ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
-    return [dbUtil noteList];
+    return [dbUtil noteListIfStick:stick];
+}
+
+#pragma mark - 获取对应Id记录的下一条记录
++ (ZHNote *)nextNoteForNoteId:(NSInteger)noteId stick:(BOOL)stick
+{
+    ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
+    
+    NSString *sql = [NSString stringWithFormat:@"select * from note WHERE id < %d and isStick = %d order by id DESC LIMIT 1",noteId,stick];
+    
+    NSLog(@"sql = %@",sql);
+    
+    NSMutableArray *notes = [dbUtil queryWithSql:sql];
+    
+    if (notes.count) return [notes firstObject];
+    return nil;
 }
 
 + (NSMutableArray *)noteListFromFile
@@ -133,6 +148,22 @@
     
     return res;
 }
+
++ (BOOL)stickNoteIfStick:(BOOL)stick forId:(NSInteger)noteId
+{
+    ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
+    ZHNote *note = [dbUtil noteForId:noteId];
+    
+    if (note) {
+        note.stick = stick;
+        return [dbUtil updateWithNote:note ForId:noteId];
+    }
+    return NO;
+}
+
+
+
+
 
 @end
 

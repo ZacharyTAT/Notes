@@ -13,7 +13,6 @@
 
 @interface ZHNoteCell : ZHMultiButtonTableViewCell
 
-@property (nonatomic, strong)ZHNote *note;
 
 /**
  *  快速创建cell的类方法

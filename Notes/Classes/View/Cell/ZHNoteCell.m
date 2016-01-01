@@ -34,6 +34,9 @@
 
 @implementation ZHNoteCell
 
+@synthesize note = _note;
+
+
 #pragma mark - cell的构造方法
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -71,8 +74,14 @@
     
     _titleLbl.text = note.title;
 //    _modifydateLbl.text = self.modifydateLblText;
-    _modifydateLbl.text = [_note.modifydate toDisplayString]; //为什么不这么写，看下面
+    _modifydateLbl.text = [note.modifydate toDisplayString]; //为什么不这么写，看下面
     //好吧，打脸了，如果按下面这种方式，编辑笔记然后返回时，cell上的时间不会刷新
+    
+//    if (note.isStick) { //是置顶项，则背景色为灰色
+//        self.backgroundColor = ZHColor(174, 194, 156);
+//    }else{ //考虑cell的循环利用，当不是置顶项时，要设置回来
+//        self.backgroundColor = [UIColor whiteColor];
+//    }
 }
 
 /**

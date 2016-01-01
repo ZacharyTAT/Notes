@@ -32,8 +32,14 @@
 /**
  *  获取所有笔记列表
  */
-+ (NSMutableArray *)noteList;
++ (NSMutableArray *)noteListIfStick:(BOOL)stick;
 
+/**
+ *  获取对应Id记录的下一条记录
+ *
+ *  @param stick  此下一条记录是否是置顶的
+ */
++ (ZHNote *)nextNoteForNoteId:(NSInteger)noteId stick:(BOOL)stick;
 
 #pragma mark - Update
 /**
@@ -42,6 +48,14 @@
  *  @return YES\成功 NO\失败
  */
 + (BOOL)exchangeNote:(ZHNote *)note withNote:(ZHNote *)anotherNote;
+
+/**
+ *  置顶\取消置顶对应Id项
+ *
+ *  @param stick  YES\置顶 NO\取消置顶
+ */
++ (BOOL)stickNoteIfStick:(BOOL)stick forId:(NSInteger)noteId;
+
 
 @end
 

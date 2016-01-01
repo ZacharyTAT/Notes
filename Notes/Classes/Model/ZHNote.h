@@ -22,16 +22,20 @@
 /** 笔记具体内容 */
 @property (nonatomic, copy)NSString *content;
 
+/** 是否为置顶项 */
+@property (nonatomic,assign,getter = isStick)BOOL stick;
+
 /**
  *  note模型构造方法
  *
  *  @param title      标题
  *  @param modifydate 修改日期
  *  @param content    具体内容
+ *  @param stick      是否为置顶项
  *
  *  @return note模型
  */
-- (instancetype)initWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content;
+- (instancetype)initWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content stick:(BOOL)stick;
 
 /**
  *  快速创建一个note的方法
@@ -39,10 +43,11 @@
  *  @param title      标题
  *  @param modifydate 修改日期
  *  @param content    具体内容
+ *  @param stick      是否为置顶项
  *
  *  @return note模型
  */
-+ (instancetype)noteWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content;
++ (instancetype)noteWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content stick:(BOOL)stick;
 @end
 
 

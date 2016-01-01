@@ -168,7 +168,7 @@
     }
     
     //00.建立note模型
-    ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:self.textView.text];
+    ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:self.textView.text stick:NO];
     
     //01.先保存到磁盘，这样可以查询到id
     [ZHDataUtil saveWithNote:note];

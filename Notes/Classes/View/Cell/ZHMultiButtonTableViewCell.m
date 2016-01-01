@@ -7,6 +7,7 @@
 //
 
 #import "ZHMultiButtonTableViewCell.h"
+#import "ZHNote.h"
 
 @interface ZHMultiButtonTableViewCell()
 
@@ -53,6 +54,9 @@
             //04.添加"置顶"按钮
             UIButton *btn2 = [[UIButton alloc] init];
             
+            //居中
+            btn2.titleLabel.textAlignment = NSTextAlignmentCenter;
+            
             [btn2 setTitle:@"置顶" forState:UIControlStateNormal];
             
             CGRect lastBtnframe = lastBtn.frame;
@@ -60,6 +64,10 @@
             CGFloat btnH = lastBtnframe.size.height;
             CGFloat btnX = lastBtnframe.origin.x - btnW;
             CGFloat btnY = lastBtnframe.origin.y;
+            
+            if (self.note.isStick) { //是置顶项
+                [btn2 setTitle:@"取消置顶" forState:UIControlStateNormal];
+            }
             
             btn2.frame = CGRectMake(btnX, btnY, btnW, btnH);
             
@@ -70,9 +78,14 @@
             [btn2 addTarget:self action:@selector(cellBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
             //设置类型
             btn2.tag = ZHTableViewCellTypeStick;
-            
+            if (self.note.isStick) { //若是置顶项，则显示取消置顶
+                btn2.tag = ZHTableViewCellTypeCancelStick;
+            }
             //05.增长scrollView的滚动区域
-            scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, lastBtn.frame.size.width * 2);
+//            scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, lastBtn.frame.size.width * 2);
+            CGFloat rightEdge = btn1.frame.size.width + btn2.frame.size.width;
+            
+            scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, rightEdge);
             
         }
     }
@@ -89,6 +102,10 @@
     }else if (cellBtn.tag == ZHTableViewCellTypeStick) {//置顶
         if ([self.cellDelegate respondsToSelector:@selector(tableViewCellDidClickStick:)]) {
             [self.cellDelegate tableViewCellDidClickStick:self];
+        }
+    }else if (cellBtn.tag == ZHTableViewCellTypeCancelStick) { //取消置顶
+        if ([self.cellDelegate respondsToSelector:@selector(tableViewCellDidCancelStick:)]) {
+            [self.cellDelegate tableViewCellDidCancelStick:self];
         }
     }
 }

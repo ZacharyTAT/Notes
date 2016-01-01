@@ -10,6 +10,11 @@
 #import "ZHNote.h"
 #import "FMDatabase.h"
 
+#define kNoteColumnId @"id"
+#define kNoteColumnTitle @"title"
+#define kNoteColumnContent @"content"
+#define kNoteColumnModifyDate @"modifyDate"
+#define kNoteColumnIsStick @"isStick"
 
 @interface ZHDBUtil()
 
@@ -60,12 +65,13 @@
                              @"\
                                  CREATE TABLE %@ \
                                  (\
-                                     id INTEGER PRIMARY key AUTOINCREMENT NOT NULL,\
-                                     title TEXT NOT NULL,\
-                                     content TEXT NOT NULL,\
-                                     modifyDate timestamp NOT NULL\
+                                     %@ INTEGER PRIMARY key AUTOINCREMENT NOT NULL,\
+                                     %@ TEXT NOT NULL,\
+                                     %@ TEXT NOT NULL,\
+                                     %@ timestamp NOT NULL,\
+                                     %@ INTEGER default 0 \
                                  )\
-                             ",tableName];
+                             ",tableName,kNoteColumnId,kNoteColumnTitle,kNoteColumnContent,kNoteColumnModifyDate,kNoteColumnIsStick];
             NSLog(@"%@",sql);
             BOOL res = [self.DB executeUpdate:sql];
             [self.DB close];
@@ -105,7 +111,11 @@
 {
     if ([self.DB open]) {
         
-        NSString * sql = @"insert into note (title, content,modifyDate) values(?, ?, ?) ";
+//        NSString * sql = @"insert into note (title, content,modifyDate) values(?, ?, ?) ";
+        NSString * sql = [NSString stringWithFormat:@"insert into note (%@, %@,%@) values(?, ?, ?) ",kNoteColumnTitle,kNoteColumnContent,kNoteColumnModifyDate];
+        
+        NSLog(@"sql = %@",sql);
+        
         BOOL res = [self.DB executeUpdate:sql,title,content,modifyDate];
         [self.DB close];
         
@@ -118,18 +128,20 @@
     return [self insertNoteWithTitle:note.title content:note.content modifyDate:note.modifydate];
 }
 #pragma mark - 通过id查询一条记录
-- (ZHNote *)queryNoteForId:(NSInteger)noteId
+- (ZHNote *)noteForId:(NSInteger)noteId
 {
     if ([self.DB open]) {
-        NSString * sql =[NSString stringWithFormat:@"select * from note where id = %d",noteId] ;
+        NSString * sql =[NSString stringWithFormat:@"select * from note where %@ = %d",kNoteColumnId,noteId] ;
+        NSLog(@"sql = %@",sql);
         FMResultSet * rs = [self.DB executeQuery:sql];
         while ([rs next]) {
-            NSString *title = [rs stringForColumn:@"title"];
-            NSString *content = [rs stringForColumn:@"content"];
-            NSDate *modifyDate = [rs dateForColumn:@"modifyDate"];
+            NSString *title = [rs stringForColumn:kNoteColumnTitle];
+            NSString *content = [rs stringForColumn:kNoteColumnContent];
+            NSDate *modifyDate = [rs dateForColumn:kNoteColumnModifyDate];
+            BOOL stick = [rs boolForColumn:kNoteColumnIsStick];
             
-            NSLog(@"id=%d, title=%@, content=%@, modifyDate=%@",noteId,title, content, modifyDate);
-            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:modifyDate content:content];
+            NSLog(@"id=%d, title=%@, content=%@, modifyDate=%@,stick=%d",noteId,title, content, modifyDate,stick);
+            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:modifyDate content:content stick:stick];
             note.noteId = noteId;
             
             [self.DB close];
@@ -140,19 +152,21 @@
 }
 
 #pragma mark - 通过修改日期查询一条记录
-- (ZHNote *)queryNoteForModifyDate:(NSDate *)modifyDate
+- (ZHNote *)noteForModifyDate:(NSDate *)modifyDate
 {
     if ([self.DB open]) {
-        NSString * sql = @"select * from note where modifyDate = ?" ;
+//        NSString * sql = @"select * from note where modifyDate = ?" ;
+        NSString * sql = [NSString stringWithFormat:@"select * from note where %@ = ?",kNoteColumnModifyDate];
+        NSLog(@"sql = %@",sql);
         FMResultSet * rs = [self.DB executeQuery:sql,modifyDate];
         while ([rs next]) {
-            NSInteger noteId = [rs intForColumn:@"id"];
-            NSString *title = [rs stringForColumn:@"title"];
-            NSString *content = [rs stringForColumn:@"content"];
+            NSInteger noteId = [rs intForColumn:kNoteColumnId];
+            NSString *title = [rs stringForColumn:kNoteColumnTitle];
+            NSString *content = [rs stringForColumn:kNoteColumnContent];
 //            NSDate *modifyDate = [rs dateForColumn:@"modifyDate"];
-            
+            BOOL stick = [rs boolForColumn:kNoteColumnIsStick];
             NSLog(@"id=%d, title=%@, content=%@, modifyDate=%@",noteId,title, content, modifyDate);
-            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:modifyDate content:content];
+            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:modifyDate content:content stick:stick];
             note.noteId = noteId;
             
             [self.DB close];
@@ -179,37 +193,51 @@
     return -1;
 }
 
-#pragma mark - 按照id降序返回所有笔记列表
-- (NSMutableArray *)noteList
+#pragma mark - 按照id降序返回普通笔记(非置顶)列表
+- (NSMutableArray *)noteListIfStick:(BOOL)stick
+{
+    NSString * sql = [NSString stringWithFormat:@"select * from note where %@ = %d order by %@ DESC",kNoteColumnIsStick,stick,kNoteColumnId];
+    NSMutableArray *notes = [self queryWithSql:sql];
+    
+    NSLog(@"noteListCount : %d",notes.count);
+    
+    return notes;
+
+}
+
+- (NSMutableArray *)queryWithSql:(NSString *)sql
 {
     NSMutableArray *notes = [NSMutableArray array];
     if ([self.DB open]) {
-        NSString * sql = @"select * from note order by id DESC";
+        
+        NSLog(@"sql = %@",sql);
         FMResultSet * rs = [self.DB executeQuery:sql];
         while ([rs next]) {
-            NSInteger noteId = [rs intForColumn:@"id"];
-            NSString *title = [rs stringForColumn:@"title"];
-            NSString *content = [rs stringForColumn:@"content"];
-            NSDate *modifyDate = [rs dateForColumn:@"modifyDate"];
+            NSInteger noteId = [rs intForColumn:kNoteColumnId];
+            NSString *title = [rs stringForColumn:kNoteColumnTitle];
+            NSString *content = [rs stringForColumn:kNoteColumnContent];
+            NSDate *modifyDate = [rs dateForColumn:kNoteColumnModifyDate];
+            BOOL stick = [rs boolForColumn:kNoteColumnIsStick];
             
-            ZHNote *note = [ZHNote noteWithTitle:title modifydate:modifyDate content:content];
+            
+            ZHNote *note = [ZHNote noteWithTitle:title modifydate:modifyDate content:content stick:stick];
             note.noteId = noteId;
             [notes addObject:note];
         }
         [self.DB close];
     }
-    NSLog(@"noteListCount:%d",notes.count);
+    NSLog(@"ResultSet count : %d",notes.count);
+    
     return notes;
-
 }
-
 
 #pragma mark - 通过id删除一条记录
 - (BOOL)deleteNoteForId:(NSInteger)noteId
 {
     if ([self.DB open]) {
         
-        NSString *sql = [NSString stringWithFormat:@"delete from note where id = %d",noteId];
+//        NSString *sql = [NSString stringWithFormat:@"delete from note where id = %d",noteId];
+        NSString *sql = [NSString stringWithFormat:@"delete from note where %@ = %d",kNoteColumnId,noteId];
         BOOL res = [self.DB executeUpdate:sql];
         
         [self.DB close];
@@ -225,7 +253,10 @@
 {
     if ([self.DB open]) {
         
-        NSString *sql = @"delete from note where modifyDate = ?";
+//        NSString *sql = @"delete from note where modifyDate = ?";
+        NSString *sql = [NSString stringWithFormat:@"delete from note where %@ = ?",kNoteColumnModifyDate];
+        NSLog(@"sql = %@",sql);
+        
         BOOL res = [self.DB executeUpdate:sql,modifyDate];
         
         [self.DB close];
@@ -245,9 +276,12 @@
         NSString *title = updatedNote.title;
         NSString *content = updatedNote.content;
         NSDate *modifyDate = updatedNote.modifydate;
+        BOOL stick = updatedNote.isStick;
+//        NSString *sql = [NSString stringWithFormat:@"UPDATE note SET title='%@',content='%@',modifyDate=? where id = %d",title,content,noteId];
+        NSString *sql = [NSString stringWithFormat:@"UPDATE note SET %@=?,%@=?,%@=?,%@=%d where %@ = %d",kNoteColumnTitle,kNoteColumnContent,kNoteColumnModifyDate,kNoteColumnIsStick,stick,kNoteColumnId,noteId];
+        NSLog(@"sql = %@",sql);
         
-        NSString *sql = [NSString stringWithFormat:@"UPDATE note SET title='%@',content='%@',modifyDate=? where id = %d",title,content,noteId];
-        BOOL res = [self.DB executeUpdate:sql,modifyDate];
+        BOOL res = [self.DB executeUpdate:sql,title,content,modifyDate];
         
         [self.DB close];
         

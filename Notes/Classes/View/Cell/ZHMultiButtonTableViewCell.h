@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class ZHMultiButtonTableViewCell;
+@class ZHMultiButtonTableViewCell,ZHNote;
 
 /**
  *  cell上按钮的类型
@@ -19,7 +19,10 @@ typedef NS_ENUM(NSInteger, ZHTableViewCellType)
     ZHTableViewCellTypeDelete,
     
     /** 置顶按钮 */
-    ZHTableViewCellTypeStick
+    ZHTableViewCellTypeStick,
+    
+    /** 取消置顶按钮 */
+    ZHTableViewCellTypeCancelStick
 };
 
 @protocol ZHMultiButtonTableViewCellDelegate <NSObject>
@@ -34,12 +37,24 @@ typedef NS_ENUM(NSInteger, ZHTableViewCellType)
  *  点击了置顶按钮
  */
 - (void)tableViewCellDidClickStick:(ZHMultiButtonTableViewCell *)tableViewCell;
+/** 点击了取消置顶按钮 */
+- (void)tableViewCellDidCancelStick:(ZHMultiButtonTableViewCell *)tableViewCell;
 
 @end
 
 
 @interface ZHMultiButtonTableViewCell : UITableViewCell
 
+/** 模型 */
+@property (nonatomic, strong)ZHNote *note;
+
+
+/** 代理 */
 @property(nonatomic,weak)id<ZHMultiButtonTableViewCellDelegate> cellDelegate;
 
 @end
+
+
+
+
+
