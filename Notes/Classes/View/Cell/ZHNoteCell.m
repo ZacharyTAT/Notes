@@ -9,6 +9,7 @@
 #import "ZHNoteCell.h"
 #import "ZHNote.h"
 #import "NSDate+ZH.h"
+#import "ZHStickView.h"
 
 #define kTitleLblRatio 0.7
 #define kTitleDateMargin 9
@@ -29,6 +30,8 @@
 
 /** 记录cell中的唯一子视图 */
 @property (nonatomic,weak)UIView *cellScrollView;
+
+@property (nonatomic,weak)UIView *stickView;
 
 @end
 
@@ -77,11 +80,11 @@
     _modifydateLbl.text = [note.modifydate toDisplayString]; //为什么不这么写，看下面
     //好吧，打脸了，如果按下面这种方式，编辑笔记然后返回时，cell上的时间不会刷新
     
-//    if (note.isStick) { //是置顶项，则背景色为灰色
-//        self.backgroundColor = ZHColor(174, 194, 156);
-//    }else{ //考虑cell的循环利用，当不是置顶项时，要设置回来
-//        self.backgroundColor = [UIColor whiteColor];
-//    }
+    if (note.isStick) { //是置顶项，显示小箭头
+        self.stickView.hidden = NO;
+    }else{ //考虑cell的循环利用，当不是置顶项时，要设置回来
+        self.stickView.hidden = YES;
+    }
 }
 
 /**
@@ -120,6 +123,15 @@
     CGFloat modifydateLblH = height;
     self.modifydateLbl.frame = CGRectMake(modifydateLblX, modifydateLblY, modifydateLblW, modifydateLblH);
     
+    //置顶标志
+    CGFloat stickViewW = kTitleDateMargin;
+    CGFloat stickViewH = modifydateLblH * 0.5;
+    CGFloat stickViewX = modifydateLblX - stickViewW;
+    self.stickView.frame = CGRectMake(stickViewX, 0, stickViewW, stickViewH);
+    CGPoint center = self.modifydateLbl.center;
+    center.x -= stickViewW;
+    self.stickView.center = center;
+    
     //分割线
     CGFloat separatorX = 5;
     CGFloat separatorH = 1;
@@ -145,6 +157,13 @@
     modifydateLbl.textAlignment = NSTextAlignmentRight; //右对齐
 //    modifydateLbl.backgroundColor = [UIColor cyanColor];
     [self.contentView addSubview:modifydateLbl];
+    
+    //置顶标志
+    ZHStickView *stickView = [[ZHStickView alloc] init];
+    self.stickView = stickView;
+    stickView.backgroundColor = [UIColor whiteColor];
+    stickView.hidden = YES; //默认不显示
+    [self.contentView addSubview:stickView];
     
     //分割线
     UIView *separator = [[UIView alloc] init];

@@ -20,6 +20,7 @@
 		185794B71C144EE70050F62D /* NSDate+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794B61C144EE70050F62D /* NSDate+ZH.m */; };
 		185794BD1C1463B10050F62D /* ZHScanEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794BC1C1463B10050F62D /* ZHScanEditViewController.m */; };
 		185794C01C1467460050F62D /* ZHNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794BF1C1467460050F62D /* ZHNewViewController.m */; };
+		186D67C91C36A8E7004AA771 /* ZHStickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186D67C81C36A8E7004AA771 /* ZHStickView.m */; };
 		1892B2C31C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892B2C01C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m */; };
 		1892B2C41C22967300535B24 /* ZHHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892B2C21C22967300535B24 /* ZHHierarchy.m */; };
 		18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A071C0D88BB00D5AE9F /* ZHNote.m */; };
@@ -85,6 +86,8 @@
 		185794BC1C1463B10050F62D /* ZHScanEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHScanEditViewController.m; sourceTree = "<group>"; };
 		185794BE1C1467460050F62D /* ZHNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNewViewController.h; sourceTree = "<group>"; };
 		185794BF1C1467460050F62D /* ZHNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNewViewController.m; sourceTree = "<group>"; };
+		186D67C71C36A8E7004AA771 /* ZHStickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHStickView.h; sourceTree = "<group>"; };
+		186D67C81C36A8E7004AA771 /* ZHStickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHStickView.m; sourceTree = "<group>"; };
 		1892B2BF1C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZHHierarchy+ZHViewHierarchy.h"; sourceTree = "<group>"; };
 		1892B2C01C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZHHierarchy+ZHViewHierarchy.m"; sourceTree = "<group>"; };
 		1892B2C11C22967300535B24 /* ZHHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHHierarchy.h; sourceTree = "<group>"; };
@@ -174,6 +177,8 @@
 				182A59F11C33EF2000A07705 /* ZHMultiButtonTableViewCell.m */,
 				182A59F21C33EF2000A07705 /* ZHNoteCell.h */,
 				182A59F31C33EF2000A07705 /* ZHNoteCell.m */,
+				186D67C71C36A8E7004AA771 /* ZHStickView.h */,
+				186D67C81C36A8E7004AA771 /* ZHStickView.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -483,6 +488,7 @@
 				18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */,
 				183A70521C2BC7B70043F552 /* ZHDetailNoteViewController.m in Sources */,
 				18EF25D81C25498800873A68 /* ZHDBUtil.m in Sources */,
+				186D67C91C36A8E7004AA771 /* ZHStickView.m in Sources */,
 				18EF25D11C2545A700873A68 /* FMDatabase.m in Sources */,
 				182A59FE1C33EF2000A07705 /* ZHBottomBar.m in Sources */,
 				18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */,
