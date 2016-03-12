@@ -639,13 +639,18 @@
                 NSMutableArray *targetArr = self.dataArr;
                 
                 if (self.search.isEditing) targetArr = self.searchResultArr;
+                ZHNote *note1 = targetArr[indexPath.row];
+                ZHNote *note2 = targetArr[sourceIndexPath.row];
+                //置顶项和非置顶项不能交换
+                NSLog(@"%d---%d",indexPath.row, sourceIndexPath.row);
+                NSLog(@"%d--%@",note1.isStick, note1.title);
+                NSLog(@"%d--%@",note2.isStick, note2.title);
+                if (note1.isStick ^ note2.isStick) break;
                 
                 // ... update data source.
                 [targetArr exchangeObjectAtIndex:indexPath.row withObjectAtIndex:sourceIndexPath.row];
                 
-                ZHNote *note1 = targetArr[indexPath.row];
-                ZHNote *note2 = targetArr[sourceIndexPath.row];
-                
+
                 //搜索模式下也要更新源数据
                 if (self.search.isEditing) {
                     //获取源数据的两个模型索引

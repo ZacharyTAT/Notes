@@ -126,7 +126,7 @@
     //置顶标志
     CGFloat stickViewW = kTitleDateMargin;
     CGFloat stickViewH = modifydateLblH * 0.5;
-    CGFloat stickViewX = modifydateLblX - stickViewW;
+    CGFloat stickViewX = modifydateLblX - stickViewW - 5;
     self.stickView.frame = CGRectMake(stickViewX, 0, stickViewW, stickViewH);
     CGPoint center = self.modifydateLbl.center;
     center.x -= stickViewW;
