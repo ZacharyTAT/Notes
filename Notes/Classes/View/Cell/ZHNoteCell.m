@@ -31,7 +31,7 @@
 /** 记录cell中的唯一子视图 */
 @property (nonatomic,weak)UIView *cellScrollView;
 
-@property (nonatomic,weak)UIView *stickView;
+//@property (nonatomic,weak)UIView *stickView;
 
 @end
 
@@ -81,9 +81,11 @@
     //好吧，打脸了，如果按下面这种方式，编辑笔记然后返回时，cell上的时间不会刷新
     
     if (note.isStick) { //是置顶项，显示小箭头
-        self.stickView.hidden = NO;
+        //self.stickView.hidden = NO;
+        self.backgroundColor = ZHColor(230, 230, 230);
     }else{ //考虑cell的循环利用，当不是置顶项时，要设置回来
-        self.stickView.hidden = YES;
+        //self.stickView.hidden = YES;
+        self.backgroundColor = [UIColor whiteColor];
     }
 }
 
@@ -122,8 +124,8 @@
     CGFloat modifydateLblW = width * (1 - kTitleLblRatio) - kTitleDateMargin;
     CGFloat modifydateLblH = height;
     self.modifydateLbl.frame = CGRectMake(modifydateLblX, modifydateLblY, modifydateLblW, modifydateLblH);
-    
     //置顶标志
+    /*
     CGFloat stickViewW = kTitleDateMargin;
     CGFloat stickViewH = modifydateLblH * 0.5;
     CGFloat stickViewX = modifydateLblX - stickViewW - 5;
@@ -131,7 +133,7 @@
     CGPoint center = self.modifydateLbl.center;
     center.x -= stickViewW;
     self.stickView.center = center;
-    
+    */
     //分割线
     CGFloat separatorX = 5;
     CGFloat separatorH = 1;
@@ -159,11 +161,11 @@
     [self.contentView addSubview:modifydateLbl];
     
     //置顶标志
-    ZHStickView *stickView = [[ZHStickView alloc] init];
-    self.stickView = stickView;
-    stickView.backgroundColor = [UIColor whiteColor];
-    stickView.hidden = YES; //默认不显示
-    [self.contentView addSubview:stickView];
+    //ZHStickView *stickView = [[ZHStickView alloc] init];
+    //self.stickView = stickView;
+    //stickView.backgroundColor = [UIColor whiteColor];
+    //stickView.hidden = YES; //默认不显示
+    //[self.contentView addSubview:stickView];
     
     //分割线
     UIView *separator = [[UIView alloc] init];
