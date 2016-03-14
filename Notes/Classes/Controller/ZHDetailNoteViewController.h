@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "ZHTextView.h"
+
 @class ZHNote,ZHDetailNoteViewController;
 
 @protocol ZHDetailNoteViewControllerDelegate <NSObject>
@@ -47,7 +49,7 @@
 @end
 
 
-@interface ZHDetailNoteViewController : UIViewController
+@interface ZHDetailNoteViewController : UIViewController<ZHTextViewDelegate>
 
 /** 存储一条笔记各种信息的模型 */
 @property(nonatomic, strong)ZHNote *note;

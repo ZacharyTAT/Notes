@@ -9,7 +9,6 @@
 #import "ZHDetailNoteViewController.h"
 #import <objc/message.h>
 
-#import "ZHTextView.h"
 #import "ZHPageBottomBar.h"
 #import "ZHBottomBar.h"
 #import "ZHNote.h"
@@ -20,7 +19,7 @@
 #import "ZHDataUtil.h"
 
 
-@interface ZHDetailNoteViewController ()<ZHTextViewDelegate,UIActionSheetDelegate,ZHBottomBarDelegate>
+@interface ZHDetailNoteViewController ()<UIActionSheetDelegate,ZHBottomBarDelegate>
 
 /** 展示笔记内容的文本框 */
 @property (nonatomic, weak) ZHTextView *textView;

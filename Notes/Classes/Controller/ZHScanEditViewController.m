@@ -19,7 +19,7 @@
 #import "ZHKeyboardJudge.h"
 
 
-@interface ZHScanEditViewController ()<UIScrollViewDelegate>
+@interface ZHScanEditViewController ()<UIScrollViewDelegate, ZHTextViewDelegate>
 
 /** 展示笔记内容的文本框 */
 @property (nonatomic, weak) ZHTextView *textView;
@@ -135,6 +135,14 @@
     [self.textView removeAllHighlightView];
 }
 
+#pragma mark - ZHTextView Delegate
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [super textViewDidBeginEditing:textView];
+    
+    //移除高亮
+    [self.textView removeAllHighlightView];
+}
 @end
 
 
