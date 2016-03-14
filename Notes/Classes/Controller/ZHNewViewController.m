@@ -117,10 +117,12 @@
             [self.delegate newViewController:self didClickDeleteItemWithLatestNote:self.latestNote];
         }
     }
-    
+    if (title.length > 20) { //标题最多20个字符
+        title = [title substringToIndex:20];
+    }
     //保存
-    [self performSelector:@selector(saveWithTitle:) withObject:title];
-    
+    //[self performSelector:@selector(saveWithTitle:) withObject:title];
+    [self saveWithTitle:title];
  
     //通知代理
     if ([self.delegate respondsToSelector:@selector(newViewController:didClickBackBtnWithNewNote:)]) {

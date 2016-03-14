@@ -116,6 +116,9 @@
     //04.现在是最上面一条，禁用"上一条"按钮
     self.bottomBar.prePageItem.enabled = NO;
     
+    if (title.length > 20) { //标题最多20个字符
+        title = [title substringToIndex:20];
+    }
     //保存
     [self saveWithTitle:title];
     //通知代理
