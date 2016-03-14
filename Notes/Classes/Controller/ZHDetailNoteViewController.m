@@ -160,15 +160,18 @@
  */
 - (void)saveWithTitle:(NSString *)title
 {
+    BOOL stick = NO;
     //先删除之前的记录
     if (self.latestNote == nil) { //删除self.note
+        stick = self.note.stick;
         [ZHDataUtil removeNote:self.note];
     }else{ //删除self.latestNote
+        stick = self.latestNote.stick;
         [ZHDataUtil removeNote:self.latestNote];
     }
     
     //00.建立note模型
-    ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:self.textView.text stick:NO];
+    ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:self.textView.text stick:stick];
     
     //01.先保存到磁盘，这样可以查询到id
     [ZHDataUtil saveWithNote:note];

@@ -24,11 +24,14 @@
 /** 数据源 */
 @property (nonatomic, strong)NSMutableArray *dataArr;
 
+/** 记录第一条普通记录的索引 */
+@property (nonatomic, assign)NSInteger firstCommonNoteIndex;
+
 /** 搜索结果数据源 */
-@property (nonatomic,strong)NSMutableArray *searchResultArr;
+@property (nonatomic, strong)NSMutableArray *searchResultArr;
 
 /** 负责搜索的模型 */
-@property (nonatomic,strong)ZHSearch *search;
+@property (nonatomic, strong)ZHSearch *search;
 
 @end
 
@@ -70,10 +73,15 @@
 {
     if (_dataArr == nil) {
         
+        _dataArr = [NSMutableArray array];
         //获取数据
 //        _dataArr = [ZHDataUtil noteList];
+        NSMutableArray *stickArr = [ZHDataUtil noteListIfStick:YES];
+        
+        self.firstCommonNoteIndex = stickArr.count;
+        
         //置顶项
-        _dataArr = [ZHDataUtil noteListIfStick:YES];
+        [_dataArr addObjectsFromArray:stickArr];
         
         //非置顶项
         [_dataArr addObjectsFromArray:[ZHDataUtil noteListIfStick:NO]];
@@ -88,6 +96,14 @@
 #pragma mark - 监听dataArr添加\删除元素的两个方法
 - (void)insertObject:(NSObject *)object inDataArrAtIndex:(NSUInteger)index
 {
+    ZHNote *note = (ZHNote *)object;
+    if (!note.isStick){//非置顶项不是插入到最前面
+//        index =  self.stickArr.count;
+        index = self.firstCommonNoteIndex;
+    }else{ //若是置顶项，则非第一条非置顶项的索引自增1
+//        [self.stickArr insertObject:note atIndex:0];
+        self.firstCommonNoteIndex  += 1;
+    }
     //添加
     [self.dataArr insertObject:object atIndex:index];
     
@@ -98,7 +114,14 @@
 - (void)removeObjectFromDataArrAtIndex:(NSUInteger)index
 {
     //删除
+    ZHNote *note = self.dataArr[index];
+    
     [self.dataArr removeObjectAtIndex:index];
+    
+    if (note && note.isStick) {//删除的若是置顶项，则非置顶项索引自减1
+//        [self.stickArr removeObject:note];
+        self.firstCommonNoteIndex -= 1;
+    }
     
     //更新标题
     self.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
@@ -265,8 +288,10 @@
                              [NSIndexPath indexPathForRow:0 inSection:0]
                                              ]
                           withRowAnimation:UITableViewRowAnimationNone];
+    //06.新增了一条置顶项
+    self.firstCommonNoteIndex += 1;
     
-    //06.修改数据库置顶标志
+    //07.修改数据库置顶标志
     [ZHDataUtil stickNoteIfStick:stickNote.stick forId:stickNote.noteId];
 }
 
@@ -316,7 +341,10 @@
                               withRowAnimation:UITableViewRowAnimationNone];
     }
     
-    //06.修改数据库置顶标志
+    //06.置顶项减1
+    self.firstCommonNoteIndex -= 1;
+    
+    //07.修改数据库置顶标志
     [ZHDataUtil stickNoteIfStick:cancelStickNote.stick forId:cancelStickNote.noteId];
 }
 /**
@@ -425,11 +453,18 @@
 {
     //01.添加新模型
     if (note) {
-//        [self.dataArr insertObject:note atIndex:0];
-        [[self mutableArrayValueForKey:@"dataArr"] insertObject:note atIndex:0];
+        //[self.dataArr insertObject:note atIndex:0];
+        
+        NSInteger index = 0;
+        
+        [[self mutableArrayValueForKey:@"dataArr"] insertObject:note atIndex:index];
+        
         //在表格中插入一行
+        if (!note.isStick) {
+            index = self.firstCommonNoteIndex;
+        }
         [self.tableView insertRowsAtIndexPaths:@[
-            [NSIndexPath indexPathForRow:0 inSection:0]
+            [NSIndexPath indexPathForRow:index inSection:0]
                                                  ]
                               withRowAnimation:UITableViewRowAnimationNone];
     }
@@ -481,11 +516,14 @@
     if (lastestNote) {
         
 //        [self.dataArr insertObject:lastestNote atIndex:0];
-        [[self mutableArrayValueForKey:@"dataArr"] insertObject:lastestNote atIndex:0];
-        
+        NSInteger index = 0;
+        [[self mutableArrayValueForKey:@"dataArr"] insertObject:lastestNote atIndex:index];
+        if (!lastestNote.isStick) {
+            index = self.firstCommonNoteIndex;
+        }
         //在表格中插入
         [self.tableView insertRowsAtIndexPaths:@[
-                                [NSIndexPath indexPathForRow:0 inSection:0]
+                                [NSIndexPath indexPathForRow:index inSection:0]
                                                  ]
                               withRowAnimation:UITableViewRowAnimationNone];
     }
