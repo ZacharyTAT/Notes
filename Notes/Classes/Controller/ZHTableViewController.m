@@ -280,14 +280,14 @@
     [self.dataArr removeObjectAtIndex:indexPath.row];
     //表格
     [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                          withRowAnimation:UITableViewRowAnimationNone];
+                          withRowAnimation:UITableViewRowAnimationLeft];
     
     //05.顶部插入
     [self.dataArr insertObject:stickNote atIndex:0];
     [self.tableView insertRowsAtIndexPaths:@[
                              [NSIndexPath indexPathForRow:0 inSection:0]
                                              ]
-                          withRowAnimation:UITableViewRowAnimationNone];
+                          withRowAnimation:UITableViewRowAnimationRight];
     //06.新增了一条置顶项
     self.firstCommonNoteIndex += 1;
     
@@ -314,7 +314,7 @@
     [self.dataArr removeObjectAtIndex:indexPath.row];
     //表格
     [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                          withRowAnimation:UITableViewRowAnimationNone];
+                          withRowAnimation:UITableViewRowAnimationRight];
     
     //---------从这里开始就和置顶不同了
     
@@ -330,7 +330,7 @@
             [self.tableView insertRowsAtIndexPaths:@[
                          [NSIndexPath indexPathForRow:nextNoteIndex inSection:0]
                                                      ]
-                                  withRowAnimation:UITableViewRowAnimationNone];
+                                  withRowAnimation:UITableViewRowAnimationLeft];
         }
     }else{ //没有下一条，插入到最后
         
@@ -601,12 +601,86 @@
 }
 
 #pragma mark - 置顶了某一行
-- (void)search:(ZHSearch *)search didStickRowWithNote:(ZHNote *)note
+- (void)search:(ZHSearch *)search didStickRowWithNote:(ZHNote *)stickNote
 {
     //搜索视图的置顶按钮点击事件
     
+    //01.原地删除(由于还会插入，所以总数不变，不需要更新标题)
+    //数据源
+    
+    NSUInteger index = [self.dataArr indexOfObject:stickNote];
+    
+    if (index != NSNotFound) {
+        [self.dataArr removeObject:stickNote];
+        //表格
+        [self.tableView deleteRowsAtIndexPaths:@[
+                                [NSIndexPath indexPathForRow:index inSection:0]
+                                                 ]
+                              withRowAnimation:UITableViewRowAnimationNone];
+        
+        //02.顶部插入
+        [self.dataArr insertObject:stickNote atIndex:0];
+        
+        [self.tableView insertRowsAtIndexPaths:@[
+                                    [NSIndexPath indexPathForRow:0 inSection:0]
+                                                 ]
+                              withRowAnimation:UITableViewRowAnimationNone];
+        //03.新增了一条置顶项
+        self.firstCommonNoteIndex += 1;
+        
+        //04.修改数据库置顶标志
+        [ZHDataUtil stickNoteIfStick:stickNote.stick forId:stickNote.noteId];
+    }
+    
 }
-
+#pragma mark - 取消置顶某一行
+- (void)search:(ZHSearch *)search didCancelStickRowWithNote:(ZHNote *)cancelStickNote
+{
+    
+    NSUInteger index = [self.dataArr indexOfObject:cancelStickNote];
+    
+    if (index != NSNotFound) {
+        //原地删除(由于还会插入，所以总数不变，不需要更新标题)
+        //数据源
+        [self.dataArr removeObject:cancelStickNote];
+        //表格
+        [self.tableView deleteRowsAtIndexPaths:@[
+                                [NSIndexPath indexPathForRow:index inSection:0]
+                                                 ]
+                              withRowAnimation:UITableViewRowAnimationNone];
+        
+        //---------从这里开始就和置顶不同了
+        
+        //查询该条记录的下一条未置顶的记录
+        ZHNote *nextNote = [ZHDataUtil nextNoteForNoteId:cancelStickNote.noteId stick:NO];
+        
+        if (nextNote) {//有下一条
+            //05.插入到下一条记录之前
+            NSUInteger nextNoteIndex = [self indexOfNoteInDataArr:nextNote];
+            if (nextNoteIndex != NSNotFound) {
+                
+                [self.dataArr insertObject:cancelStickNote atIndex:nextNoteIndex];
+                [self.tableView insertRowsAtIndexPaths:@[
+                        [NSIndexPath indexPathForRow:nextNoteIndex inSection:0]
+                                                         ]
+                                      withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }else{ //没有下一条，插入到最后
+            
+            [self.dataArr addObject:cancelStickNote];
+            [self.tableView insertRowsAtIndexPaths:@[
+                [NSIndexPath indexPathForRow:(self.dataArr.count - 1) inSection:0]
+                                                     ]
+                                  withRowAnimation:UITableViewRowAnimationNone];
+        }
+        
+        //06.置顶项减1
+        self.firstCommonNoteIndex -= 1;
+        
+        //07.修改数据库置顶标志
+        [ZHDataUtil stickNoteIfStick:cancelStickNote.stick forId:cancelStickNote.noteId];
+    }
+}
 #pragma mark - 长按手势识别事件
 //参考自：https://github.com/moayes/UDo/tree/master
 

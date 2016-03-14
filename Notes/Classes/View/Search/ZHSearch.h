@@ -30,8 +30,11 @@
 - (void)search:(ZHSearch *)search didDeleteRowWithNote:(ZHNote *)note;
 
 /** 置顶某一行 */
-- (void)search:(ZHSearch *)search didStickRowWithNote:(ZHNote *)note;
+- (void)search:(ZHSearch *)search didStickRowWithNote:(ZHNote *)stickNote;
 
+
+/** 取消置顶某一行 */
+- (void)search:(ZHSearch *)search didCancelStickRowWithNote:(ZHNote *)cancelStickNote;
 
 @end
 

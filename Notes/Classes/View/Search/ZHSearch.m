@@ -8,6 +8,7 @@
 
 #import "ZHSearch.h"
 #import "ZHSearchBar.h"
+#import "ZHNote.h"
 #import "ZHNoteCell.h"
 #import "ZHDataUtil.h"
 
@@ -190,18 +191,117 @@
 #pragma mark - 置顶按钮点击
 - (void)tableViewCellDidClickStick:(ZHMultiButtonTableViewCell *)tableViewCell
 {
-    NSIndexPath *indexPath = [self.sdc.searchResultsTableView indexPathForCell:tableViewCell];
-    ZHNote *note = self.dataSource[indexPath.row];
+    UITableView *tableView = self.sdc.searchResultsTableView;
+    //01.表格先取消编辑状态
+    [tableView setEditing:NO animated:NO];
     
+    //02.获取模型
+    NSIndexPath *indexPath = [tableView indexPathForCell:tableViewCell];
     NSLog(@"置置置置置置置置顶%d",indexPath.row);
     
-    //通知代理
+    ZHNote *stickNote = self.dataSource[indexPath.row];
+    
+    //03.修改置顶标志
+    stickNote.stick = YES;
+    
+    //04.原地删除(由于还会插入，所以总数不变，不需要更新标题)
+    //数据源
+    [self.dataSource removeObjectAtIndex:indexPath.row];
+    //表格
+    [tableView deleteRowsAtIndexPaths:@[indexPath]
+                          withRowAnimation:UITableViewRowAnimationLeft];
+    
+    //05.顶部插入
+    [self.dataSource insertObject:stickNote atIndex:0];
+    [tableView insertRowsAtIndexPaths:@[
+                                             [NSIndexPath indexPathForRow:0 inSection:0]
+                                             ]
+                          withRowAnimation:UITableViewRowAnimationRight];
+    //06.通知代理
     if ([self.delegate respondsToSelector:@selector(search:didStickRowWithNote:)]) {
-        [self.delegate search:self didStickRowWithNote:note];
+        [self.delegate search:self didStickRowWithNote:stickNote];
     }
 }
 
+#pragma mark - 取消置顶按钮点击
+- (void)tableViewCellDidCancelStick:(ZHMultiButtonTableViewCell *)tableViewCell
+{
+    UITableView *tableView = self.sdc.searchResultsTableView;
+    //01.表格先取消编辑状态
+    [tableView setEditing:NO animated:NO];
+    
+    //02.获取模型
+    NSIndexPath *indexPath = [tableView indexPathForCell:tableViewCell];
+    NSLog(@"取消置置置置置置置置顶%d",indexPath.row);
+    ZHNote *cancelStickNote = self.dataSource[indexPath.row];
+    
+    //03.修改置顶标志
+    cancelStickNote.stick = NO;
+    
+    //04.原地删除(由于还会插入，所以总数不变，不需要更新标题)
+    //数据源
+    [self.dataSource removeObjectAtIndex:indexPath.row];
+    //表格
+    [tableView deleteRowsAtIndexPaths:@[indexPath]
+                          withRowAnimation:UITableViewRowAnimationRight];
+    
+    //---------从这里开始就和置顶不同了
+    
+    //查询该条记录的下一条未置顶的记录
+    ZHNote *nextNote = [ZHDataUtil nextNoteForNoteId:cancelStickNote.noteId stick:NO];
+    
+    ZHNote *nextNoteInDataSource = [self nextNonStickNoteInArr:self.dataSource fromNoteId:nextNote.noteId];
+    
+    //05.插入到下一条记录之前
+    if (nextNoteInDataSource) {
+        
+        NSUInteger nextNoteIndex = [self indexOfNoteInDataArr:nextNoteInDataSource];
+        [self.dataSource insertObject:cancelStickNote atIndex:nextNoteIndex];
+        [tableView insertRowsAtIndexPaths:@[
+                        [NSIndexPath indexPathForRow:nextNoteIndex inSection:0]
+                                                 ]
+                         withRowAnimation:UITableViewRowAnimationLeft];
+    }else{ //没有下一条，插入到最后
+        
+        [self.dataSource addObject:cancelStickNote];
+        [tableView insertRowsAtIndexPaths:@[
+            [NSIndexPath indexPathForRow:(self.dataSource.count - 1) inSection:0]
+                                                 ]
+                        withRowAnimation:UITableViewRowAnimationLeft];
+    }
+    
+    //06.通知代理
+    if ([self.delegate respondsToSelector:@selector(search:didCancelStickRowWithNote:)]) {
+        [self.delegate search:self didCancelStickRowWithNote:cancelStickNote];
+    }
+}
 
+/**
+ *  查找指定note在数据源中的索引
+ */
+- (NSUInteger)indexOfNoteInDataArr:(ZHNote *)noteToFind
+{
+    for (int i = 0; i < self.dataSource.count; i++) {
+        ZHNote *note = self.dataSource[i];
+        if (note.noteId == noteToFind.noteId) return i;
+    }
+    
+    return NSNotFound;
+}
+
+/**
+ *  查找在指定数组中，相对某记录id的非置顶项
+ *
+ *  @param noteId 从这个id往后找
+ */
+- (ZHNote *)nextNonStickNoteInArr:(NSMutableArray *)arr fromNoteId:(NSUInteger)noteId
+{
+    for (ZHNote *note in arr) {
+        if (!note.isStick && note.noteId <= noteId) return note;
+    }
+    
+    return nil;
+}
 #pragma mark - UISearchBar delegate
 
 #pragma mark - 决定是否可开始编辑，一般用于开始编辑前做一些事情
