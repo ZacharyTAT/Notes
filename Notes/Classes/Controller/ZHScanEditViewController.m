@@ -54,6 +54,9 @@
 {
     [super viewWillAppear:animated];
     
+    //显示权限按钮
+    [self performSelector:@selector(showAuthorityBtn)];
+    
     //渲染关键字
     if (self.searchKeyWord && ![self.searchKeyWord isEqualToString:@""]) {
         NSLog(@"key word %@",self.searchKeyWord);
@@ -72,8 +75,8 @@
         //01.退出键盘
         [self.view endEditing:YES];
         
-        //02.去掉完成编辑按钮
-        self.navigationItem.rightBarButtonItem = nil;
+        //02.显示权限按钮
+        [self performSelector:@selector(showAuthorityBtn)];
         
         return;
     }
@@ -108,7 +111,7 @@
     
     
     //02.去掉完成编辑按钮
-    self.navigationItem.rightBarButtonItem = nil;
+    [self performSelector:@selector(showAuthorityBtn)];
     
     //03.更新顶部的时间标签
     self.textView.modifydateLbl.text = [[NSDate date] toLocaleString];
@@ -119,13 +122,16 @@
     if (title.length > 20) { //标题最多20个字符
         title = [title substringToIndex:20];
     }
+    
     //保存
     [self saveWithTitle:title];
+    
     //通知代理
     if ([self.delegate respondsToSelector:@selector(scanEditViewController:didClickBackBtnWithNote:lastestNote:)]) {
         [self.delegate scanEditViewController:self didClickBackBtnWithNote:self.note lastestNote:self.latestNote];
         self.note = self.latestNote;
     }
+    
 }
 
 #pragma mark - UIScrollView delegate

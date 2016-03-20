@@ -176,7 +176,7 @@
 -(void)newBtnWithAnimated:(BOOL)animated
 {
     ZHNewViewController *newVC = [[ZHNewViewController alloc] init];
-    newVC.note = [[ZHNote alloc] initWithTitle:@"" modifydate:[NSDate date] content:@"" stick:NO];
+    newVC.note = [[ZHNote alloc] initWithTitle:@"" modifydate:[NSDate date] content:@"" stick:NO lock:NO];
     
     newVC.delegate = self;
     newVC.dataSource = self;
@@ -393,6 +393,14 @@
     
     //发送通知
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:ZHNoteDataSourceDidChangeNotification object:nil]];
+}
+
+#pragma mark - 更改了权限
+- (void)detailNoteViewController:(ZHDetailNoteViewController *)dnvc DidChangeAuthority:(BOOL)lock
+{
+    ZHNote *note = [self.dataArr firstObject];
+    
+    note.lock = lock;
 }
 
 #pragma mark - detail note view controller Data Source

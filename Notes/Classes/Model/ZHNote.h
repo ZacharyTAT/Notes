@@ -25,6 +25,9 @@
 /** 是否为置顶项 */
 @property (nonatomic,assign,getter = isStick)BOOL stick;
 
+/** 是否为加密项 */
+@property (nonatomic,assign,getter = isLock)BOOL lock;
+
 /**
  *  note模型构造方法
  *
@@ -32,10 +35,11 @@
  *  @param modifydate 修改日期
  *  @param content    具体内容
  *  @param stick      是否为置顶项
+ *  @param lock       是否为加密项
  *
  *  @return note模型
  */
-- (instancetype)initWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content stick:(BOOL)stick;
+- (instancetype)initWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content stick:(BOOL)stick lock:(BOOL)lock;
 
 /**
  *  快速创建一个note的方法
@@ -44,10 +48,11 @@
  *  @param modifydate 修改日期
  *  @param content    具体内容
  *  @param stick      是否为置顶项
+ *  @param lock       是否为加密项
  *
  *  @return note模型
  */
-+ (instancetype)noteWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content stick:(BOOL)stick;
++ (instancetype)noteWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content stick:(BOOL)stick lock:(BOOL)lock;
 @end
 
 

@@ -56,6 +56,13 @@
  */
 + (BOOL)stickNoteIfStick:(BOOL)stick forId:(NSInteger)noteId;
 
+/**
+ *  更新权限
+ *
+ *  @param lock   YES为私密，NO为公开
+ *  @param noteId 笔记ID
+ */
++ (BOOL)changeAuthorityIfLock:(BOOL)lock forId:(NSInteger)noteId;
 
 @end
 

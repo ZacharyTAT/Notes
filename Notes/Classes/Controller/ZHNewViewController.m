@@ -128,6 +128,9 @@
     if ([self.delegate respondsToSelector:@selector(newViewController:didClickBackBtnWithNewNote:)]) {
         [self.delegate newViewController:self didClickBackBtnWithNewNote:self.latestNote];
     }
+    
+    //显示权限按钮
+    [self performSelector:@selector(showAuthorityBtn)];
 }
 
 @end

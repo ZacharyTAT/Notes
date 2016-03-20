@@ -149,6 +149,8 @@
     return res;
 }
 
+
+#pragma mark - 更新置顶
 + (BOOL)stickNoteIfStick:(BOOL)stick forId:(NSInteger)noteId
 {
     ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
@@ -161,8 +163,18 @@
     return NO;
 }
 
-
-
+#pragma mark - 更改权限
++ (BOOL)changeAuthorityIfLock:(BOOL)lock forId:(NSInteger)noteId
+{
+    ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
+    ZHNote *note = [dbUtil noteForId:noteId];
+    
+    if (note) {
+        note.lock = lock;
+        return [dbUtil updateWithNote:note ForId:noteId];
+    }
+    return NO;
+}
 
 
 @end

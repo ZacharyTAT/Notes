@@ -15,6 +15,7 @@
 #define kNoteColumnContent @"content"
 #define kNoteColumnModifyDate @"modifyDate"
 #define kNoteColumnIsStick @"isStick"
+#define kNoteColumnIsLock @"isLock"
 
 @interface ZHDBUtil()
 
@@ -69,9 +70,10 @@
                                      %@ TEXT NOT NULL,\
                                      %@ TEXT NOT NULL,\
                                      %@ timestamp NOT NULL,\
+                                     %@ INTEGER default 0,\
                                      %@ INTEGER default 0 \
                                  )\
-                             ",tableName,kNoteColumnId,kNoteColumnTitle,kNoteColumnContent,kNoteColumnModifyDate,kNoteColumnIsStick];
+                             ",tableName,kNoteColumnId,kNoteColumnTitle,kNoteColumnContent,kNoteColumnModifyDate,kNoteColumnIsStick,kNoteColumnIsLock];
             NSLog(@"%@",sql);
             BOOL res = [self.DB executeUpdate:sql];
             [self.DB close];
@@ -139,9 +141,11 @@
             NSString *content = [rs stringForColumn:kNoteColumnContent];
             NSDate *modifyDate = [rs dateForColumn:kNoteColumnModifyDate];
             BOOL stick = [rs boolForColumn:kNoteColumnIsStick];
+            BOOL lock = [rs boolForColumn:kNoteColumnIsLock];
             
-            NSLog(@"id=%d, title=%@, content=%@, modifyDate=%@,stick=%d",noteId,title, content, modifyDate,stick);
-            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:modifyDate content:content stick:stick];
+            NSLog(@"id=%d, title=%@, content=%@, modifyDate=%@,stick=%d,lock=%d",noteId,title, content, modifyDate, stick, lock);
+            
+            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:modifyDate content:content stick:stick lock:lock];
             note.noteId = noteId;
             
             [self.DB close];
@@ -165,8 +169,9 @@
             NSString *content = [rs stringForColumn:kNoteColumnContent];
 //            NSDate *modifyDate = [rs dateForColumn:@"modifyDate"];
             BOOL stick = [rs boolForColumn:kNoteColumnIsStick];
+            BOOL lock = [rs boolForColumn:kNoteColumnIsLock];
             NSLog(@"id=%d, title=%@, content=%@, modifyDate=%@",noteId,title, content, modifyDate);
-            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:modifyDate content:content stick:stick];
+            ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:modifyDate content:content stick:stick lock:lock];
             note.noteId = noteId;
             
             [self.DB close];
@@ -218,9 +223,10 @@
             NSString *content = [rs stringForColumn:kNoteColumnContent];
             NSDate *modifyDate = [rs dateForColumn:kNoteColumnModifyDate];
             BOOL stick = [rs boolForColumn:kNoteColumnIsStick];
+            BOOL lock = [rs boolForColumn:kNoteColumnIsLock];
             
             
-            ZHNote *note = [ZHNote noteWithTitle:title modifydate:modifyDate content:content stick:stick];
+            ZHNote *note = [ZHNote noteWithTitle:title modifydate:modifyDate content:content stick:stick lock:lock];
             note.noteId = noteId;
             [notes addObject:note];
         }
@@ -277,8 +283,9 @@
         NSString *content = updatedNote.content;
         NSDate *modifyDate = updatedNote.modifydate;
         BOOL stick = updatedNote.isStick;
+        BOOL lock = updatedNote.isLock;
 //        NSString *sql = [NSString stringWithFormat:@"UPDATE note SET title='%@',content='%@',modifyDate=? where id = %d",title,content,noteId];
-        NSString *sql = [NSString stringWithFormat:@"UPDATE note SET %@=?,%@=?,%@=?,%@=%d where %@ = %d",kNoteColumnTitle,kNoteColumnContent,kNoteColumnModifyDate,kNoteColumnIsStick,stick,kNoteColumnId,noteId];
+        NSString *sql = [NSString stringWithFormat:@"UPDATE note SET %@=?,%@=?,%@=?,%@=%d,%@=%d where %@ = %d",kNoteColumnTitle ,kNoteColumnContent ,kNoteColumnModifyDate ,kNoteColumnIsStick ,stick ,kNoteColumnIsLock ,lock ,kNoteColumnId ,noteId];
         NSLog(@"sql = %@",sql);
         
         BOOL res = [self.DB executeUpdate:sql,title,content,modifyDate];

@@ -160,17 +160,20 @@
 - (void)saveWithTitle:(NSString *)title
 {
     BOOL stick = NO;
+    BOOL lock = NO;
     //先删除之前的记录
     if (self.latestNote == nil) { //删除self.note
         stick = self.note.stick;
+        lock = self.note.lock;
         [ZHDataUtil removeNote:self.note];
     }else{ //删除self.latestNote
         stick = self.latestNote.stick;
+        lock = self.latestNote.lock;
         [ZHDataUtil removeNote:self.latestNote];
     }
     
     //00.建立note模型
-    ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:self.textView.text stick:stick];
+    ZHNote *note = [[ZHNote alloc] initWithTitle:title modifydate:[NSDate date] content:self.textView.text stick:stick lock:lock];
     
     //01.先保存到磁盘，这样可以查询到id
     [ZHDataUtil saveWithNote:note];
@@ -366,6 +369,36 @@
 - (void)doneBtnClick
 {
 #warning 这个方法要留给子类去实现
+}
+
+#pragma mark - 显示权限按钮
+- (void)showAuthorityBtn
+{
+    
+    NSString *btnTitle = self.note.isLock ? @"公开" : @"加密";
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:btnTitle style:0 target:self action:@selector(authorityBtnClick:)];
+}
+#pragma mark - 权限按钮点击事件
+- (void)authorityBtnClick:(UIBarButtonItem *)authorityBtn
+{
+    ZHNote *note = self.note;
+    if (self.latestNote) note = self.latestNote;
+    
+    note.lock = !note.lock;
+    
+    NSString *btnTitle = note.isLock ? @"公开" : @"加密";
+    
+    //01.更改标题
+    [authorityBtn setTitle:btnTitle];
+    
+    //02.通知代理,更新表格视图
+    if ([self.delegate respondsToSelector:@selector(detailNoteViewController:DidChangeAuthority:)]) {
+        [self.delegate detailNoteViewController:self DidChangeAuthority:note.lock];
+    }
+    
+    //03.持久化
+    [ZHDataUtil changeAuthorityIfLock:note.isLock forId:note.noteId];
 }
 
 #pragma mark - 返回按钮点击事件

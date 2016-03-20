@@ -20,6 +20,12 @@
  */
 - (void)detailNoteViewController:(ZHDetailNoteViewController *)dnvc DidClickDeleteItemWithNote:(ZHNote *)note latestNote:(ZHNote *)latestNote;
 
+/**
+ *  点击了权限按钮
+ *  @param lock 是否为私密
+ */
+- (void)detailNoteViewController:(ZHDetailNoteViewController *)dnvc DidChangeAuthority:(BOOL)lock;
+
 @end
 
 @protocol ZHDetailNoteViewControllerDataSource <NSObject>
