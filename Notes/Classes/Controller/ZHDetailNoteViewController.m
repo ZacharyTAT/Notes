@@ -27,6 +27,9 @@
 /** 底部工具条 */
 @property (nonatomic, weak) ZHBottomBar *bottomBar;
 
+/** 权限按钮 */
+@property (nonatomic, strong) UIBarButtonItem *authorityBtn;
+
 /** 记录文本是否修改过 */
 @property (nonatomic, assign,getter = isTextViewChanged)BOOL textViewChanged;
 
@@ -44,6 +47,7 @@
     [super viewDidLoad];
     self.textViewChanged = NO;
     [self setupLeftNavItem];
+    [self setupRightNavItem];
     [self setupSubViews];
 }
 
@@ -110,8 +114,20 @@
         }
     }
     
+    //权限
+    [self showAuthorityBtn];
+    
 }
 
+#pragma mark - 初始化右边返回按钮
+/**
+ *  初始化右边返回按钮
+ */
+- (void)setupRightNavItem
+{
+    self.authorityBtn = [[UIBarButtonItem alloc] initWithTitle:@"" style:0 target:self action:@selector(authorityBtnClick:)];
+    
+}
 #pragma mark - 初始化左边返回按钮
 /**
  *  初始化左边返回按钮
@@ -375,9 +391,16 @@
 - (void)showAuthorityBtn
 {
     
-    NSString *btnTitle = self.note.isLock ? @"公开" : @"加密";
+    ZHNote *note = self.note;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:btnTitle style:0 target:self action:@selector(authorityBtnClick:)];
+    if (self.latestNote) note = self.latestNote;
+    
+    NSString *btnTitle = note.isLock ? @"公开" : @"加密";
+    
+    [self.authorityBtn setTitle:btnTitle];
+    
+    self.navigationItem.rightBarButtonItem = self.authorityBtn;
+    
 }
 #pragma mark - 权限按钮点击事件
 - (void)authorityBtnClick:(UIBarButtonItem *)authorityBtn

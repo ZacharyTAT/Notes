@@ -190,7 +190,7 @@
     [self.tableView addGestureRecognizer:longPress];
 }
 
-#pragma mark - table view delegate
+#pragma mark - TableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -198,6 +198,11 @@
     
     //获取数据
     ZHNote *note = self.dataArr[indexPath.row];
+    
+    //权限判断
+    if (note.isLock) { //弹出手势解锁界面
+        
+    }
     
     //创建控制器
     ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
