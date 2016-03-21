@@ -14,36 +14,56 @@
 
 @implementation ZHUnLockerViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self test];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)test
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.view.backgroundColor = [UIColor lightGrayColor];
+    
+    UIButton *success = [[UIButton alloc] init];
+    success.backgroundColor = [UIColor greenColor];
+    [success setTitle:@"成功" forState:UIControlStateNormal];
+    [success addTarget:self action:@selector(success) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:success];
+    //    success.center = CGPointMake(100, 100);
+    success.frame = CGRectMake(100, 100, 50, 50);
+    
+    UIButton *fail = [[UIButton alloc] init];
+    fail.backgroundColor = [UIColor redColor];
+    [fail setTitle:@"失败" forState:UIControlStateNormal];
+    [fail addTarget:self action:@selector(fail) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:fail];
+    //    fail.center = CGPointMake(100, 200);
+    fail.frame = CGRectMake(100, 200, 50, 50);
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:0 target:self action:@selector(cancel)];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)success
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    NSLog(@"SUCCESS");
+    self.completionHander(self, YES);
 }
-*/
+
+- (void)fail
+{
+    NSLog(@"FAIL");
+    self.completionHander(self, NO);
+}
+
+- (void)cancel
+{
+    NSLog(@"Cancel");
+    self.completionHander(self, NO);
+}
+
+- (void)dealloc
+{
+    NSLog(@"%@ dealloc", [self class]);
+}
 
 @end

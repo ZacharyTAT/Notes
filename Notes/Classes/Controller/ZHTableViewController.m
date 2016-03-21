@@ -9,6 +9,8 @@
 #import "ZHTableViewController.h"
 #import "ZHNewViewController.h"
 #import "ZHScanEditViewController.h"
+#import "ZHUnLockerViewController.h"
+#import "ZHNavigationController.h"
 
 #import "ZHNoteCell.h"
 #import "ZHNote.h"
@@ -201,9 +203,30 @@
     
     //权限判断
     if (note.isLock) { //弹出手势解锁界面
+        ZHUnLockerViewController *ulvc = [[ZHUnLockerViewController alloc] init];
+        ulvc.title = @"手势解锁";
         
+        __weak typeof(self) weakSelf = self;
+        
+        ulvc.completionHander = ^(ZHUnLockerViewController *unlockervc, BOOL result) {
+            [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+            
+            if (result) {
+                [weakSelf showScanViewController:note animated:NO];
+            }
+        };
+        
+        [self presentViewController:[[ZHNavigationController alloc] initWithRootViewController:ulvc] animated:YES completion:NULL];
+        return;
     }
     
+    [self showScanViewController:note animated:YES];
+
+}
+
+#pragma mark - 跳转到查看笔记界面
+- (void)showScanViewController:(ZHNote *)note animated:(BOOL)animated
+{
     //创建控制器
     ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
     dvc.note = note;
@@ -211,7 +234,7 @@
     dvc.dataSource = self;
     
     //跳转
-    [self.navigationController pushViewController:dvc animated:YES];
+    [self.navigationController pushViewController:dvc animated:animated];
 }
 
 #pragma mark - table view data source
