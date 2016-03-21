@@ -606,16 +606,40 @@
     //获取数据
     ZHNote *note = self.searchResultArr[indexPath.row];
     
+    //权限判断
+    if (note.isLock) { //弹出手势解锁界面
+        ZHUnLockerViewController *ulvc = [[ZHUnLockerViewController alloc] init];
+        ulvc.title = @"手势解锁";
+        
+        __weak typeof(self) weakSelf = self;
+        
+        ulvc.completionHander = ^(ZHUnLockerViewController *unlockervc, BOOL result) {
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                if (result) {
+                    [weakSelf showScanViewControllerFromSearchView:note keyword:search.searchBar.text animated:YES];
+                }
+            }];
+
+        };
+        
+        [self presentViewController:[[ZHNavigationController alloc] initWithRootViewController:ulvc] animated:YES completion:NULL];
+        return;
+    }
+    
+    [self showScanViewControllerFromSearchView:note keyword:search.searchBar.text animated:YES];
+
+}
+- (void)showScanViewControllerFromSearchView:(ZHNote *)note keyword:(NSString *)keyword animated:(BOOL)animated
+{
     //创建控制器
     ZHScanEditViewController *dvc = [[ZHScanEditViewController alloc] init];
     dvc.note = note;
     dvc.delegate = self;
     dvc.dataSource = self;
-    dvc.searchKeyWord = search.searchBar.text;
+    dvc.searchKeyWord = keyword;
     //跳转
-    [self.navigationController pushViewController:dvc animated:YES];
+    [self.navigationController pushViewController:dvc animated:animated];
 }
-
 #pragma mark - 删除了某一行
 - (void)search:(ZHSearch *)search didDeleteRowWithNote:(ZHNote *)note
 {
