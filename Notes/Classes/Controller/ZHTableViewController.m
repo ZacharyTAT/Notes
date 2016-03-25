@@ -201,10 +201,11 @@
     //获取数据
     ZHNote *note = self.dataArr[indexPath.row];
     
+    
     //权限判断
     if (note.isLock) { //弹出手势解锁界面
         ZHUnLockerViewController *ulvc = [[ZHUnLockerViewController alloc] init];
-        ulvc.title = @"手势解锁";
+        ulvc.title = @"请输入解锁手势";
         
         __weak typeof(self) weakSelf = self;
         
@@ -609,7 +610,7 @@
     //权限判断
     if (note.isLock) { //弹出手势解锁界面
         ZHUnLockerViewController *ulvc = [[ZHUnLockerViewController alloc] init];
-        ulvc.title = @"手势解锁";
+        ulvc.title = @"请输入解锁手势";
         
         __weak typeof(self) weakSelf = self;
         

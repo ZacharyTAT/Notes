@@ -25,6 +25,8 @@
 		1892B2C31C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892B2C01C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m */; };
 		1892B2C41C22967300535B24 /* ZHHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892B2C21C22967300535B24 /* ZHHierarchy.m */; };
 		18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A071C0D88BB00D5AE9F /* ZHNote.m */; };
+		18B8B84D1CA52B27005A7E4C /* ZHCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B8B84A1CA52B27005A7E4C /* ZHCircleView.m */; };
+		18B8B84E1CA52B27005A7E4C /* ZHLockerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B8B84C1CA52B27005A7E4C /* ZHLockerView.m */; };
 		18E8840A1C181FBC00A6A1E0 /* ZHDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E884091C181FBC00A6A1E0 /* ZHDataUtil.m */; };
 		18EF25D11C2545A700873A68 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25C71C2545A700873A68 /* FMDatabase.m */; };
 		18EF25D21C2545A700873A68 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25C91C2545A700873A68 /* FMDatabaseAdditions.m */; };
@@ -97,6 +99,10 @@
 		1892B2C21C22967300535B24 /* ZHHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHHierarchy.m; sourceTree = "<group>"; };
 		18981A061C0D88BB00D5AE9F /* ZHNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNote.h; sourceTree = "<group>"; };
 		18981A071C0D88BB00D5AE9F /* ZHNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNote.m; sourceTree = "<group>"; };
+		18B8B8491CA52B27005A7E4C /* ZHCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHCircleView.h; sourceTree = "<group>"; };
+		18B8B84A1CA52B27005A7E4C /* ZHCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHCircleView.m; sourceTree = "<group>"; };
+		18B8B84B1CA52B27005A7E4C /* ZHLockerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLockerView.h; sourceTree = "<group>"; };
+		18B8B84C1CA52B27005A7E4C /* ZHLockerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLockerView.m; sourceTree = "<group>"; };
 		18E884081C181FBC00A6A1E0 /* ZHDataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDataUtil.h; sourceTree = "<group>"; };
 		18E884091C181FBC00A6A1E0 /* ZHDataUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDataUtil.m; sourceTree = "<group>"; };
 		18EF25C61C2545A700873A68 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -228,6 +234,17 @@
 				1892B2C21C22967300535B24 /* ZHHierarchy.m */,
 			);
 			path = ZHHierarchy;
+			sourceTree = "<group>";
+		};
+		18B8B8481CA52B27005A7E4C /* LockerView */ = {
+			isa = PBXGroup;
+			children = (
+				18B8B8491CA52B27005A7E4C /* ZHCircleView.h */,
+				18B8B84A1CA52B27005A7E4C /* ZHCircleView.m */,
+				18B8B84B1CA52B27005A7E4C /* ZHLockerView.h */,
+				18B8B84C1CA52B27005A7E4C /* ZHLockerView.m */,
+			);
+			path = LockerView;
 			sourceTree = "<group>";
 		};
 		18E884071C181FA300A6A1E0 /* lib */ = {
@@ -386,6 +403,7 @@
 		18F301DC1C0D6E1500D9C398 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18B8B8481CA52B27005A7E4C /* LockerView */,
 				182A59EA1C33EF2000A07705 /* BottomBar */,
 				182A59EF1C33EF2000A07705 /* Cell */,
 				182A59F41C33EF2000A07705 /* Search */,
@@ -496,6 +514,7 @@
 				186D67C91C36A8E7004AA771 /* ZHStickView.m in Sources */,
 				18EF25D11C2545A700873A68 /* FMDatabase.m in Sources */,
 				182A59FE1C33EF2000A07705 /* ZHBottomBar.m in Sources */,
+				18B8B84E1CA52B27005A7E4C /* ZHLockerView.m in Sources */,
 				18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */,
 				18EF25D31C2545A700873A68 /* FMDatabasePool.m in Sources */,
 				182A5A011C33EF2000A07705 /* ZHNoteCell.m in Sources */,
@@ -520,6 +539,7 @@
 				185794C01C1467460050F62D /* ZHNewViewController.m in Sources */,
 				183664751C195D6000AA1DFF /* NSString+ZH.m in Sources */,
 				182A5A031C33EF2000A07705 /* ZHSearchBar.m in Sources */,
+				18B8B84D1CA52B27005A7E4C /* ZHCircleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
