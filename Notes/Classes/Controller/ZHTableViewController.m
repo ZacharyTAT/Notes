@@ -18,7 +18,7 @@
 #import "ZHSearchBar.h"
 
 #import "ZHDataUtil.h"
-
+#import "ZHLocker.h"
 
 
 @interface ZHTableViewController ()<ZHDetailNoteViewControllerDelegate,ZHDetailNoteViewControllerDataSource,ZHNewViewControllerDelegate,ZHScanEditViewControllerDelegate,ZHSearchDelegate,ZHMultiButtonTableViewCellDelegate>
@@ -204,20 +204,17 @@
     
     //权限判断
     if (note.isLock) { //弹出手势解锁界面
-        ZHUnLockerViewController *ulvc = [[ZHUnLockerViewController alloc] init];
-        ulvc.title = @"请输入解锁手势";
         
         __weak typeof(self) weakSelf = self;
         
-        ulvc.completionHander = ^(ZHUnLockerViewController *unlockervc, BOOL result) {
+        [ZHLocker verifyInViewControlloer:self completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
+            
             [weakSelf dismissViewControllerAnimated:YES completion:NULL];
             
             if (result) {
                 [weakSelf showScanViewController:note animated:NO];
             }
-        };
-        
-        [self presentViewController:[[ZHNavigationController alloc] initWithRootViewController:ulvc] animated:YES completion:NULL];
+        }];
         return;
     }
     
@@ -427,9 +424,8 @@
 #pragma mark - 更改了权限
 - (void)detailNoteViewController:(ZHDetailNoteViewController *)dnvc DidChangeAuthority:(BOOL)lock
 {
-    ZHNote *note = [self.dataArr firstObject];
-    
-    note.lock = lock;
+    //在这里更新UI，如果需要的话
+    NSLog(@"%d",lock);
 }
 
 #pragma mark - detail note view controller Data Source
@@ -609,21 +605,18 @@
     
     //权限判断
     if (note.isLock) { //弹出手势解锁界面
-        ZHUnLockerViewController *ulvc = [[ZHUnLockerViewController alloc] init];
-        ulvc.title = @"请输入解锁手势";
         
         __weak typeof(self) weakSelf = self;
         
-        ulvc.completionHander = ^(ZHUnLockerViewController *unlockervc, BOOL result) {
+        [ZHLocker verifyInViewControlloer:self completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
+            
             [weakSelf dismissViewControllerAnimated:YES completion:^{
                 if (result) {
                     [weakSelf showScanViewControllerFromSearchView:note keyword:search.searchBar.text animated:YES];
                 }
             }];
 
-        };
-        
-        [self presentViewController:[[ZHNavigationController alloc] initWithRootViewController:ulvc] animated:YES completion:NULL];
+        }];
         return;
     }
     

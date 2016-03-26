@@ -122,7 +122,7 @@
 - (void)success
 {
     NSLog(@"SUCCESS");
-    self.completionHander(self, YES);
+    if (self.completionHander) self.completionHander(self, YES);
 }
 
 /**
@@ -142,7 +142,7 @@
 - (void)cancel
 {
     NSLog(@"Cancel");
-    self.completionHander(self, NO);
+    if (self.completionHander) self.completionHander(self, NO);
 }
 
 #pragma mark - ZHLockerViewDelegate

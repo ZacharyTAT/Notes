@@ -17,7 +17,7 @@
 #import "NSString+ZH.h"
 #import "ZHKeyboardJudge.h"
 #import "ZHDataUtil.h"
-
+#import "ZHLocker.h"
 
 @interface ZHDetailNoteViewController ()<UIActionSheetDelegate,ZHBottomBarDelegate>
 
@@ -280,13 +280,7 @@
 {
     ZHNote *preNote = [self previousNote];
     if (preNote) { //不为空才更新
-        //更新模型
-        self.note = preNote;
-        self.latestNote = nil;
-        
-        [self updateUI];
-        
-        NSLog(@"preNote = %@",preNote);
+        [self changeNote:preNote];
     }
 }
 #pragma mark - 获取上一条记录
@@ -313,12 +307,7 @@
 
     ZHNote *nextNote = [self nextNote];
     if (nextNote) {//不为空才更新
-        self.note = nextNote;
-        self.latestNote = nil;
-        
-        [self updateUI];
-        
-        NSLog(@"nextNote = %@",nextNote);
+        [self changeNote:nextNote];
     }
 }
 
@@ -335,6 +324,34 @@
     }
     
     return nextNote;
+}
+
+- (void)changeNote:(ZHNote *)note
+{
+    void (^doSame)() = ^{
+        self.note = note;
+        self.latestNote = nil;
+        
+        [self updateUI];
+        
+        NSLog(@"preNote = %@",note);
+    };
+    //更新模型
+    if (note.isLock) {
+        
+        __weak typeof(self) weakSelf = self;
+        
+        [ZHLocker verifyInViewControlloer:self completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
+            
+            [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+            
+            if (result) {
+                doSame();
+            }
+        }];
+        return;
+    }
+    doSame();
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -408,20 +425,37 @@
     ZHNote *note = self.note;
     if (self.latestNote) note = self.latestNote;
     
-    note.lock = !note.lock;
+    __weak typeof(self) weakSelf = self;
     
-    NSString *btnTitle = note.isLock ? @"公开" : @"加密";
+    void (^doSame)() = ^{
+        
+        note.lock = !note.lock;
+        
+        NSString *btnTitle = note.isLock ? @"公开" : @"加密";
+        
+        //01.更改标题
+        [authorityBtn setTitle:btnTitle];
+        
+        //02.通知代理,更新表格视图，如果需要的话
+        if ([weakSelf.delegate respondsToSelector:@selector(detailNoteViewController:DidChangeAuthority:)]) {
+            [weakSelf.delegate detailNoteViewController:weakSelf DidChangeAuthority:note.lock];
+        }
+        
+        //03.持久化
+        [ZHDataUtil changeAuthorityIfLock:note.isLock forId:note.noteId];
+    };
     
-    //01.更改标题
-    [authorityBtn setTitle:btnTitle];
-    
-    //02.通知代理,更新表格视图
-    if ([self.delegate respondsToSelector:@selector(detailNoteViewController:DidChangeAuthority:)]) {
-        [self.delegate detailNoteViewController:self DidChangeAuthority:note.lock];
+    if (note.isLock) { //若是私密记录，将之公开，需要验证
+        [ZHLocker verifyInViewControlloer:self completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
+            [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+            if (result) {
+                doSame();
+            }
+        }];
+        return;
     }
     
-    //03.持久化
-    [ZHDataUtil changeAuthorityIfLock:note.isLock forId:note.noteId];
+    doSame();
 }
 
 #pragma mark - 返回按钮点击事件

@@ -15,25 +15,29 @@
 		182A5A031C33EF2000A07705 /* ZHSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A59F81C33EF2000A07705 /* ZHSearchBar.m */; };
 		182A5A041C33EF2000A07705 /* ZHHightlightTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A59FB1C33EF2000A07705 /* ZHHightlightTextView.m */; };
 		182A5A051C33EF2000A07705 /* ZHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A59FD1C33EF2000A07705 /* ZHTextView.m */; };
-		183664751C195D6000AA1DFF /* NSString+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 183664741C195D6000AA1DFF /* NSString+ZH.m */; };
 		183A70521C2BC7B70043F552 /* ZHDetailNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A70511C2BC7B70043F552 /* ZHDetailNoteViewController.m */; };
-		185794B71C144EE70050F62D /* NSDate+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794B61C144EE70050F62D /* NSDate+ZH.m */; };
 		185794BD1C1463B10050F62D /* ZHScanEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794BC1C1463B10050F62D /* ZHScanEditViewController.m */; };
 		185794C01C1467460050F62D /* ZHNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794BF1C1467460050F62D /* ZHNewViewController.m */; };
 		186D67C91C36A8E7004AA771 /* ZHStickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186D67C81C36A8E7004AA771 /* ZHStickView.m */; };
 		187434241C9FA306001A50FC /* ZHUnLockerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187434231C9FA306001A50FC /* ZHUnLockerViewController.m */; };
-		1892B2C31C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892B2C01C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m */; };
-		1892B2C41C22967300535B24 /* ZHHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892B2C21C22967300535B24 /* ZHHierarchy.m */; };
 		18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A071C0D88BB00D5AE9F /* ZHNote.m */; };
 		18B8B84D1CA52B27005A7E4C /* ZHCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B8B84A1CA52B27005A7E4C /* ZHCircleView.m */; };
 		18B8B84E1CA52B27005A7E4C /* ZHLockerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B8B84C1CA52B27005A7E4C /* ZHLockerView.m */; };
-		18E8840A1C181FBC00A6A1E0 /* ZHDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E884091C181FBC00A6A1E0 /* ZHDataUtil.m */; };
-		18EF25D11C2545A700873A68 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25C71C2545A700873A68 /* FMDatabase.m */; };
-		18EF25D21C2545A700873A68 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25C91C2545A700873A68 /* FMDatabaseAdditions.m */; };
-		18EF25D31C2545A700873A68 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25CB1C2545A700873A68 /* FMDatabasePool.m */; };
-		18EF25D41C2545A700873A68 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25CD1C2545A700873A68 /* FMDatabaseQueue.m */; };
-		18EF25D51C2545A700873A68 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25D01C2545A700873A68 /* FMResultSet.m */; };
-		18EF25D81C25498800873A68 /* ZHDBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF25D71C25498800873A68 /* ZHDBUtil.m */; };
+		18E510B51CA66CD100B2F157 /* NSDate+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510961CA66CD100B2F157 /* NSDate+ZH.m */; };
+		18E510B61CA66CD100B2F157 /* NSString+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510981CA66CD100B2F157 /* NSString+ZH.m */; };
+		18E510B71CA66CD100B2F157 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5109C1CA66CD100B2F157 /* FMDatabase.m */; };
+		18E510B81CA66CD100B2F157 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5109E1CA66CD100B2F157 /* FMDatabaseAdditions.m */; };
+		18E510B91CA66CD100B2F157 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510A01CA66CD100B2F157 /* FMDatabasePool.m */; };
+		18E510BA1CA66CD100B2F157 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510A21CA66CD100B2F157 /* FMDatabaseQueue.m */; };
+		18E510BB1CA66CD100B2F157 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510A51CA66CD100B2F157 /* FMResultSet.m */; };
+		18E510BC1CA66CD100B2F157 /* ZHDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510A71CA66CD100B2F157 /* ZHDataUtil.m */; };
+		18E510BD1CA66CD100B2F157 /* ZHDBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510A91CA66CD100B2F157 /* ZHDBUtil.m */; };
+		18E510BE1CA66CD100B2F157 /* ZHHierarchy+ZHViewHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510AC1CA66CD100B2F157 /* ZHHierarchy+ZHViewHierarchy.m */; };
+		18E510BF1CA66CD100B2F157 /* ZHHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510AE1CA66CD100B2F157 /* ZHHierarchy.m */; };
+		18E510C01CA66CD100B2F157 /* ZHKeyboardJudge.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510B01CA66CD100B2F157 /* ZHKeyboardJudge.m */; };
+		18E510C11CA66CD100B2F157 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510B11CA66CD100B2F157 /* main.m */; };
+		18E510C21CA66CD100B2F157 /* ZHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510B41CA66CD100B2F157 /* ZHAppDelegate.m */; };
+		18E510C81CA66E3500B2F157 /* ZHLocker.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510C71CA66E3500B2F157 /* ZHLocker.m */; };
 		18EF25DA1C25522100873A68 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EF25D91C25522100873A68 /* libsqlite3.0.dylib */; };
 		18F301A11C0D6C4A00D9C398 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A01C0D6C4A00D9C398 /* Foundation.framework */; };
 		18F301A31C0D6C4A00D9C398 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A21C0D6C4A00D9C398 /* CoreGraphics.framework */; };
@@ -45,11 +49,8 @@
 		18F301BC1C0D6C4A00D9C398 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A41C0D6C4A00D9C398 /* UIKit.framework */; };
 		18F301C41C0D6C4A00D9C398 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18F301C21C0D6C4A00D9C398 /* InfoPlist.strings */; };
 		18F301C61C0D6C4A00D9C398 /* NotesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301C51C0D6C4A00D9C398 /* NotesTests.m */; };
-		18F301DD1C0D6E1500D9C398 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301D81C0D6E1500D9C398 /* main.m */; };
-		18F301DE1C0D6E1500D9C398 /* ZHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301DB1C0D6E1500D9C398 /* ZHAppDelegate.m */; };
 		18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301E01C0D6ED500D9C398 /* ZHNavigationController.m */; };
 		18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */; };
-		18F6CB811C1ADE2400CE78BE /* ZHKeyboardJudge.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F6CB801C1ADE2400CE78BE /* ZHKeyboardJudge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,12 +80,8 @@
 		182A59FB1C33EF2000A07705 /* ZHHightlightTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHHightlightTextView.m; sourceTree = "<group>"; };
 		182A59FC1C33EF2000A07705 /* ZHTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHTextView.h; sourceTree = "<group>"; };
 		182A59FD1C33EF2000A07705 /* ZHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTextView.m; sourceTree = "<group>"; };
-		183664731C195D6000AA1DFF /* NSString+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZH.h"; sourceTree = "<group>"; };
-		183664741C195D6000AA1DFF /* NSString+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZH.m"; sourceTree = "<group>"; };
 		183A70501C2BC7B70043F552 /* ZHDetailNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDetailNoteViewController.h; sourceTree = "<group>"; };
 		183A70511C2BC7B70043F552 /* ZHDetailNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDetailNoteViewController.m; sourceTree = "<group>"; };
-		185794B51C144EE70050F62D /* NSDate+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ZH.h"; sourceTree = "<group>"; };
-		185794B61C144EE70050F62D /* NSDate+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ZH.m"; sourceTree = "<group>"; };
 		185794BB1C1463B10050F62D /* ZHScanEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHScanEditViewController.h; sourceTree = "<group>"; };
 		185794BC1C1463B10050F62D /* ZHScanEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHScanEditViewController.m; sourceTree = "<group>"; };
 		185794BE1C1467460050F62D /* ZHNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNewViewController.h; sourceTree = "<group>"; };
@@ -93,31 +90,43 @@
 		186D67C81C36A8E7004AA771 /* ZHStickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHStickView.m; sourceTree = "<group>"; };
 		187434221C9FA306001A50FC /* ZHUnLockerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHUnLockerViewController.h; sourceTree = "<group>"; };
 		187434231C9FA306001A50FC /* ZHUnLockerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHUnLockerViewController.m; sourceTree = "<group>"; };
-		1892B2BF1C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZHHierarchy+ZHViewHierarchy.h"; sourceTree = "<group>"; };
-		1892B2C01C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZHHierarchy+ZHViewHierarchy.m"; sourceTree = "<group>"; };
-		1892B2C11C22967300535B24 /* ZHHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHHierarchy.h; sourceTree = "<group>"; };
-		1892B2C21C22967300535B24 /* ZHHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHHierarchy.m; sourceTree = "<group>"; };
 		18981A061C0D88BB00D5AE9F /* ZHNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNote.h; sourceTree = "<group>"; };
 		18981A071C0D88BB00D5AE9F /* ZHNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNote.m; sourceTree = "<group>"; };
 		18B8B8491CA52B27005A7E4C /* ZHCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHCircleView.h; sourceTree = "<group>"; };
 		18B8B84A1CA52B27005A7E4C /* ZHCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHCircleView.m; sourceTree = "<group>"; };
 		18B8B84B1CA52B27005A7E4C /* ZHLockerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLockerView.h; sourceTree = "<group>"; };
 		18B8B84C1CA52B27005A7E4C /* ZHLockerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLockerView.m; sourceTree = "<group>"; };
-		18E884081C181FBC00A6A1E0 /* ZHDataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDataUtil.h; sourceTree = "<group>"; };
-		18E884091C181FBC00A6A1E0 /* ZHDataUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDataUtil.m; sourceTree = "<group>"; };
-		18EF25C61C2545A700873A68 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
-		18EF25C71C2545A700873A68 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
-		18EF25C81C2545A700873A68 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		18EF25C91C2545A700873A68 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		18EF25CA1C2545A700873A68 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
-		18EF25CB1C2545A700873A68 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
-		18EF25CC1C2545A700873A68 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
-		18EF25CD1C2545A700873A68 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
-		18EF25CE1C2545A700873A68 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
-		18EF25CF1C2545A700873A68 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
-		18EF25D01C2545A700873A68 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		18EF25D61C25498800873A68 /* ZHDBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDBUtil.h; sourceTree = "<group>"; };
-		18EF25D71C25498800873A68 /* ZHDBUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDBUtil.m; sourceTree = "<group>"; };
+		18E510951CA66CD100B2F157 /* NSDate+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ZH.h"; sourceTree = "<group>"; };
+		18E510961CA66CD100B2F157 /* NSDate+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ZH.m"; sourceTree = "<group>"; };
+		18E510971CA66CD100B2F157 /* NSString+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZH.h"; sourceTree = "<group>"; };
+		18E510981CA66CD100B2F157 /* NSString+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZH.m"; sourceTree = "<group>"; };
+		18E5109B1CA66CD100B2F157 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		18E5109C1CA66CD100B2F157 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		18E5109D1CA66CD100B2F157 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		18E5109E1CA66CD100B2F157 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		18E5109F1CA66CD100B2F157 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		18E510A01CA66CD100B2F157 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		18E510A11CA66CD100B2F157 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		18E510A21CA66CD100B2F157 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		18E510A31CA66CD100B2F157 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		18E510A41CA66CD100B2F157 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		18E510A51CA66CD100B2F157 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		18E510A61CA66CD100B2F157 /* ZHDataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDataUtil.h; sourceTree = "<group>"; };
+		18E510A71CA66CD100B2F157 /* ZHDataUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDataUtil.m; sourceTree = "<group>"; };
+		18E510A81CA66CD100B2F157 /* ZHDBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDBUtil.h; sourceTree = "<group>"; };
+		18E510A91CA66CD100B2F157 /* ZHDBUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDBUtil.m; sourceTree = "<group>"; };
+		18E510AB1CA66CD100B2F157 /* ZHHierarchy+ZHViewHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZHHierarchy+ZHViewHierarchy.h"; sourceTree = "<group>"; };
+		18E510AC1CA66CD100B2F157 /* ZHHierarchy+ZHViewHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZHHierarchy+ZHViewHierarchy.m"; sourceTree = "<group>"; };
+		18E510AD1CA66CD100B2F157 /* ZHHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHHierarchy.h; sourceTree = "<group>"; };
+		18E510AE1CA66CD100B2F157 /* ZHHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHHierarchy.m; sourceTree = "<group>"; };
+		18E510AF1CA66CD100B2F157 /* ZHKeyboardJudge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHKeyboardJudge.h; sourceTree = "<group>"; };
+		18E510B01CA66CD100B2F157 /* ZHKeyboardJudge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHKeyboardJudge.m; sourceTree = "<group>"; };
+		18E510B11CA66CD100B2F157 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		18E510B21CA66CD100B2F157 /* Notes-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Notes-Prefix.pch"; sourceTree = "<group>"; };
+		18E510B31CA66CD100B2F157 /* ZHAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHAppDelegate.h; sourceTree = "<group>"; };
+		18E510B41CA66CD100B2F157 /* ZHAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHAppDelegate.m; sourceTree = "<group>"; };
+		18E510C61CA66E3500B2F157 /* ZHLocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLocker.h; sourceTree = "<group>"; };
+		18E510C71CA66E3500B2F157 /* ZHLocker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLocker.m; sourceTree = "<group>"; };
 		18EF25D91C25522100873A68 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		18F3019D1C0D6C4A00D9C398 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F301A01C0D6C4A00D9C398 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -131,16 +140,10 @@
 		18F301C11C0D6C4A00D9C398 /* NotesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NotesTests-Info.plist"; sourceTree = "<group>"; };
 		18F301C31C0D6C4A00D9C398 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		18F301C51C0D6C4A00D9C398 /* NotesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotesTests.m; sourceTree = "<group>"; };
-		18F301D81C0D6E1500D9C398 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		18F301D91C0D6E1500D9C398 /* Notes-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Notes-Prefix.pch"; sourceTree = "<group>"; };
-		18F301DA1C0D6E1500D9C398 /* ZHAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHAppDelegate.h; sourceTree = "<group>"; };
-		18F301DB1C0D6E1500D9C398 /* ZHAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHAppDelegate.m; sourceTree = "<group>"; };
 		18F301DF1C0D6ED500D9C398 /* ZHNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNavigationController.h; sourceTree = "<group>"; };
 		18F301E01C0D6ED500D9C398 /* ZHNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNavigationController.m; sourceTree = "<group>"; };
 		18F301E21C0D6EFF00D9C398 /* ZHTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHTableViewController.h; sourceTree = "<group>"; };
 		18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTableViewController.m; sourceTree = "<group>"; };
-		18F6CB7F1C1ADE2400CE78BE /* ZHKeyboardJudge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHKeyboardJudge.h; sourceTree = "<group>"; };
-		18F6CB801C1ADE2400CE78BE /* ZHKeyboardJudge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHKeyboardJudge.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,28 +217,6 @@
 			path = TextView;
 			sourceTree = "<group>";
 		};
-		185794B11C144E460050F62D /* Catagory */ = {
-			isa = PBXGroup;
-			children = (
-				183664731C195D6000AA1DFF /* NSString+ZH.h */,
-				183664741C195D6000AA1DFF /* NSString+ZH.m */,
-				185794B51C144EE70050F62D /* NSDate+ZH.h */,
-				185794B61C144EE70050F62D /* NSDate+ZH.m */,
-			);
-			name = Catagory;
-			sourceTree = "<group>";
-		};
-		1892B2BE1C22967300535B24 /* ZHHierarchy */ = {
-			isa = PBXGroup;
-			children = (
-				1892B2BF1C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.h */,
-				1892B2C01C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m */,
-				1892B2C11C22967300535B24 /* ZHHierarchy.h */,
-				1892B2C21C22967300535B24 /* ZHHierarchy.m */,
-			);
-			path = ZHHierarchy;
-			sourceTree = "<group>";
-		};
 		18B8B8481CA52B27005A7E4C /* LockerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,37 +228,74 @@
 			path = LockerView;
 			sourceTree = "<group>";
 		};
-		18E884071C181FA300A6A1E0 /* lib */ = {
+		18E510931CA66CD100B2F157 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				1892B2BE1C22967300535B24 /* ZHHierarchy */,
-				18EF25C51C2545A700873A68 /* fmdb */,
-				18E884081C181FBC00A6A1E0 /* ZHDataUtil.h */,
-				18E884091C181FBC00A6A1E0 /* ZHDataUtil.m */,
-				18EF25D61C25498800873A68 /* ZHDBUtil.h */,
-				18EF25D71C25498800873A68 /* ZHDBUtil.m */,
-				18F6CB7F1C1ADE2400CE78BE /* ZHKeyboardJudge.h */,
-				18F6CB801C1ADE2400CE78BE /* ZHKeyboardJudge.m */,
+				18E510941CA66CD100B2F157 /* Catagory */,
+				18E510991CA66CD100B2F157 /* lib */,
+				18E510B11CA66CD100B2F157 /* main.m */,
+				18E510B21CA66CD100B2F157 /* Notes-Prefix.pch */,
+				18E510B31CA66CD100B2F157 /* ZHAppDelegate.h */,
+				18E510B41CA66CD100B2F157 /* ZHAppDelegate.m */,
 			);
-			name = lib;
+			path = Other;
 			sourceTree = "<group>";
 		};
-		18EF25C51C2545A700873A68 /* fmdb */ = {
+		18E510941CA66CD100B2F157 /* Catagory */ = {
 			isa = PBXGroup;
 			children = (
-				18EF25C61C2545A700873A68 /* FMDatabase.h */,
-				18EF25C71C2545A700873A68 /* FMDatabase.m */,
-				18EF25C81C2545A700873A68 /* FMDatabaseAdditions.h */,
-				18EF25C91C2545A700873A68 /* FMDatabaseAdditions.m */,
-				18EF25CA1C2545A700873A68 /* FMDatabasePool.h */,
-				18EF25CB1C2545A700873A68 /* FMDatabasePool.m */,
-				18EF25CC1C2545A700873A68 /* FMDatabaseQueue.h */,
-				18EF25CD1C2545A700873A68 /* FMDatabaseQueue.m */,
-				18EF25CE1C2545A700873A68 /* FMDB.h */,
-				18EF25CF1C2545A700873A68 /* FMResultSet.h */,
-				18EF25D01C2545A700873A68 /* FMResultSet.m */,
+				18E510951CA66CD100B2F157 /* NSDate+ZH.h */,
+				18E510961CA66CD100B2F157 /* NSDate+ZH.m */,
+				18E510971CA66CD100B2F157 /* NSString+ZH.h */,
+				18E510981CA66CD100B2F157 /* NSString+ZH.m */,
+			);
+			path = Catagory;
+			sourceTree = "<group>";
+		};
+		18E510991CA66CD100B2F157 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				18E5109A1CA66CD100B2F157 /* fmdb */,
+				18E510AA1CA66CD100B2F157 /* ZHHierarchy */,
+				18E510A61CA66CD100B2F157 /* ZHDataUtil.h */,
+				18E510A71CA66CD100B2F157 /* ZHDataUtil.m */,
+				18E510A81CA66CD100B2F157 /* ZHDBUtil.h */,
+				18E510A91CA66CD100B2F157 /* ZHDBUtil.m */,
+				18E510AF1CA66CD100B2F157 /* ZHKeyboardJudge.h */,
+				18E510B01CA66CD100B2F157 /* ZHKeyboardJudge.m */,
+				18E510C61CA66E3500B2F157 /* ZHLocker.h */,
+				18E510C71CA66E3500B2F157 /* ZHLocker.m */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		18E5109A1CA66CD100B2F157 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				18E5109B1CA66CD100B2F157 /* FMDatabase.h */,
+				18E5109C1CA66CD100B2F157 /* FMDatabase.m */,
+				18E5109D1CA66CD100B2F157 /* FMDatabaseAdditions.h */,
+				18E5109E1CA66CD100B2F157 /* FMDatabaseAdditions.m */,
+				18E5109F1CA66CD100B2F157 /* FMDatabasePool.h */,
+				18E510A01CA66CD100B2F157 /* FMDatabasePool.m */,
+				18E510A11CA66CD100B2F157 /* FMDatabaseQueue.h */,
+				18E510A21CA66CD100B2F157 /* FMDatabaseQueue.m */,
+				18E510A31CA66CD100B2F157 /* FMDB.h */,
+				18E510A41CA66CD100B2F157 /* FMResultSet.h */,
+				18E510A51CA66CD100B2F157 /* FMResultSet.m */,
 			);
 			path = fmdb;
+			sourceTree = "<group>";
+		};
+		18E510AA1CA66CD100B2F157 /* ZHHierarchy */ = {
+			isa = PBXGroup;
+			children = (
+				18E510AB1CA66CD100B2F157 /* ZHHierarchy+ZHViewHierarchy.h */,
+				18E510AC1CA66CD100B2F157 /* ZHHierarchy+ZHViewHierarchy.m */,
+				18E510AD1CA66CD100B2F157 /* ZHHierarchy.h */,
+				18E510AE1CA66CD100B2F157 /* ZHHierarchy.m */,
+			);
+			path = ZHHierarchy;
 			sourceTree = "<group>";
 		};
 		18F301941C0D6C4A00D9C398 = {
@@ -353,8 +371,8 @@
 			children = (
 				18F301D51C0D6E1500D9C398 /* Controller */,
 				18F301D61C0D6E1500D9C398 /* Model */,
-				18F301D71C0D6E1500D9C398 /* Other */,
 				18F301DC1C0D6E1500D9C398 /* View */,
+				18E510931CA66CD100B2F157 /* Other */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -385,19 +403,6 @@
 				18981A071C0D88BB00D5AE9F /* ZHNote.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		18F301D71C0D6E1500D9C398 /* Other */ = {
-			isa = PBXGroup;
-			children = (
-				18E884071C181FA300A6A1E0 /* lib */,
-				185794B11C144E460050F62D /* Catagory */,
-				18F301D81C0D6E1500D9C398 /* main.m */,
-				18F301D91C0D6E1500D9C398 /* Notes-Prefix.pch */,
-				18F301DA1C0D6E1500D9C398 /* ZHAppDelegate.h */,
-				18F301DB1C0D6E1500D9C398 /* ZHAppDelegate.m */,
-			);
-			path = Other;
 			sourceTree = "<group>";
 		};
 		18F301DC1C0D6E1500D9C398 /* View */ = {
@@ -508,37 +513,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18E510BD1CA66CD100B2F157 /* ZHDBUtil.m in Sources */,
 				18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */,
 				183A70521C2BC7B70043F552 /* ZHDetailNoteViewController.m in Sources */,
-				18EF25D81C25498800873A68 /* ZHDBUtil.m in Sources */,
+				18E510C81CA66E3500B2F157 /* ZHLocker.m in Sources */,
 				186D67C91C36A8E7004AA771 /* ZHStickView.m in Sources */,
-				18EF25D11C2545A700873A68 /* FMDatabase.m in Sources */,
+				18E510B91CA66CD100B2F157 /* FMDatabasePool.m in Sources */,
+				18E510B71CA66CD100B2F157 /* FMDatabase.m in Sources */,
 				182A59FE1C33EF2000A07705 /* ZHBottomBar.m in Sources */,
 				18B8B84E1CA52B27005A7E4C /* ZHLockerView.m in Sources */,
+				18E510C21CA66CD100B2F157 /* ZHAppDelegate.m in Sources */,
+				18E510BE1CA66CD100B2F157 /* ZHHierarchy+ZHViewHierarchy.m in Sources */,
 				18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */,
-				18EF25D31C2545A700873A68 /* FMDatabasePool.m in Sources */,
+				18E510B81CA66CD100B2F157 /* FMDatabaseAdditions.m in Sources */,
 				182A5A011C33EF2000A07705 /* ZHNoteCell.m in Sources */,
 				187434241C9FA306001A50FC /* ZHUnLockerViewController.m in Sources */,
-				18EF25D51C2545A700873A68 /* FMResultSet.m in Sources */,
-				18EF25D21C2545A700873A68 /* FMDatabaseAdditions.m in Sources */,
-				18F6CB811C1ADE2400CE78BE /* ZHKeyboardJudge.m in Sources */,
-				1892B2C31C22967300535B24 /* ZHHierarchy+ZHViewHierarchy.m in Sources */,
+				18E510C11CA66CD100B2F157 /* main.m in Sources */,
 				182A59FF1C33EF2000A07705 /* ZHPageBottomBar.m in Sources */,
+				18E510B61CA66CD100B2F157 /* NSString+ZH.m in Sources */,
 				182A5A051C33EF2000A07705 /* ZHTextView.m in Sources */,
-				18EF25D41C2545A700873A68 /* FMDatabaseQueue.m in Sources */,
-				1892B2C41C22967300535B24 /* ZHHierarchy.m in Sources */,
 				185794BD1C1463B10050F62D /* ZHScanEditViewController.m in Sources */,
-				18E8840A1C181FBC00A6A1E0 /* ZHDataUtil.m in Sources */,
+				18E510B51CA66CD100B2F157 /* NSDate+ZH.m in Sources */,
 				182A5A041C33EF2000A07705 /* ZHHightlightTextView.m in Sources */,
+				18E510BA1CA66CD100B2F157 /* FMDatabaseQueue.m in Sources */,
 				182A5A021C33EF2000A07705 /* ZHSearch.m in Sources */,
-				18F301DE1C0D6E1500D9C398 /* ZHAppDelegate.m in Sources */,
+				18E510BC1CA66CD100B2F157 /* ZHDataUtil.m in Sources */,
+				18E510BB1CA66CD100B2F157 /* FMResultSet.m in Sources */,
 				182A5A001C33EF2000A07705 /* ZHMultiButtonTableViewCell.m in Sources */,
-				18F301DD1C0D6E1500D9C398 /* main.m in Sources */,
-				185794B71C144EE70050F62D /* NSDate+ZH.m in Sources */,
 				18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */,
 				185794C01C1467460050F62D /* ZHNewViewController.m in Sources */,
-				183664751C195D6000AA1DFF /* NSString+ZH.m in Sources */,
+				18E510BF1CA66CD100B2F157 /* ZHHierarchy.m in Sources */,
 				182A5A031C33EF2000A07705 /* ZHSearchBar.m in Sources */,
+				18E510C01CA66CD100B2F157 /* ZHKeyboardJudge.m in Sources */,
 				18B8B84D1CA52B27005A7E4C /* ZHCircleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
