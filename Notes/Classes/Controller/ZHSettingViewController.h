@@ -19,7 +19,7 @@
 
 @end
 
-@interface ZHSettingViewController : UIViewController
+@interface ZHSettingViewController : UITableViewController
 
 /** 代理 */
 @property (nonatomic, weak)id<ZHSettingViewControllerDelegate> delegate;

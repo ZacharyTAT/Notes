@@ -39,6 +39,9 @@
 		18E510C21CA66CD100B2F157 /* ZHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510B41CA66CD100B2F157 /* ZHAppDelegate.m */; };
 		18E510C81CA66E3500B2F157 /* ZHLocker.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510C71CA66E3500B2F157 /* ZHLocker.m */; };
 		18E510E51CA67EF100B2F157 /* ZHSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510E41CA67EF100B2F157 /* ZHSettingViewController.m */; };
+		18E510FA1CA696DD00B2F157 /* ZHLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510F71CA696DD00B2F157 /* ZHLabelCell.m */; };
+		18E510FB1CA696DD00B2F157 /* ZHSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510F91CA696DD00B2F157 /* ZHSwitchCell.m */; };
+		18E510FE1CA696F200B2F157 /* ZHLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510FD1CA696F200B2F157 /* ZHLabel.m */; };
 		18EF25DA1C25522100873A68 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EF25D91C25522100873A68 /* libsqlite3.0.dylib */; };
 		18F301A11C0D6C4A00D9C398 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A01C0D6C4A00D9C398 /* Foundation.framework */; };
 		18F301A31C0D6C4A00D9C398 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A21C0D6C4A00D9C398 /* CoreGraphics.framework */; };
@@ -130,6 +133,12 @@
 		18E510C71CA66E3500B2F157 /* ZHLocker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLocker.m; sourceTree = "<group>"; };
 		18E510E31CA67EF100B2F157 /* ZHSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSettingViewController.h; sourceTree = "<group>"; };
 		18E510E41CA67EF100B2F157 /* ZHSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSettingViewController.m; sourceTree = "<group>"; };
+		18E510F61CA696DD00B2F157 /* ZHLabelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLabelCell.h; sourceTree = "<group>"; };
+		18E510F71CA696DD00B2F157 /* ZHLabelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLabelCell.m; sourceTree = "<group>"; };
+		18E510F81CA696DD00B2F157 /* ZHSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSwitchCell.h; sourceTree = "<group>"; };
+		18E510F91CA696DD00B2F157 /* ZHSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSwitchCell.m; sourceTree = "<group>"; };
+		18E510FC1CA696F200B2F157 /* ZHLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLabel.h; sourceTree = "<group>"; };
+		18E510FD1CA696F200B2F157 /* ZHLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLabel.m; sourceTree = "<group>"; };
 		18EF25D91C25522100873A68 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		18F3019D1C0D6C4A00D9C398 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F301A01C0D6C4A00D9C398 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -188,6 +197,7 @@
 		182A59EF1C33EF2000A07705 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				18E510F51CA696DD00B2F157 /* Setting */,
 				182A59F01C33EF2000A07705 /* ZHMultiButtonTableViewCell.h */,
 				182A59F11C33EF2000A07705 /* ZHMultiButtonTableViewCell.m */,
 				182A59F21C33EF2000A07705 /* ZHNoteCell.h */,
@@ -299,6 +309,26 @@
 				18E510AE1CA66CD100B2F157 /* ZHHierarchy.m */,
 			);
 			path = ZHHierarchy;
+			sourceTree = "<group>";
+		};
+		18E510E61CA68B5700B2F157 /* SettingView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SettingView;
+			sourceTree = "<group>";
+		};
+		18E510F51CA696DD00B2F157 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				18E510F61CA696DD00B2F157 /* ZHLabelCell.h */,
+				18E510F71CA696DD00B2F157 /* ZHLabelCell.m */,
+				18E510FC1CA696F200B2F157 /* ZHLabel.h */,
+				18E510FD1CA696F200B2F157 /* ZHLabel.m */,
+				18E510F81CA696DD00B2F157 /* ZHSwitchCell.h */,
+				18E510F91CA696DD00B2F157 /* ZHSwitchCell.m */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		18F301941C0D6C4A00D9C398 = {
@@ -413,6 +443,7 @@
 		18F301DC1C0D6E1500D9C398 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18E510E61CA68B5700B2F157 /* SettingView */,
 				18B8B8481CA52B27005A7E4C /* LockerView */,
 				182A59EA1C33EF2000A07705 /* BottomBar */,
 				182A59EF1C33EF2000A07705 /* Cell */,
@@ -523,6 +554,7 @@
 				183A70521C2BC7B70043F552 /* ZHDetailNoteViewController.m in Sources */,
 				18E510C81CA66E3500B2F157 /* ZHLocker.m in Sources */,
 				186D67C91C36A8E7004AA771 /* ZHStickView.m in Sources */,
+				18E510FA1CA696DD00B2F157 /* ZHLabelCell.m in Sources */,
 				18E510B91CA66CD100B2F157 /* FMDatabasePool.m in Sources */,
 				18E510B71CA66CD100B2F157 /* FMDatabase.m in Sources */,
 				182A59FE1C33EF2000A07705 /* ZHBottomBar.m in Sources */,
@@ -530,6 +562,7 @@
 				18E510C21CA66CD100B2F157 /* ZHAppDelegate.m in Sources */,
 				18E510BE1CA66CD100B2F157 /* ZHHierarchy+ZHViewHierarchy.m in Sources */,
 				18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */,
+				18E510FE1CA696F200B2F157 /* ZHLabel.m in Sources */,
 				18E510B81CA66CD100B2F157 /* FMDatabaseAdditions.m in Sources */,
 				182A5A011C33EF2000A07705 /* ZHNoteCell.m in Sources */,
 				187434241C9FA306001A50FC /* ZHUnLockerViewController.m in Sources */,
@@ -550,6 +583,7 @@
 				185794C01C1467460050F62D /* ZHNewViewController.m in Sources */,
 				18E510BF1CA66CD100B2F157 /* ZHHierarchy.m in Sources */,
 				182A5A031C33EF2000A07705 /* ZHSearchBar.m in Sources */,
+				18E510FB1CA696DD00B2F157 /* ZHSwitchCell.m in Sources */,
 				18E510C01CA66CD100B2F157 /* ZHKeyboardJudge.m in Sources */,
 				18B8B84D1CA52B27005A7E4C /* ZHCircleView.m in Sources */,
 			);

@@ -8,6 +8,9 @@
 
 #import "ZHSettingViewController.h"
 
+#import "ZHSwitchCell.h"
+#import "ZHLabelCell.h"
+
 @interface ZHSettingViewController ()
 
 @end
@@ -25,7 +28,6 @@
 - (void)setup
 {
     [self setupNavItem];
-    [self setupView];
 }
 
 #pragma mark - 初始化导航栏按钮
@@ -41,13 +43,10 @@
     self.title = @"设置";
 }
 
-#pragma mark - 初始化视图
-
-- (void)setupView
-{
-    self.view.backgroundColor = [UIColor cyanColor];
-}
-
+#pragma mark - 关闭按钮点击
+/**
+ *  关闭按钮点击
+ */
 - (void)close
 {
     NSLog(@"close");
@@ -58,6 +57,38 @@
     }
 }
 
+#pragma mark - UITableView DataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = nil;
+    if (indexPath.row == 0) {
+        cell = [ZHSwitchCell switchCellWithTableView:tableView];
+    }else{
+        cell = [ZHLabelCell labelCellWithTableView:tableView];
+        ZHLabelCell *lblCell = (ZHLabelCell *)cell;
+        lblCell.label.text = @"开启";
+        
+    }
+    cell.textLabel.text = @"文字文字文字";
+    return cell;
+}
+
+#pragma mark - UITableView Delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[ZHSwitchCell class]]) return;
+    NSLog(@"%@ seleted",indexPath);
+}
+
+
+#pragma mark - dealloc
 - (void)dealloc
 {
     NSLog(@"%@ dealloc....",[self class]);
