@@ -38,6 +38,7 @@
 		18E510C11CA66CD100B2F157 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510B11CA66CD100B2F157 /* main.m */; };
 		18E510C21CA66CD100B2F157 /* ZHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510B41CA66CD100B2F157 /* ZHAppDelegate.m */; };
 		18E510C81CA66E3500B2F157 /* ZHLocker.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510C71CA66E3500B2F157 /* ZHLocker.m */; };
+		18E510E51CA67EF100B2F157 /* ZHSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510E41CA67EF100B2F157 /* ZHSettingViewController.m */; };
 		18EF25DA1C25522100873A68 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EF25D91C25522100873A68 /* libsqlite3.0.dylib */; };
 		18F301A11C0D6C4A00D9C398 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A01C0D6C4A00D9C398 /* Foundation.framework */; };
 		18F301A31C0D6C4A00D9C398 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A21C0D6C4A00D9C398 /* CoreGraphics.framework */; };
@@ -127,6 +128,8 @@
 		18E510B41CA66CD100B2F157 /* ZHAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHAppDelegate.m; sourceTree = "<group>"; };
 		18E510C61CA66E3500B2F157 /* ZHLocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLocker.h; sourceTree = "<group>"; };
 		18E510C71CA66E3500B2F157 /* ZHLocker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLocker.m; sourceTree = "<group>"; };
+		18E510E31CA67EF100B2F157 /* ZHSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSettingViewController.h; sourceTree = "<group>"; };
+		18E510E41CA67EF100B2F157 /* ZHSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSettingViewController.m; sourceTree = "<group>"; };
 		18EF25D91C25522100873A68 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		18F3019D1C0D6C4A00D9C398 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F301A01C0D6C4A00D9C398 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -382,6 +385,8 @@
 			children = (
 				18F301DF1C0D6ED500D9C398 /* ZHNavigationController.h */,
 				18F301E01C0D6ED500D9C398 /* ZHNavigationController.m */,
+				18E510E31CA67EF100B2F157 /* ZHSettingViewController.h */,
+				18E510E41CA67EF100B2F157 /* ZHSettingViewController.m */,
 				18F301E21C0D6EFF00D9C398 /* ZHTableViewController.h */,
 				18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */,
 				187434221C9FA306001A50FC /* ZHUnLockerViewController.h */,
@@ -530,6 +535,7 @@
 				187434241C9FA306001A50FC /* ZHUnLockerViewController.m in Sources */,
 				18E510C11CA66CD100B2F157 /* main.m in Sources */,
 				182A59FF1C33EF2000A07705 /* ZHPageBottomBar.m in Sources */,
+				18E510E51CA67EF100B2F157 /* ZHSettingViewController.m in Sources */,
 				18E510B61CA66CD100B2F157 /* NSString+ZH.m in Sources */,
 				182A5A051C33EF2000A07705 /* ZHTextView.m in Sources */,
 				185794BD1C1463B10050F62D /* ZHScanEditViewController.m in Sources */,

@@ -11,6 +11,7 @@
 #import "ZHScanEditViewController.h"
 #import "ZHUnLockerViewController.h"
 #import "ZHNavigationController.h"
+#import "ZHSettingViewController.h"
 
 #import "ZHNoteCell.h"
 #import "ZHNote.h"
@@ -21,7 +22,7 @@
 #import "ZHLocker.h"
 
 
-@interface ZHTableViewController ()<ZHDetailNoteViewControllerDelegate,ZHDetailNoteViewControllerDataSource,ZHNewViewControllerDelegate,ZHScanEditViewControllerDelegate,ZHSearchDelegate,ZHMultiButtonTableViewCellDelegate>
+@interface ZHTableViewController ()<ZHDetailNoteViewControllerDelegate,ZHDetailNoteViewControllerDataSource,ZHNewViewControllerDelegate,ZHScanEditViewControllerDelegate, ZHSettingViewControllerDelegate,ZHSearchDelegate,ZHMultiButtonTableViewCellDelegate>
 
 /** 数据源 */
 @property (nonatomic, strong)NSMutableArray *dataArr;
@@ -149,8 +150,15 @@
  */
 - (void)setupNavItem
 {
+    //01.右侧
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"新建" style:UIBarButtonItemStylePlain target:self action:@selector(newBtnClick)];
+    
+    //02.中间
     self.navigationItem.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
+    
+    //03.左侧
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(settingClick)];
+    
 }
 
 #pragma mark - 初始化表格的头部和尾部
@@ -164,6 +172,17 @@
     search.delegate = self;
     
     self.tableView.tableHeaderView = search.searchBar;
+}
+
+#pragma mark - 新建按钮点击事件
+/**
+ *  新建按钮点击事件
+ */
+- (void)settingClick
+{
+    ZHSettingViewController *svc = [[ZHSettingViewController alloc] init];
+    svc.delegate = self;
+    [self presentViewController:[[ZHNavigationController alloc] initWithRootViewController:svc] animated:YES completion:NULL];
 }
 
 #pragma mark - 新建按钮点击事件
@@ -567,6 +586,13 @@
     //04.告诉搜索模型，note数据源改了
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:ZHNoteDataSourceDidChangeNotification object:nil]];
 }
+
+#pragma mark - ZHSettingViewControllerDelegate
+- (void)settingViewControllerDidClickClose:(ZHSettingViewController *)svc
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 
 #pragma mark - ZHSearchDelegate
 
