@@ -52,11 +52,11 @@
 }
 
 /**
- *  模拟的正确密码
+ *  存储的正确密码
  */
 - (NSString *)correctPswd
 {
-    return @"47526";
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kPasswordKey];
 }
 
 - (void)setup

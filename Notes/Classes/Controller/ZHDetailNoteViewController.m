@@ -341,7 +341,10 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [ZHLocker verifyInViewControlloer:self completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
+        [ZHLocker verifyInViewControlloer:self
+                                    title:@"请输入解锁手势"
+                        completionHandler:
+         ^(ZHUnLockerViewController *ulvc, BOOL result) {
             
             [weakSelf dismissViewControllerAnimated:YES completion:NULL];
             
@@ -446,7 +449,9 @@
     };
     
     if (note.isLock) { //若是私密记录，将之公开，需要验证
-        [ZHLocker verifyInViewControlloer:self completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
+        [ZHLocker verifyInViewControlloer:self
+                                    title:@"请输入解锁手势"
+                        completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
             [weakSelf dismissViewControllerAnimated:YES completion:NULL];
             if (result) {
                 doSame();

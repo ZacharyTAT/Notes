@@ -9,11 +9,18 @@
 #import "ZHLockerSettingViewController.h"
 
 #import "ZHLockerView.h"
+#import "ZHTipLabel.h"
 
 @interface ZHLockerSettingViewController ()<ZHLockerViewDelegate>
 
 /** 提示标签 */
-@property (nonatomic, weak)UILabel *tipLbl;
+@property (nonatomic, weak)ZHTipLabel *tipLbl;
+
+/** 记录这是第几次绘制手势，因为还要验证 */
+@property (nonatomic, assign)NSInteger count;
+
+/** 第一次绘制的密码 */
+@property (nonatomic, copy)NSString *firstPassword;
 
 @end
 
@@ -75,7 +82,7 @@
  */
 - (void)setupResultLbl
 {
-    UILabel *lbl = [[UILabel alloc] init];
+    ZHTipLabel *lbl = [[ZHTipLabel alloc] init];
     self.tipLbl = lbl;
     lbl.frame = CGRectMake(0, 100, self.view.frame.size.width, 30);
     lbl.textAlignment = NSTextAlignmentCenter;
@@ -88,7 +95,48 @@
 
 - (BOOL)lockerView:(ZHLockerView *)lockerView isPswdOK:(NSString *)password
 {
-    return YES;
+    if (self.count == 0) { //第一次绘制
+        
+        if ([password length] <= 3) {//密码长度至少4位
+            [self.tipLbl showWarningTip:@"请至少连接4个点"];
+            return NO;
+        }
+        
+        self.firstPassword = password;
+        self.count += 1;
+        
+        //显示提示信息
+        [self.tipLbl showNormalTip:@"请再次绘制手势密码"];
+        
+        return YES;
+    }else{ //第二次绘制
+        if ([self.firstPassword isEqualToString:password]) {
+            
+            //显示提示信息
+            [self.tipLbl showNormalTip:@"设置成功"];
+            
+            //告诉代理，密码设置成功啦
+            if ([self.delegate respondsToSelector:@selector(lockerSettingViewController:successToSetPassword:)]) {
+                [self.delegate lockerSettingViewController:self successToSetPassword:password];
+            }
+            
+            return YES;
+        }else{//第一次密码和第二次密码不一致
+            self.count = 0;
+            
+            //显示提示信息
+            [self.tipLbl showWarningTip:@"两次绘制的图案不一致，请重新绘制"];
+            
+            return NO;
+        }
+    }
 }
+
+- (void)dealloc
+{
+    NSLog(@"%@ dealloc",[self class]);
+}
+
+
 
 @end

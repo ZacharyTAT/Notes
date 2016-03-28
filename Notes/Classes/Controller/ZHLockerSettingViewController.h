@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@class ZHLockerSettingViewController;
+
+
+@protocol ZHLockerSettingViewControllerDelegate <NSObject>
+
+/**
+ *  成功设置了密码
+ */
+- (void)lockerSettingViewController:(ZHLockerSettingViewController *)lsvc successToSetPassword:(NSString *)password;
+
+@end
+
 @interface ZHLockerSettingViewController : UIViewController
+
+/** 代理 */
+@property (nonatomic, weak)id<ZHLockerSettingViewControllerDelegate> delegate;
 
 @end

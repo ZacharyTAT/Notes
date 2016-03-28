@@ -11,10 +11,13 @@
 
 @implementation ZHLocker
 
-+ (void)verifyInViewControlloer:(UIViewController *)aVC completionHandler:(ZHUnLockerCompletionHander)completionHander
++ (void)verifyInViewControlloer:(UIViewController *)aVC
+                          title:(NSString *)title
+              completionHandler:(ZHUnLockerCompletionHander)completionHander
 {
+    
     ZHUnLockerViewController *ulvc = [[ZHUnLockerViewController alloc] init];
-    ulvc.title = @"请输入解锁手势";
+    ulvc.title = title;
     
     ulvc.completionHander = completionHander;
     

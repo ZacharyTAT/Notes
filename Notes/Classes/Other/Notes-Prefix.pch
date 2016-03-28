@@ -37,6 +37,9 @@
 // 导入分析工具，以便在所有地方可以使用
 #import "ZHHierarchy+ZHViewHierarchy.h"
 
+//从NSUserDefault中存取密码的键
+#define kPasswordKey @"kPasswordKey"
+
 #endif
 
 

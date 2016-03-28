@@ -16,9 +16,10 @@
  *  弹出手势验证控制器
  *
  *  @param aVC              通过这个VC弹出
+ *  @param title            控制器标题
  *  @param completionHander 控制器消失时句柄
  */
-+ (void)verifyInViewControlloer:(UIViewController *)aVC completionHandler:(ZHUnLockerCompletionHander)completionHander;
++ (void)verifyInViewControlloer:(UIViewController *)aVC title:(NSString *)title completionHandler:(ZHUnLockerCompletionHander)completionHander;
 
 
 @end

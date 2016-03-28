@@ -212,7 +212,7 @@
             [self setNeedsDisplay];
             [self performSelector:@selector(clear) withObject:nil afterDelay:1.0];
         }else{
-//            [self clear];
+            [self clear];
         }
     }else{
         NSLog(@"代理没有实现该方法");

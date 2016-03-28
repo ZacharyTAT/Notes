@@ -226,7 +226,10 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [ZHLocker verifyInViewControlloer:self completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
+        [ZHLocker verifyInViewControlloer:self
+                                    title:@"请输入解锁手势"
+                        completionHandler:
+         ^(ZHUnLockerViewController *ulvc, BOOL result) {
             
             [weakSelf dismissViewControllerAnimated:YES completion:NULL];
             
@@ -634,7 +637,10 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [ZHLocker verifyInViewControlloer:self completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
+        [ZHLocker verifyInViewControlloer:self
+                                    title:@"请输入解锁手势"
+                        completionHandler:
+         ^(ZHUnLockerViewController *ulvc, BOOL result) {
             
             [weakSelf dismissViewControllerAnimated:YES completion:^{
                 if (result) {
