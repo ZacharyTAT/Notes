@@ -29,6 +29,15 @@
     [self setup];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (kPasswordFromUserDefault)
+        self.passwordStatusLbl.text = @"已开启";
+    else
+        self.passwordStatusLbl.text = @"未开启";
+}
 
 - (void)setup
 {
@@ -73,7 +82,6 @@
 {
     UITableViewCell *cell = nil;
     if (indexPath.row == 0) {
-        //        cell = [ZHSwitchCell switchCellWithTableView:tableView];
         cell = [ZHLabelCell labelCellWithTableView:tableView];
         ZHLabelCell *lblCell = (ZHLabelCell *)cell;
         lblCell.label.text = @"未登录";
@@ -83,9 +91,8 @@
         cell = [ZHLabelCell labelCellWithTableView:tableView];
         ZHLabelCell *lblCell = (ZHLabelCell *)cell;
         
-        NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:kPasswordKey];
         NSString *lblText = @"未开启";
-        if (password) lblText = @"已开启";
+        if (kPasswordFromUserDefault) lblText = @"已开启";
         
         lblCell.label.text = lblText;
         
@@ -96,7 +103,7 @@
         __weak typeof(self) weakSelf = self;
         
         [lblCell setSelectHandler:^{
-            if (password){//已经开启，则跳转到密码管理界面
+            if (kPasswordFromUserDefault){//已经开启，则跳转到密码管理界面
                 
                 ZHPswdManageViewController *pswdmvc = [[ZHPswdManageViewController alloc] init];
                 

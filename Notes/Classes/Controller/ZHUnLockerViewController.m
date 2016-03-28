@@ -116,9 +116,9 @@
 {
     ZHTipLabel *lbl = [[ZHTipLabel alloc] init];
     self.resultLbl = lbl;
-    lbl.frame = CGRectMake(0, 70, self.view.frame.size.width, 30);
+    lbl.frame = CGRectMake(0, 100, self.view.frame.size.width, 30);
     lbl.textAlignment = NSTextAlignmentCenter;
-    lbl.font = [UIFont systemFontOfSize:13.0];
+    lbl.font = [UIFont systemFontOfSize:15.0];
     [self.view addSubview:lbl];
 }
 
