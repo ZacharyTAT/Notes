@@ -34,7 +34,7 @@
 }
 
 
-#pragma mark - UITableView Delegate
+#pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -43,6 +43,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    __weak typeof(self) weakSelf = self;
+    
     if (indexPath.row == 0) {//带开关
         ZHSwitchCell *switchCell = [ZHSwitchCell switchCellWithTableView:tableView];
         
@@ -53,8 +55,6 @@
         if (kPasswordFromUserDefault) on = YES;
         
         [switchCell setSwitchOn:on];
-        
-        __weak typeof(self) weakSelf = self;
         
         [switchCell setSwitchValueChangedHander:^(BOOL on) {
             if (on) {//现在是开启状态，则之前是关闭，点击了之后，应该开启密码功能
@@ -80,12 +80,27 @@
         }];
         
         return switchCell;
+        
     }else{ //可点击,修改手势密码
         ZHLabelCell *lblCell = [ZHLabelCell labelCellWithTableView:tableView];
         
         lblCell.textLabel.text = @"修改手势密码";
         
-        [lblCell setSelectHandler:^{
+        [lblCell setSelectHandler:^{ //修改密码视图
+            
+            [ZHLocker verifyInViewControlloer:weakSelf
+                                        title:@"验证手势密码"
+                                          tip:@"请使用原手势密码验证"
+                            completionHandler:
+             ^(ZHUnLockerViewController *ulvc, BOOL result) {
+                 [weakSelf dismissViewControllerAnimated:!result completion:NULL];
+                 
+                 if (result) {//验证通过,展示设置密码界面
+                     ZHLockerSettingViewController *lsvc = [[ZHLockerSettingViewController alloc] init];
+                     lsvc.delegate = weakSelf;
+                     [weakSelf.navigationController pushViewController:lsvc animated:NO];
+                 }
+             }];
             
         }];
         
@@ -99,6 +114,18 @@
     return [[UIView alloc] init];
 }
 
+#pragma mark - UITableView Delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if ([cell isKindOfClass:[ZHSwitchCell class]]) return;
+    
+    ZHLabelCell *lblCell = (ZHLabelCell *)cell;
+    
+    if (lblCell.selectHandler) lblCell.selectHandler();
+}
 
 #pragma mark - ZHLockerSettingViewController Delegate
 - (void)lockerSettingViewController:(ZHLockerSettingViewController *)lsvc successToSetPassword:(NSString *)password

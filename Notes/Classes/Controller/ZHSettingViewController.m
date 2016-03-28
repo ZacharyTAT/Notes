@@ -133,7 +133,7 @@
     if ([cell isKindOfClass:[ZHSwitchCell class]]) return;
     
     ZHLabelCell *lblCell = (ZHLabelCell *)cell;
-    lblCell.selectHandler();
+    if (lblCell.selectHandler) lblCell.selectHandler();
 }
 
 
