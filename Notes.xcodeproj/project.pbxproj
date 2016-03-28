@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18049CBA1CA936DA00CEFC03 /* ZHLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18049CB91CA936DA00CEFC03 /* ZHLineCell.m */; };
 		182A59FE1C33EF2000A07705 /* ZHBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A59EC1C33EF2000A07705 /* ZHBottomBar.m */; };
 		182A59FF1C33EF2000A07705 /* ZHPageBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A59EE1C33EF2000A07705 /* ZHPageBottomBar.m */; };
 		182A5A001C33EF2000A07705 /* ZHMultiButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A59F11C33EF2000A07705 /* ZHMultiButtonTableViewCell.m */; };
@@ -72,6 +73,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18049CB81CA936DA00CEFC03 /* ZHLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLineCell.h; sourceTree = "<group>"; };
+		18049CB91CA936DA00CEFC03 /* ZHLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLineCell.m; sourceTree = "<group>"; };
 		182A59EB1C33EF2000A07705 /* ZHBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHBottomBar.h; sourceTree = "<group>"; };
 		182A59EC1C33EF2000A07705 /* ZHBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHBottomBar.m; sourceTree = "<group>"; };
 		182A59ED1C33EF2000A07705 /* ZHPageBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPageBottomBar.h; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				182A59F31C33EF2000A07705 /* ZHNoteCell.m */,
 				186D67C71C36A8E7004AA771 /* ZHStickView.h */,
 				186D67C81C36A8E7004AA771 /* ZHStickView.m */,
+				18049CB81CA936DA00CEFC03 /* ZHLineCell.h */,
+				18049CB91CA936DA00CEFC03 /* ZHLineCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -614,6 +619,7 @@
 				18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */,
 				185794C01C1467460050F62D /* ZHNewViewController.m in Sources */,
 				18E510BF1CA66CD100B2F157 /* ZHHierarchy.m in Sources */,
+				18049CBA1CA936DA00CEFC03 /* ZHLineCell.m in Sources */,
 				182A5A031C33EF2000A07705 /* ZHSearchBar.m in Sources */,
 				18E510FB1CA696DD00B2F157 /* ZHSwitchCell.m in Sources */,
 				18E510C01CA66CD100B2F157 /* ZHKeyboardJudge.m in Sources */,
