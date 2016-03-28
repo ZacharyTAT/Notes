@@ -203,9 +203,9 @@
     
     NSLog(@"密码为 : %@",pswd);
     
-    if ([self.delegate respondsToSelector:@selector(lockerView:isCorrectPswd:)]) {
+    if ([self.delegate respondsToSelector:@selector(lockerView:isPswdOK:)]) {
         
-        self.failed = ![self.delegate lockerView:self isCorrectPswd:pswd];
+        self.failed = ![self.delegate lockerView:self isPswdOK:pswd];
         
         if (self.failed) {
             self.userInteractionEnabled = NO;

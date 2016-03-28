@@ -23,6 +23,7 @@
 		18981A081C0D88BB00D5AE9F /* ZHNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 18981A071C0D88BB00D5AE9F /* ZHNote.m */; };
 		18B8B84D1CA52B27005A7E4C /* ZHCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B8B84A1CA52B27005A7E4C /* ZHCircleView.m */; };
 		18B8B84E1CA52B27005A7E4C /* ZHLockerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B8B84C1CA52B27005A7E4C /* ZHLockerView.m */; };
+		18CB3F761CA90036006BEEAA /* ZHLockerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB3F751CA90036006BEEAA /* ZHLockerSettingViewController.m */; };
 		18E510B51CA66CD100B2F157 /* NSDate+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510961CA66CD100B2F157 /* NSDate+ZH.m */; };
 		18E510B61CA66CD100B2F157 /* NSString+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510981CA66CD100B2F157 /* NSString+ZH.m */; };
 		18E510B71CA66CD100B2F157 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5109C1CA66CD100B2F157 /* FMDatabase.m */; };
@@ -101,6 +102,8 @@
 		18B8B84A1CA52B27005A7E4C /* ZHCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHCircleView.m; sourceTree = "<group>"; };
 		18B8B84B1CA52B27005A7E4C /* ZHLockerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLockerView.h; sourceTree = "<group>"; };
 		18B8B84C1CA52B27005A7E4C /* ZHLockerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLockerView.m; sourceTree = "<group>"; };
+		18CB3F741CA90036006BEEAA /* ZHLockerSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLockerSettingViewController.h; sourceTree = "<group>"; };
+		18CB3F751CA90036006BEEAA /* ZHLockerSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLockerSettingViewController.m; sourceTree = "<group>"; };
 		18E510951CA66CD100B2F157 /* NSDate+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ZH.h"; sourceTree = "<group>"; };
 		18E510961CA66CD100B2F157 /* NSDate+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ZH.m"; sourceTree = "<group>"; };
 		18E510971CA66CD100B2F157 /* NSString+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZH.h"; sourceTree = "<group>"; };
@@ -242,6 +245,17 @@
 				18B8B84C1CA52B27005A7E4C /* ZHLockerView.m */,
 			);
 			path = LockerView;
+			sourceTree = "<group>";
+		};
+		18CB3F771CA90047006BEEAA /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				18E510E31CA67EF100B2F157 /* ZHSettingViewController.h */,
+				18E510E41CA67EF100B2F157 /* ZHSettingViewController.m */,
+				18CB3F741CA90036006BEEAA /* ZHLockerSettingViewController.h */,
+				18CB3F751CA90036006BEEAA /* ZHLockerSettingViewController.m */,
+			);
+			name = Setting;
 			sourceTree = "<group>";
 		};
 		18E510931CA66CD100B2F157 /* Other */ = {
@@ -418,10 +432,9 @@
 		18F301D51C0D6E1500D9C398 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18CB3F771CA90047006BEEAA /* Setting */,
 				18F301DF1C0D6ED500D9C398 /* ZHNavigationController.h */,
 				18F301E01C0D6ED500D9C398 /* ZHNavigationController.m */,
-				18E510E31CA67EF100B2F157 /* ZHSettingViewController.h */,
-				18E510E41CA67EF100B2F157 /* ZHSettingViewController.m */,
 				18F301E21C0D6EFF00D9C398 /* ZHTableViewController.h */,
 				18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */,
 				187434221C9FA306001A50FC /* ZHUnLockerViewController.h */,
@@ -576,6 +589,7 @@
 				18E510E51CA67EF100B2F157 /* ZHSettingViewController.m in Sources */,
 				18F5C7501CA8F962002F2E9D /* ZHSettingCell.m in Sources */,
 				18E510B61CA66CD100B2F157 /* NSString+ZH.m in Sources */,
+				18CB3F761CA90036006BEEAA /* ZHLockerSettingViewController.m in Sources */,
 				182A5A051C33EF2000A07705 /* ZHTextView.m in Sources */,
 				185794BD1C1463B10050F62D /* ZHScanEditViewController.m in Sources */,
 				18E510B51CA66CD100B2F157 /* NSDate+ZH.m in Sources */,

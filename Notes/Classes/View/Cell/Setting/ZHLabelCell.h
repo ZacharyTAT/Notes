@@ -17,6 +17,9 @@
 /** 显示特定文字的标签 */
 @property (nonatomic, weak)ZHLabel *label;
 
+/** 点击事件 */
+@property (nonatomic, strong)void (^selectHandler)();
+
 /**
  *  快速创建一个cell
  */

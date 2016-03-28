@@ -16,9 +16,9 @@
  *  询问代理密码是否正确
  *  @param password   通过手势序列化的密码字符串
  *
- *  @return YES\密码正确 NO\密码错误
+ *  @return YES\绘制的密码符合要求 NO\不符合要求,不止是用来验证密码正确与否
  */
-- (BOOL)lockerView:(ZHLockerView *)lockerView isCorrectPswd:(NSString *)password;
+- (BOOL)lockerView:(ZHLockerView *)lockerView isPswdOK:(NSString *)password;
 
 @end
 

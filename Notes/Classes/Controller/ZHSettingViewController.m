@@ -7,6 +7,7 @@
 //
 
 #import "ZHSettingViewController.h"
+#import "ZHLockerSettingViewController.h"
 
 #import "ZHSwitchCell.h"
 #import "ZHLabelCell.h"
@@ -77,7 +78,15 @@
         cell = [ZHLabelCell labelCellWithTableView:tableView];
         ZHLabelCell *lblCell = (ZHLabelCell *)cell;
         lblCell.label.text = @"未开启";
-        cell.textLabel.text = @"手势密码";
+        lblCell.textLabel.text = @"手势密码";
+        
+        __weak typeof(self) weakSelf = self;
+        
+        [lblCell setSelectHandler:^{
+            ZHLockerSettingViewController *lsvc = [[ZHLockerSettingViewController alloc] init];
+            
+            [weakSelf.navigationController pushViewController:lsvc animated:YES];
+        }];
         
     }
     return cell;
@@ -93,7 +102,9 @@
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if ([cell isKindOfClass:[ZHSwitchCell class]]) return;
-    NSLog(@"%@ seleted",indexPath);
+    
+    ZHLabelCell *lblCell = (ZHLabelCell *)cell;
+    lblCell.selectHandler();
 }
 
 

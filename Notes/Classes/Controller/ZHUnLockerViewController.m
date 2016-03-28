@@ -147,7 +147,7 @@
 
 #pragma mark - ZHLockerViewDelegate
 
-- (BOOL)lockerView:(ZHLockerView *)lockerView isCorrectPswd:(NSString *)password
+- (BOOL)lockerView:(ZHLockerView *)lockerView isPswdOK:(NSString *)password
 {
     if ([[self correctPswd] isEqualToString:password]) {
         [self success];
