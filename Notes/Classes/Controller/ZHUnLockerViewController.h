@@ -20,4 +20,6 @@ typedef void (^ZHUnLockerCompletionHander)(ZHUnLockerViewController *ulvc, BOOL 
 /** 使用block进行回调 */
 @property (nonatomic, strong) ZHUnLockerCompletionHander completionHander;
 
+@property (nonatomic, copy)NSString *tip;
+
 @end

@@ -12,9 +12,15 @@
 
 @interface ZHSwitchCell : ZHSettingCell
 
+/** 开关值修改后句柄 */
+@property (nonatomic, strong)void (^switchValueChangedHander)(BOOL);
+
 /**
  *  快速创建一个带有开关的cell
  */
 + (instancetype)switchCellWithTableView:(UITableView *)tableView;
+
+/** 设置开关状态 */
+- (void)setSwitchOn:(BOOL)on;
 
 @end

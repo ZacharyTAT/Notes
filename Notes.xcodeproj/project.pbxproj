@@ -25,6 +25,7 @@
 		18B8B84E1CA52B27005A7E4C /* ZHLockerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B8B84C1CA52B27005A7E4C /* ZHLockerView.m */; };
 		18CB3F761CA90036006BEEAA /* ZHLockerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB3F751CA90036006BEEAA /* ZHLockerSettingViewController.m */; };
 		18CB3F7B1CA90D81006BEEAA /* ZHTipLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB3F7A1CA90D81006BEEAA /* ZHTipLabel.m */; };
+		18CB3F7E1CA91F3F006BEEAA /* ZHPswdManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB3F7D1CA91F3F006BEEAA /* ZHPswdManageViewController.m */; };
 		18E510B51CA66CD100B2F157 /* NSDate+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510961CA66CD100B2F157 /* NSDate+ZH.m */; };
 		18E510B61CA66CD100B2F157 /* NSString+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510981CA66CD100B2F157 /* NSString+ZH.m */; };
 		18E510B71CA66CD100B2F157 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5109C1CA66CD100B2F157 /* FMDatabase.m */; };
@@ -107,6 +108,8 @@
 		18CB3F751CA90036006BEEAA /* ZHLockerSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLockerSettingViewController.m; sourceTree = "<group>"; };
 		18CB3F791CA90D81006BEEAA /* ZHTipLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHTipLabel.h; sourceTree = "<group>"; };
 		18CB3F7A1CA90D81006BEEAA /* ZHTipLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTipLabel.m; sourceTree = "<group>"; };
+		18CB3F7C1CA91F3F006BEEAA /* ZHPswdManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPswdManageViewController.h; sourceTree = "<group>"; };
+		18CB3F7D1CA91F3F006BEEAA /* ZHPswdManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPswdManageViewController.m; sourceTree = "<group>"; };
 		18E510951CA66CD100B2F157 /* NSDate+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ZH.h"; sourceTree = "<group>"; };
 		18E510961CA66CD100B2F157 /* NSDate+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ZH.m"; sourceTree = "<group>"; };
 		18E510971CA66CD100B2F157 /* NSString+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZH.h"; sourceTree = "<group>"; };
@@ -257,6 +260,8 @@
 				18E510E41CA67EF100B2F157 /* ZHSettingViewController.m */,
 				18CB3F741CA90036006BEEAA /* ZHLockerSettingViewController.h */,
 				18CB3F751CA90036006BEEAA /* ZHLockerSettingViewController.m */,
+				18CB3F7C1CA91F3F006BEEAA /* ZHPswdManageViewController.h */,
+				18CB3F7D1CA91F3F006BEEAA /* ZHPswdManageViewController.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -589,6 +594,7 @@
 				18E510B81CA66CD100B2F157 /* FMDatabaseAdditions.m in Sources */,
 				182A5A011C33EF2000A07705 /* ZHNoteCell.m in Sources */,
 				187434241C9FA306001A50FC /* ZHUnLockerViewController.m in Sources */,
+				18CB3F7E1CA91F3F006BEEAA /* ZHPswdManageViewController.m in Sources */,
 				18E510C11CA66CD100B2F157 /* main.m in Sources */,
 				182A59FF1C33EF2000A07705 /* ZHPageBottomBar.m in Sources */,
 				18E510E51CA67EF100B2F157 /* ZHSettingViewController.m in Sources */,

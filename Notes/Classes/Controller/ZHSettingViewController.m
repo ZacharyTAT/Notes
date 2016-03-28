@@ -8,6 +8,7 @@
 
 #import "ZHSettingViewController.h"
 #import "ZHLockerSettingViewController.h"
+#import "ZHPswdManageViewController.h"
 
 #import "ZHSwitchCell.h"
 #import "ZHLabelCell.h"
@@ -95,9 +96,18 @@
         __weak typeof(self) weakSelf = self;
         
         [lblCell setSelectHandler:^{
-            ZHLockerSettingViewController *lsvc = [[ZHLockerSettingViewController alloc] init];
-            lsvc.delegate = weakSelf;
-            [weakSelf.navigationController pushViewController:lsvc animated:YES];
+            if (password){//已经开启，则跳转到密码管理界面
+                
+                ZHPswdManageViewController *pswdmvc = [[ZHPswdManageViewController alloc] init];
+                
+                [self.navigationController pushViewController:pswdmvc animated:YES];
+                
+            }else{//没有开启密码，则直接跳转到密码设置界面
+                
+                ZHLockerSettingViewController *lsvc = [[ZHLockerSettingViewController alloc] init];
+                lsvc.delegate = weakSelf;
+                [weakSelf.navigationController pushViewController:lsvc animated:YES];
+            }
         }];
         
     }

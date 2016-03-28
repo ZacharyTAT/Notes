@@ -7,13 +7,14 @@
 //
 
 #import "ZHUnLockerViewController.h"
-#import "ZHLockerView.h"
 
+#import "ZHLockerView.h"
+#import "ZHTipLabel.h"
 
 @interface ZHUnLockerViewController ()<ZHLockerViewDelegate>
 
 /** 错误提示文字标签 */
-@property (nonatomic, weak)UILabel *resultLbl;
+@property (nonatomic, weak)ZHTipLabel *resultLbl;
 
 @end
 
@@ -27,7 +28,13 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:0 target:self action:@selector(cancel)];
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //显示提示文字
+    [self.resultLbl showNormalTip:self.tip];
+}
 - (void)test
 {
     self.view.backgroundColor = [UIColor lightGrayColor];
@@ -107,11 +114,10 @@
  */
 - (void)setupResultLbl
 {
-    UILabel *lbl = [[UILabel alloc] init];
+    ZHTipLabel *lbl = [[ZHTipLabel alloc] init];
     self.resultLbl = lbl;
     lbl.frame = CGRectMake(0, 70, self.view.frame.size.width, 30);
     lbl.textAlignment = NSTextAlignmentCenter;
-    lbl.textColor = [UIColor redColor];
     lbl.font = [UIFont systemFontOfSize:13.0];
     [self.view addSubview:lbl];
 }
@@ -133,7 +139,8 @@
     NSLog(@"FAIL");
 //    self.completionHander(self, NO);
     //提示文字
-    self.resultLbl.text = @"密码错误，请重新输入";
+//    self.resultLbl.text = @"密码错误，请重新输入";
+    [self.resultLbl showWarningTip:@"密码错误，请重新输入"];
 }
 
 /**

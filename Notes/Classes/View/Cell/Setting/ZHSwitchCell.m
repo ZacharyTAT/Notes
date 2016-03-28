@@ -8,6 +8,12 @@
 
 #import "ZHSwitchCell.h"
 
+@interface ZHSwitchCell()
+
+@property (nonatomic, weak)UISwitch *swt;
+
+@end
+
 @implementation ZHSwitchCell
 
 - (id)initWithFrame:(CGRect)frame
@@ -46,18 +52,27 @@
  */
 - (void)setup
 {
-    UISwitch *swc = [[UISwitch alloc] init];
-    [swc addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
+    UISwitch *swt = [[UISwitch alloc] init];
+    self.swt = swt;
+    [swt addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
     
-    self.accessoryView = swc;
+    self.accessoryView = swt;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
+#pragma mark - 设置开关状态
 
+- (void)setSwitchOn:(BOOL)on
+{
+    [self.swt setOn:on animated:NO];
+}
+
+#pragma mark - 开关状态修改事件
 - (void)switchValueChanged:(UISwitch *)swc
 {
     NSLog(@"%d",swc.isOn);
+    if (self.switchValueChangedHander) self.switchValueChangedHander(swc.isOn);
 }
 
 
