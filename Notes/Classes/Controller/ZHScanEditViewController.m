@@ -54,7 +54,7 @@
 {
     [super viewWillAppear:animated];
     
-    //显示权限按钮
+    //显示权限按钮(当有密码时)
     [self performSelector:@selector(showAuthorityBtn)];
     
     //渲染关键字

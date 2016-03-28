@@ -114,7 +114,7 @@
         }
     }
     
-    //权限
+    //权限(当设置了密码时)
     [self showAuthorityBtn];
     
 }
@@ -337,22 +337,21 @@
         NSLog(@"preNote = %@",note);
     };
     //更新模型
-    if (note.isLock) {
-        
-        __weak typeof(self) weakSelf = self;
-        
-        [ZHLocker verifyInViewControlloer:self
-                                    title:@"请输入解锁手势"
-                        completionHandler:
-         ^(ZHUnLockerViewController *ulvc, BOOL result) {
+    if (note.isLock && kPasswordFromUserDefault) {
+            __weak typeof(self) weakSelf = self;
             
-            [weakSelf dismissViewControllerAnimated:YES completion:NULL];
-            
-            if (result) {
-                doSame();
-            }
-        }];
-        return;
+            [ZHLocker verifyInViewControlloer:self
+                                        title:@"请输入解锁手势"
+                            completionHandler:
+             ^(ZHUnLockerViewController *ulvc, BOOL result) {
+                
+                [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+                
+                if (result) {
+                    doSame();
+                }
+             }];
+            return;
     }
     doSame();
 }
@@ -410,7 +409,10 @@
 #pragma mark - 显示权限按钮
 - (void)showAuthorityBtn
 {
-    
+    if (kPasswordFromUserDefault == nil) {
+        self.navigationItem.rightBarButtonItem = nil;
+        return;
+    }
     ZHNote *note = self.note;
     
     if (self.latestNote) note = self.latestNote;
@@ -448,16 +450,16 @@
         [ZHDataUtil changeAuthorityIfLock:note.isLock forId:note.noteId];
     };
     
-    if (note.isLock) { //若是私密记录，将之公开，需要验证
-        [ZHLocker verifyInViewControlloer:self
-                                    title:@"请输入解锁手势"
-                        completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
-            [weakSelf dismissViewControllerAnimated:YES completion:NULL];
-            if (result) {
-                doSame();
-            }
-        }];
-        return;
+    if (note.isLock && kPasswordFromUserDefault) { //若是私密记录，将之公开，需要验证
+            [ZHLocker verifyInViewControlloer:self
+                                        title:@"请输入解锁手势"
+                            completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
+                [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+                if (result) {
+                    doSame();
+                }
+            }];
+            return;
     }
     
     doSame();

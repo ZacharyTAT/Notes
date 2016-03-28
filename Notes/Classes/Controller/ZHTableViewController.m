@@ -222,22 +222,21 @@
     
     
     //权限判断
-    if (note.isLock) { //弹出手势解锁界面
-        
-        __weak typeof(self) weakSelf = self;
-        
-        [ZHLocker verifyInViewControlloer:self
-                                    title:@"请输入解锁手势"
-                        completionHandler:
-         ^(ZHUnLockerViewController *ulvc, BOOL result) {
+    if (note.isLock && kPasswordFromUserDefault) { //弹出手势解锁界面
+            __weak typeof(self) weakSelf = self;
             
-            [weakSelf dismissViewControllerAnimated:YES completion:NULL];
-            
-            if (result) {
-                [weakSelf showScanViewController:note animated:NO];
-            }
-        }];
-        return;
+            [ZHLocker verifyInViewControlloer:self
+                                        title:@"请输入解锁手势"
+                            completionHandler:
+             ^(ZHUnLockerViewController *ulvc, BOOL result) {
+                
+                [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+                
+                if (result) {
+                    [weakSelf showScanViewController:note animated:NO];
+                }
+            }];
+            return;
     }
     
     [self showScanViewController:note animated:YES];
@@ -633,8 +632,7 @@
     ZHNote *note = self.searchResultArr[indexPath.row];
     
     //权限判断
-    if (note.isLock) { //弹出手势解锁界面
-        
+    if (note.isLock && kPasswordFromUserDefault) { //弹出手势解锁界面
         __weak typeof(self) weakSelf = self;
         
         [ZHLocker verifyInViewControlloer:self

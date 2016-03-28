@@ -40,6 +40,8 @@
 //从NSUserDefault中存取密码的键
 #define kPasswordKey @"kPasswordKey"
 
+#define kPasswordFromUserDefault [[NSUserDefaults standardUserDefaults] objectForKey:kPasswordKey]
+
 #endif
 
 
