@@ -7,9 +7,12 @@
 //  带有特定label的cell，可点击
 
 #import <UIKit/UIKit.h>
+
+#import "ZHSettingCell.h"
+
 #import "ZHLabel.h"
 
-@interface ZHLabelCell : UITableViewCell
+@interface ZHLabelCell : ZHSettingCell
 
 /** 显示特定文字的标签 */
 @property (nonatomic, weak)ZHLabel *label;

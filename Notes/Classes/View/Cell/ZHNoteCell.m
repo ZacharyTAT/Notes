@@ -60,7 +60,8 @@
     }
     //01.设置cell选中时的背景色
     UIView *selectedView = [[UIView alloc] init];
-    selectedView.backgroundColor = [UIColor colorWithRed:252/255.0 green:206/255.0 blue:37/255.0 alpha:1.0];
+//    selectedView.backgroundColor = [UIColor colorWithRed:252/255.0 green:206/255.0 blue:37/255.0 alpha:1.0];
+    selectedView.backgroundColor = ZHColor(34, 116, 242);
     cell.selectedBackgroundView = selectedView;
     
     //02.最右边有个箭头
@@ -83,6 +84,7 @@
     if (note.isStick) { //是置顶项，显示小箭头
         //self.stickView.hidden = NO;
         self.backgroundColor = ZHColor(230, 230, 230);
+        self.backgroundColor = ZHTintColor;
     }else{ //考虑cell的循环利用，当不是置顶项时，要设置回来
         //self.stickView.hidden = YES;
         self.backgroundColor = [UIColor whiteColor];

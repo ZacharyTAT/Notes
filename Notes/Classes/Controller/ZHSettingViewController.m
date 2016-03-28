@@ -68,15 +68,24 @@
 {
     UITableViewCell *cell = nil;
     if (indexPath.row == 0) {
-        cell = [ZHSwitchCell switchCellWithTableView:tableView];
+        //        cell = [ZHSwitchCell switchCellWithTableView:tableView];
+        cell = [ZHLabelCell labelCellWithTableView:tableView];
+        ZHLabelCell *lblCell = (ZHLabelCell *)cell;
+        lblCell.label.text = @"未登录";
+        cell.textLabel.text = @"账号";
     }else{
         cell = [ZHLabelCell labelCellWithTableView:tableView];
         ZHLabelCell *lblCell = (ZHLabelCell *)cell;
-        lblCell.label.text = @"开启";
+        lblCell.label.text = @"未开启";
+        cell.textLabel.text = @"手势密码";
         
     }
-    cell.textLabel.text = @"文字文字文字";
     return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [[UIView alloc] init];
 }
 
 #pragma mark - UITableView Delegate

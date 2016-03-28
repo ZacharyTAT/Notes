@@ -15,7 +15,8 @@
     #import <Foundation/Foundation.h>
 
 // 整个应用的主题色
-#define ZHTintColor ZHColor(254, 187, 9)
+//#define ZHTintColor ZHColor(254, 187, 9)
+#define ZHTintColor ZHColor(0, 58, 180)
 
 // 自定义Log
 #ifdef DEBUG

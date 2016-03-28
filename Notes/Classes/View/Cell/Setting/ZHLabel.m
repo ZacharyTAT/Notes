@@ -20,8 +20,8 @@
 
 - (void)setup
 {
-    self.font = [UIFont systemFontOfSize:15.0];
-    self.textColor = [UIColor cyanColor];
+    self.font = [UIFont systemFontOfSize:16.0];
+    self.textColor = ZHColor(0, 58, 180);
 //    self.backgroundColor = [UIColor redColor];
     self.textAlignment = NSTextAlignmentRight;
     

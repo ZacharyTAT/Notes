@@ -55,6 +55,7 @@
 		18F301C61C0D6C4A00D9C398 /* NotesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301C51C0D6C4A00D9C398 /* NotesTests.m */; };
 		18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301E01C0D6ED500D9C398 /* ZHNavigationController.m */; };
 		18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */; };
+		18F5C7501CA8F962002F2E9D /* ZHSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5C74F1CA8F962002F2E9D /* ZHSettingCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,6 +157,8 @@
 		18F301E01C0D6ED500D9C398 /* ZHNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNavigationController.m; sourceTree = "<group>"; };
 		18F301E21C0D6EFF00D9C398 /* ZHTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHTableViewController.h; sourceTree = "<group>"; };
 		18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTableViewController.m; sourceTree = "<group>"; };
+		18F5C74E1CA8F962002F2E9D /* ZHSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSettingCell.h; sourceTree = "<group>"; };
+		18F5C74F1CA8F962002F2E9D /* ZHSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSettingCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,6 +324,8 @@
 		18E510F51CA696DD00B2F157 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				18F5C74E1CA8F962002F2E9D /* ZHSettingCell.h */,
+				18F5C74F1CA8F962002F2E9D /* ZHSettingCell.m */,
 				18E510F61CA696DD00B2F157 /* ZHLabelCell.h */,
 				18E510F71CA696DD00B2F157 /* ZHLabelCell.m */,
 				18E510FC1CA696F200B2F157 /* ZHLabel.h */,
@@ -569,6 +574,7 @@
 				18E510C11CA66CD100B2F157 /* main.m in Sources */,
 				182A59FF1C33EF2000A07705 /* ZHPageBottomBar.m in Sources */,
 				18E510E51CA67EF100B2F157 /* ZHSettingViewController.m in Sources */,
+				18F5C7501CA8F962002F2E9D /* ZHSettingCell.m in Sources */,
 				18E510B61CA66CD100B2F157 /* NSString+ZH.m in Sources */,
 				182A5A051C33EF2000A07705 /* ZHTextView.m in Sources */,
 				185794BD1C1463B10050F62D /* ZHScanEditViewController.m in Sources */,

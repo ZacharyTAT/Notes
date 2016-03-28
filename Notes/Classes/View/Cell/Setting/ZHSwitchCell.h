@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZHSwitchCell : UITableViewCell
+#import "ZHSettingCell.h"
+
+@interface ZHSwitchCell : ZHSettingCell
 
 /**
  *  快速创建一个带有开关的cell
