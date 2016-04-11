@@ -2,13 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "gesture_node_highlighted.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "gesture_node_highlighted@2x.png"
+      "filename" : "lock_btn_error@2x.png"
     }
   ],
   "info" : {

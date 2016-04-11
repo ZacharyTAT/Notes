@@ -9,8 +9,8 @@
 #import "ZHLockerView.h"
 #import "ZHCircleView.h"
 
-#define SUCCEED_COLOR [UIColor blueColor]
-#define FIALED_COLOR [UIColor redColor]
+#define SUCCEED_COLOR ZHColor(10, 95, 255)
+#define FIALED_COLOR ZHColor(249, 41, 29)
 
 @interface ZHLockerView()
 
@@ -63,7 +63,7 @@
 - (CGSize)btnSize
 {
     if (CGSizeEqualToSize(_btnSize, CGSizeZero)) {
-        _btnSize = [[UIImage imageNamed:@"gesture_node_normal"] size];
+        _btnSize = [[UIImage imageNamed:@"lock_btn_none"] size];
     }
     
     return _btnSize;
@@ -131,6 +131,10 @@
 - (void)clearAllSelectedBtn
 {
     [self.selectedBtns makeObjectsPerformSelector:@selector(setSelected:) withObject:@(NO)];
+    
+    for (UIButton *btn in self.selectedBtns) {
+        [btn setBackgroundImage:[UIImage imageNamed:@"lock_btn_sel"] forState:UIControlStateSelected];
+    }
     
     [self.selectedBtns removeAllObjects];
 }
@@ -208,9 +212,7 @@
         self.failed = ![self.delegate lockerView:self isPswdOK:pswd];
         
         if (self.failed) {
-            self.userInteractionEnabled = NO;
-            [self setNeedsDisplay];
-            [self performSelector:@selector(clear) withObject:nil afterDelay:1.0];
+            [self fail];
         }else{
             [self clear];
         }
@@ -219,6 +221,26 @@
         [self clear];
     }
 
+}
+
+/**
+ *  失败
+ */
+- (void)fail
+{
+    //暂时不能交互
+    self.userInteractionEnabled = NO;
+    
+    //按钮改成红色
+    for (UIButton *btn in self.selectedBtns) {
+        [btn setBackgroundImage:[UIImage imageNamed:@"lock_btn_error"] forState:UIControlStateSelected];
+    }
+    
+    //重新绘制，线条改成红色
+    [self setNeedsDisplay];
+    
+    //显示一秒后，清除所有
+    [self performSelector:@selector(clear) withObject:nil afterDelay:1.0];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event

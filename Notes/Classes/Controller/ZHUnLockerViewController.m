@@ -83,11 +83,15 @@
  */
 - (void)setupBackGroundView
 {
+    /*
     UIImageView *backView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Home_refresh_bg"]];
     
     backView.frame = self.view.bounds;
     
     [self.view addSubview:backView];
+     */
+    
+    self.view.backgroundColor = ZHColor(233, 233, 233);
 }
 
 /**
@@ -97,10 +101,10 @@
 {
     ZHLockerView *lockerView = [[ZHLockerView alloc] init];
     
-    CGFloat lockerViewX = 0;
+    CGFloat lockerViewX = 10;
     CGFloat lockerViewY = 150;
-    CGFloat lockerViewW = self.view.frame.size.width;
-    CGFloat lockerViewH = self.view.frame.size.height - lockerViewY;
+    CGFloat lockerViewW = self.view.frame.size.width - lockerViewX * 2;
+    CGFloat lockerViewH = self.view.frame.size.height - lockerViewY - 40;
     
     lockerView.frame = CGRectMake(lockerViewX, lockerViewY, lockerViewW, lockerViewH);
     

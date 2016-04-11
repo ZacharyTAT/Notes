@@ -25,10 +25,10 @@
     self.userInteractionEnabled = NO;
     
     //正常图片
-    [self setBackgroundImage:[UIImage imageNamed:@"gesture_node_normal"] forState:UIControlStateNormal];
+    [self setBackgroundImage:[UIImage imageNamed:@"lock_btn_none"] forState:UIControlStateNormal];
     
     //选中图片
-    [self setBackgroundImage:[UIImage imageNamed:@"gesture_node_highlighted"] forState:UIControlStateSelected];
+    [self setBackgroundImage:[UIImage imageNamed:@"lock_btn_sel"] forState:UIControlStateSelected];
 }
 
 @end
