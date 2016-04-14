@@ -51,11 +51,14 @@
  */
 - (void)setupBackGroundView
 {
+    /*
     UIImageView *backView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Home_refresh_bg"]];
     
     backView.frame = self.view.bounds;
     
     [self.view addSubview:backView];
+     */
+    self.view.backgroundColor = ZHColor(233, 233, 233);
 }
 
 /**

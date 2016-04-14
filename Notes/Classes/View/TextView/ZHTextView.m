@@ -44,7 +44,9 @@
 - (void)setup
 {
     //01.字体
-    self.font = [UIFont systemFontOfSize:18.0];
+//    UIFont *font = [UIFont systemFontOfSize:18.0];
+//    UIFont *font = [UIFont fontWithName:@"Menlo" size:18.0];
+    self.font = ZHFont;
     
     //02.垂直方向始终可拖拽
     self.alwaysBounceVertical = YES;

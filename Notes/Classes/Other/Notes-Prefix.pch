@@ -40,7 +40,11 @@
 //从NSUserDefault中存取密码的键
 #define kPasswordKey @"kPasswordKey"
 
+//沙盒中的密码
 #define kPasswordFromUserDefault [[NSUserDefaults standardUserDefaults] objectForKey:kPasswordKey]
+
+//系统字体
+#define ZHFont [UIFont fontWithName:@"Menlo" size:17.0]
 
 #endif
 
