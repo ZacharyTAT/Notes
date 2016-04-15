@@ -9,14 +9,18 @@
 #import "ZHSettingViewController.h"
 #import "ZHLockerSettingViewController.h"
 #import "ZHPswdManageViewController.h"
+#import "ZHLoginViewController.h"
 
 #import "ZHSwitchCell.h"
 #import "ZHLabelCell.h"
 
-@interface ZHSettingViewController ()<ZHLockerSettingViewControllerDelegate>
+@interface ZHSettingViewController ()<ZHLockerSettingViewControllerDelegate,ZHLoginViewControllerDelegate>
 
 /** 密码设置状态标签 */
 @property (nonatomic, weak)ZHLabel *passwordStatusLbl;
+
+/** 登录状态标签 */
+@property (nonatomic, weak)ZHLabel *loginStatusLbl;
 
 @end
 
@@ -81,11 +85,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
+    __weak typeof(self) weakSelf = self;
+    
     if (indexPath.row == 0) {
         cell = [ZHLabelCell labelCellWithTableView:tableView];
         ZHLabelCell *lblCell = (ZHLabelCell *)cell;
         lblCell.label.text = @"未登录";
         cell.textLabel.text = @"账号";
+        
+        [lblCell setSelectHandler:^{
+            ZHLoginViewController *lvc = [[ZHLoginViewController alloc] init];
+            lvc.delegate = weakSelf;
+            [weakSelf.navigationController pushViewController:lvc animated:YES];
+        }];
+        
     }else{
         
         cell = [ZHLabelCell labelCellWithTableView:tableView];
@@ -100,14 +113,12 @@
         
         lblCell.textLabel.text = @"手势密码";
         
-        __weak typeof(self) weakSelf = self;
-        
         [lblCell setSelectHandler:^{
             if (kPasswordFromUserDefault){//已经开启，则跳转到密码管理界面
                 
                 ZHPswdManageViewController *pswdmvc = [[ZHPswdManageViewController alloc] init];
                 
-                [self.navigationController pushViewController:pswdmvc animated:YES];
+                [weakSelf.navigationController pushViewController:pswdmvc animated:YES];
                 
             }else{//没有开启密码，则直接跳转到密码设置界面
                 

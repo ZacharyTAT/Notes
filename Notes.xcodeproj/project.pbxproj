@@ -69,6 +69,7 @@
 		18F301E11C0D6ED500D9C398 /* ZHNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301E01C0D6ED500D9C398 /* ZHNavigationController.m */; };
 		18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */; };
 		18F5C7501CA8F962002F2E9D /* ZHSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5C74F1CA8F962002F2E9D /* ZHSettingCell.m */; };
+		18F7089A1CC088C600067AEA /* ZHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F708991CC088C600067AEA /* ZHLoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +200,8 @@
 		18F301E31C0D6EFF00D9C398 /* ZHTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTableViewController.m; sourceTree = "<group>"; };
 		18F5C74E1CA8F962002F2E9D /* ZHSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSettingCell.h; sourceTree = "<group>"; };
 		18F5C74F1CA8F962002F2E9D /* ZHSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSettingCell.m; sourceTree = "<group>"; };
+		18F708981CC088C600067AEA /* ZHLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLoginViewController.h; sourceTree = "<group>"; };
+		18F708991CC088C600067AEA /* ZHLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -317,6 +320,8 @@
 			children = (
 				18E510E31CA67EF100B2F157 /* ZHSettingViewController.h */,
 				18E510E41CA67EF100B2F157 /* ZHSettingViewController.m */,
+				18F708981CC088C600067AEA /* ZHLoginViewController.h */,
+				18F708991CC088C600067AEA /* ZHLoginViewController.m */,
 				18CB3F741CA90036006BEEAA /* ZHLockerSettingViewController.h */,
 				18CB3F751CA90036006BEEAA /* ZHLockerSettingViewController.m */,
 				18CB3F7C1CA91F3F006BEEAA /* ZHPswdManageViewController.h */,
@@ -681,6 +686,7 @@
 				18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */,
 				1898FB3C1CBB4C6400F5517A /* AFURLRequestSerialization.m in Sources */,
 				185794C01C1467460050F62D /* ZHNewViewController.m in Sources */,
+				18F7089A1CC088C600067AEA /* ZHLoginViewController.m in Sources */,
 				18E510BF1CA66CD100B2F157 /* ZHHierarchy.m in Sources */,
 				1898FB371CBB4C6400F5517A /* AFHTTPRequestOperationManager.m in Sources */,
 				18049CBA1CA936DA00CEFC03 /* ZHLineCell.m in Sources */,
