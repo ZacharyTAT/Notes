@@ -29,10 +29,22 @@
 - (void)setup
 {
 //    self.backgroundColor = [UIColor blueColor];
+    //01.居中对齐
     self.textAlignment = NSTextAlignmentCenter;
+    
+    //02.字体
     self.font = [UIFont systemFontOfSize:15.0];
+    
+    //03.白色背景
     self.backgroundColor = [UIColor whiteColor];
     
+    //04.关闭自动检查
+    self.autocorrectionType = UITextAutocorrectionTypeNo;
+    
+    //05.关闭自动打开大写键
+    self.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
+    //06.底部分割线
     UIView *bottomLine = [[UIView alloc] init];
     bottomLine.backgroundColor = [UIColor lightGrayColor];
     self.bottomLine = bottomLine;

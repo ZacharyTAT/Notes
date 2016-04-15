@@ -62,23 +62,49 @@
 - (void)loginView:(ZHLoginView *)loginView didLoginWithUserName:(NSString *)username password:(NSString *)password
 {
     NSLog(@"login");
-    //发请求给服务器
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    //http://www.bubuko.com/infodetail-189698.html
-    
-    manager.responseSerializer = [[AFCompoundResponseSerializer alloc] init];
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
-    params[@"username"] = username;
-    params[@"password"] = password;
-    
-    [manager POST:[NSString stringWithFormat:@"%@/%@",ROOT,@"login.php"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"success = %@",operation.responseString);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error = %@",error);
-    }];
+    [MBProgressHUD showMessage:@"正在验证"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //发请求给服务器
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        //http://www.bubuko.com/infodetail-189698.html
+        
+        manager.responseSerializer = [[AFCompoundResponseSerializer alloc] init];
+        
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        
+        params[@"username"] = username;
+        params[@"password"] = password;
+        
+        [manager POST:[NSString stringWithFormat:@"%@/%@",ROOT,@"login.php"]
+           parameters:params
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  [MBProgressHUD hideHUD];
+                  NSLog(@"success = %@",operation.responseString);
+                  
+                  NSInteger result = [operation.responseString intValue];
+                  
+                  if (result == -1) {
+                      [MBProgressHUD showError:@"用户名不存在"];
+                  }else if (result == 0) {
+                      [MBProgressHUD showError:@"密码错误"];
+                  }else{
+                      [MBProgressHUD showSuccess:@"登录成功"];
+                      
+                      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                          //返回上一页面
+                          NSLog(@"登录成功");
+                      });
+                  }
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  NSLog(@"error = %@",error);
+                  //调试的时候要在这里显示错误信息，用AlertView
+                  [MBProgressHUD hideHUD];
+              }];
+    });
+
 }
 
 /**
