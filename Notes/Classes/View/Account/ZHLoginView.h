@@ -14,8 +14,11 @@
 
 /**
  *  点击了登录按钮
+ *
+ *  @param username  用户名
+ *  @param password  密码
  */
-- (void)loginViewDidLogin:(ZHLoginView *)loginView;
+- (void)loginView:(ZHLoginView *)loginView didLoginWithUserName:(NSString *)username password:(NSString *)password;
 
 
 @end

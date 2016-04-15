@@ -10,6 +10,8 @@
 
 #import "ZHTextField.h"
 
+#import "MBProgressHUD+MJ.h"
+
 @interface ZHLoginView()<UITextFieldDelegate>
 
 /** 头像 */
@@ -90,7 +92,6 @@
     if (textField == self.userTxtField) return YES;
     
     NSLog(@"return");
-    [textField endEditing:YES];
     [self login];
     return YES;
 }
@@ -101,22 +102,26 @@
  */
 - (void)login
 {
+    [self endEditing:YES];
+    
     //判断两个输入框是否合法
     
     if (![self isTxtFieldOK]) {
         
-        
+        [MBProgressHUD showError:@"用户名和密码不能为空"];
         
         return;
     }
     
-    if ([self.delegate respondsToSelector:@selector(loginViewDidLogin:)]) {
-        [self.delegate loginViewDidLogin:self];
+    if ([self.delegate respondsToSelector:@selector(loginView:didLoginWithUserName:password:)]) {
+        [self.delegate loginView:self didLoginWithUserName:self.userTxtField.text password:self.pswdTxtField.text];
     }
 }
 
 - (BOOL)isTxtFieldOK
 {
+    if ([self.userTxtField.text isEqualToString:@""] || [self.pswdTxtField.text isEqualToString:@""]) return NO;
+    
     return YES;
 }
 

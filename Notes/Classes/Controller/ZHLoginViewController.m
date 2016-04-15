@@ -10,6 +10,9 @@
 
 #import "ZHLoginView.h"
 
+#import "MBProgressHUD+MJ.h"
+#import "AFNetworking.h"
+
 @interface ZHLoginViewController ()<ZHLoginViewDelegate>
 
 @property (nonatomic, weak)ZHLoginView *loginView;
@@ -56,11 +59,26 @@
 #pragma mark - ZHLoginView Delegate
 
 #pragma mark - 登录
-- (void)loginViewDidLogin:(ZHLoginView *)loginView
+- (void)loginView:(ZHLoginView *)loginView didLoginWithUserName:(NSString *)username password:(NSString *)password
 {
     NSLog(@"login");
     //发请求给服务器
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
+    //http://www.bubuko.com/infodetail-189698.html
+    
+    manager.responseSerializer = [[AFCompoundResponseSerializer alloc] init];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    params[@"username"] = username;
+    params[@"password"] = password;
+    
+    [manager POST:[NSString stringWithFormat:@"%@/%@",ROOT,@"login.php"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"success = %@",operation.responseString);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error = %@",error);
+    }];
 }
 
 /**

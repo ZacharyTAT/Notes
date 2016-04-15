@@ -46,6 +46,12 @@
 //系统字体
 #define ZHFont [UIFont fontWithName:@"Menlo" size:17.0]
 
+//主机名
+#define HOST @"http://127.0.0.1"
+
+//根目录
+#define ROOT [NSString stringWithFormat:@"%@/%@",HOST ,@"notes_backend"]
+
 #endif
 
 
