@@ -8,7 +8,7 @@
 
 #import "ZHLoginView.h"
 
-#import "ZHTextField.h"
+#import "ZHBottomLineTextField.h"
 
 #import "MBProgressHUD+MJ.h"
 
@@ -18,10 +18,10 @@
 @property (nonatomic, weak)UIImageView *avatar;
 
 /** 用户名框 */
-@property (nonatomic, weak)ZHTextField *userTxtField;
+@property (nonatomic, weak)ZHBottomLineTextField *userTxtField;
 
 /** 密码框 */
-@property (nonatomic, weak)ZHTextField *pswdTxtField;
+@property (nonatomic, weak)ZHBottomLineTextField *pswdTxtField;
 
 /** 登录按钮 */
 @property (nonatomic, weak)UIButton *loginBtn;
@@ -58,13 +58,13 @@
     [self addSubview:avatar];
    
     //02.用户名框
-    ZHTextField *userTxtField = [[ZHTextField alloc] init];
+    ZHBottomLineTextField *userTxtField = [[ZHBottomLineTextField alloc] init];
     self.userTxtField = userTxtField;
     userTxtField.placeholder = @"用户名";
     [self addSubview:userTxtField];
     
     //03.密码框
-    ZHTextField *pswdTxtField = [[ZHTextField alloc] init];
+    ZHBottomLineTextField *pswdTxtField = [[ZHBottomLineTextField alloc] init];
     self.pswdTxtField = pswdTxtField;
     pswdTxtField.secureTextEntry = YES;
     pswdTxtField.placeholder = @"密码";
@@ -96,13 +96,17 @@
     return YES;
 }
 
+- (void)userTxtFieldBecomeFirstResponder
+{
+    [self.userTxtField becomeFirstResponder];
+}
+
 #pragma mark - 登录点击
 /**
  *  登录点击
  */
 - (void)login
 {
-    [self endEditing:YES];
     
     //判断两个输入框是否合法
     
@@ -112,6 +116,8 @@
         
         return;
     }
+    
+    [self endEditing:YES];
     
     if ([self.delegate respondsToSelector:@selector(loginView:didLoginWithUserName:password:)]) {
         [self.delegate loginView:self didLoginWithUserName:self.userTxtField.text password:self.pswdTxtField.text];
@@ -162,5 +168,9 @@
     self.loginBtn.frame = CGRectMake(loginBtnX, loginBtnY, loginBtnW, loginBtnH);
 }
 
+- (void)dealloc
+{
+    NSLog(@"%@ dealloc",[self class]);
+}
 
 @end

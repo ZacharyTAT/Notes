@@ -7,13 +7,14 @@
 //
 
 #import "ZHLoginViewController.h"
+#import "ZHSignupViewController.h"
 
 #import "ZHLoginView.h"
 
 #import "MBProgressHUD+MJ.h"
 #import "AFNetworking.h"
 
-@interface ZHLoginViewController ()<ZHLoginViewDelegate>
+@interface ZHLoginViewController ()<ZHLoginViewDelegate,ZHSignupViewControllerDelegate>
 
 @property (nonatomic, weak)ZHLoginView *loginView;
 
@@ -25,7 +26,16 @@
 {
     [super viewDidLoad];
     
+    self.title = @"登录";
+    
     [self setup];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    //[self.loginView userTxtFieldBecomeFirstResponder];
 }
 
 - (void)setup
@@ -139,8 +149,8 @@
     CGFloat height = self.view.frame.size.height;
     
     CGFloat marginBottom = 20;
-    CGFloat btnW = 150;
-    CGFloat btnH = 40;
+    CGFloat btnW = 120;
+    CGFloat btnH = 30;
     CGFloat btnX = self.view.center.x - btnW * 0.5;
     CGFloat btnY = height - marginBottom - btnH;
     
@@ -175,12 +185,22 @@
     NSLog(@"注册");
     
     //跳转到注册页面
-    
+    ZHSignupViewController *suvc = [[ZHSignupViewController alloc] init];
+    suvc.delegate = self;
+    [self.navigationController pushViewController:suvc animated:YES];
 }
+
+#pragma mark - ZHSignupViewController Delegate
+
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
+}
+
+- (void)dealloc
+{
+    NSLog(@"%@ dealloc",[self class]);
 }
 
 @end

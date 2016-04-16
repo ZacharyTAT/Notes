@@ -17,6 +17,7 @@
 		182A5A041C33EF2000A07705 /* ZHHightlightTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A59FB1C33EF2000A07705 /* ZHHightlightTextView.m */; };
 		182A5A051C33EF2000A07705 /* ZHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A59FD1C33EF2000A07705 /* ZHTextView.m */; };
 		183A70521C2BC7B70043F552 /* ZHDetailNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A70511C2BC7B70043F552 /* ZHDetailNoteViewController.m */; };
+		1855A6E81CC20B7D0034928D /* ZHSignUpTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1855A6E71CC20B7D0034928D /* ZHSignUpTextField.m */; };
 		185794BD1C1463B10050F62D /* ZHScanEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794BC1C1463B10050F62D /* ZHScanEditViewController.m */; };
 		185794C01C1467460050F62D /* ZHNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185794BF1C1467460050F62D /* ZHNewViewController.m */; };
 		186D67C91C36A8E7004AA771 /* ZHStickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186D67C81C36A8E7004AA771 /* ZHStickView.m */; };
@@ -46,6 +47,8 @@
 		18E510FA1CA696DD00B2F157 /* ZHLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510F71CA696DD00B2F157 /* ZHLabelCell.m */; };
 		18E510FB1CA696DD00B2F157 /* ZHSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510F91CA696DD00B2F157 /* ZHSwitchCell.m */; };
 		18E510FE1CA696F200B2F157 /* ZHLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510FD1CA696F200B2F157 /* ZHLabel.m */; };
+		18EB55021CC1F63400057F98 /* ZHSignupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB55011CC1F63400057F98 /* ZHSignupView.m */; };
+		18EB55051CC1F91000057F98 /* ZHBottomLineTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB55041CC1F91000057F98 /* ZHBottomLineTextField.m */; };
 		18EF25DA1C25522100873A68 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EF25D91C25522100873A68 /* libsqlite3.0.dylib */; };
 		18F301A11C0D6C4A00D9C398 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A01C0D6C4A00D9C398 /* Foundation.framework */; };
 		18F301A31C0D6C4A00D9C398 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A21C0D6C4A00D9C398 /* CoreGraphics.framework */; };
@@ -75,6 +78,7 @@
 		18F708C51CC0E62800067AEA /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F708BA1CC0E62800067AEA /* AFURLRequestSerialization.m */; };
 		18F708C61CC0E62800067AEA /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F708BC1CC0E62800067AEA /* AFURLResponseSerialization.m */; };
 		18F708C71CC0E62800067AEA /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F708BE1CC0E62800067AEA /* AFURLSessionManager.m */; };
+		18F708CA1CC0ECB900067AEA /* ZHSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F708C91CC0ECB900067AEA /* ZHSignupViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +112,8 @@
 		182A59FD1C33EF2000A07705 /* ZHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTextView.m; sourceTree = "<group>"; };
 		183A70501C2BC7B70043F552 /* ZHDetailNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDetailNoteViewController.h; sourceTree = "<group>"; };
 		183A70511C2BC7B70043F552 /* ZHDetailNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDetailNoteViewController.m; sourceTree = "<group>"; };
+		1855A6E61CC20B7D0034928D /* ZHSignUpTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSignUpTextField.h; sourceTree = "<group>"; };
+		1855A6E71CC20B7D0034928D /* ZHSignUpTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSignUpTextField.m; sourceTree = "<group>"; };
 		185794BB1C1463B10050F62D /* ZHScanEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHScanEditViewController.h; sourceTree = "<group>"; };
 		185794BC1C1463B10050F62D /* ZHScanEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHScanEditViewController.m; sourceTree = "<group>"; };
 		185794BE1C1467460050F62D /* ZHNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNewViewController.h; sourceTree = "<group>"; };
@@ -167,6 +173,10 @@
 		18E510F91CA696DD00B2F157 /* ZHSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSwitchCell.m; sourceTree = "<group>"; };
 		18E510FC1CA696F200B2F157 /* ZHLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLabel.h; sourceTree = "<group>"; };
 		18E510FD1CA696F200B2F157 /* ZHLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLabel.m; sourceTree = "<group>"; };
+		18EB55001CC1F63400057F98 /* ZHSignupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSignupView.h; sourceTree = "<group>"; };
+		18EB55011CC1F63400057F98 /* ZHSignupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSignupView.m; sourceTree = "<group>"; };
+		18EB55031CC1F91000057F98 /* ZHBottomLineTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHBottomLineTextField.h; sourceTree = "<group>"; };
+		18EB55041CC1F91000057F98 /* ZHBottomLineTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHBottomLineTextField.m; sourceTree = "<group>"; };
 		18EF25D91C25522100873A68 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		18F3019D1C0D6C4A00D9C398 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F301A01C0D6C4A00D9C398 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -216,6 +226,8 @@
 		18F708BC1CC0E62800067AEA /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		18F708BD1CC0E62800067AEA /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		18F708BE1CC0E62800067AEA /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		18F708C81CC0ECB900067AEA /* ZHSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSignupViewController.h; sourceTree = "<group>"; };
+		18F708C91CC0ECB900067AEA /* ZHSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSignupViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +322,8 @@
 				18E510E41CA67EF100B2F157 /* ZHSettingViewController.m */,
 				18F708981CC088C600067AEA /* ZHLoginViewController.h */,
 				18F708991CC088C600067AEA /* ZHLoginViewController.m */,
+				18F708C81CC0ECB900067AEA /* ZHSignupViewController.h */,
+				18F708C91CC0ECB900067AEA /* ZHSignupViewController.m */,
 				18CB3F741CA90036006BEEAA /* ZHLockerSettingViewController.h */,
 				18CB3F751CA90036006BEEAA /* ZHLockerSettingViewController.m */,
 				18CB3F7C1CA91F3F006BEEAA /* ZHPswdManageViewController.h */,
@@ -539,10 +553,16 @@
 		18F7089B1CC08B3D00067AEA /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				18EB55001CC1F63400057F98 /* ZHSignupView.h */,
+				18EB55011CC1F63400057F98 /* ZHSignupView.m */,
+				1855A6E61CC20B7D0034928D /* ZHSignUpTextField.h */,
+				1855A6E71CC20B7D0034928D /* ZHSignUpTextField.m */,
 				18F7089C1CC08B7800067AEA /* ZHLoginView.h */,
 				18F7089D1CC08B7800067AEA /* ZHLoginView.m */,
 				18F7089F1CC0CB6E00067AEA /* ZHTextField.h */,
 				18F708A01CC0CB6E00067AEA /* ZHTextField.m */,
+				18EB55031CC1F91000057F98 /* ZHBottomLineTextField.h */,
+				18EB55041CC1F91000057F98 /* ZHBottomLineTextField.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -705,8 +725,11 @@
 				18F7089E1CC08B7800067AEA /* ZHLoginView.m in Sources */,
 				18CB3F7E1CA91F3F006BEEAA /* ZHPswdManageViewController.m in Sources */,
 				18E510C11CA66CD100B2F157 /* main.m in Sources */,
+				18F708CA1CC0ECB900067AEA /* ZHSignupViewController.m in Sources */,
 				182A59FF1C33EF2000A07705 /* ZHPageBottomBar.m in Sources */,
+				18EB55051CC1F91000057F98 /* ZHBottomLineTextField.m in Sources */,
 				18E510E51CA67EF100B2F157 /* ZHSettingViewController.m in Sources */,
+				1855A6E81CC20B7D0034928D /* ZHSignUpTextField.m in Sources */,
 				18F5C7501CA8F962002F2E9D /* ZHSettingCell.m in Sources */,
 				18E510B61CA66CD100B2F157 /* NSString+ZH.m in Sources */,
 				18CB3F7B1CA90D81006BEEAA /* ZHTipLabel.m in Sources */,
@@ -721,6 +744,7 @@
 				182A5A021C33EF2000A07705 /* ZHSearch.m in Sources */,
 				18F708A11CC0CB6E00067AEA /* ZHTextField.m in Sources */,
 				18E510BC1CA66CD100B2F157 /* ZHDataUtil.m in Sources */,
+				18EB55021CC1F63400057F98 /* ZHSignupView.m in Sources */,
 				18E510BB1CA66CD100B2F157 /* FMResultSet.m in Sources */,
 				18F708BF1CC0E62800067AEA /* AFHTTPRequestOperation.m in Sources */,
 				18F708C11CC0E62800067AEA /* AFHTTPSessionManager.m in Sources */,

@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class ZHLoginViewController;
 
 @protocol ZHLoginViewControllerDelegate <NSObject>
-
-
+/**
+ *  成功登录
+ */
+- (void)signupViewControllerDidSuccess:(ZHLoginViewController *)suvc;
 @end
 
 

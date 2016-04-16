@@ -28,9 +28,14 @@
 /** 代理 */
 @property (nonatomic, weak)id<ZHLoginViewDelegate> delegate;
 
+/** 用户名框变成第一响应者 */
+- (void)userTxtFieldBecomeFirstResponder;
+
+
 
 
 
 @end
+
 
 
