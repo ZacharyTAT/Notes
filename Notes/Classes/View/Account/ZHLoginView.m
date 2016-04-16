@@ -101,6 +101,12 @@
     [self.userTxtField becomeFirstResponder];
 }
 
+- (void)setUsername:(NSString *)username password:(NSString *)password
+{
+    self.userTxtField.text = username;
+    self.pswdTxtField.text = password;
+}
+
 #pragma mark - 登录点击
 /**
  *  登录点击

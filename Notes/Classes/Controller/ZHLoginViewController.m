@@ -73,6 +73,7 @@
 {
     NSLog(@"login");
     [MBProgressHUD showMessage:@"正在验证"];
+    __weak typeof(self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         //发请求给服务器
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -95,8 +96,10 @@
                   
                   NSInteger result = [operation.responseString intValue];
                   
-                  if (result == -1) {
+                  if (result == -2) {
                       [MBProgressHUD showError:@"用户名不存在"];
+                  }else if (result == -1) {
+                      [MBProgressHUD showError:@"用户未通过审核"];
                   }else if (result == 0) {
                       [MBProgressHUD showError:@"密码错误"];
                   }else{
@@ -105,6 +108,7 @@
                       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                           //返回上一页面
                           NSLog(@"登录成功");
+                          [weakSelf accountOK];
                       });
                   }
               }
@@ -190,8 +194,29 @@
     [self.navigationController pushViewController:suvc animated:YES];
 }
 
+/**
+ *  登录成功
+ */
+- (void)accountOK
+{
+    //更新沙盒中的登录状态
+    [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:kAccountExists];
+    
+    if ([self.delegate respondsToSelector:@selector(loginViewControllerDidSuccess:)]) {
+        [self.delegate loginViewControllerDidSuccess:self];
+    }
+}
 #pragma mark - ZHSignupViewController Delegate
 
+- (void)signupViewController:(ZHSignupViewController *)suvc didSuccessWithUsername:(NSString *)username password:(NSString *)password
+{
+    //更新视图
+    
+    [self.loginView setUsername:username password:password];
+    
+    //将注册页面弹出
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

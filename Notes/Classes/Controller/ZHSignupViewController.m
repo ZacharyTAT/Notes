@@ -54,6 +54,7 @@
 - (void)signupView:(ZHSignupView *)signupView didSignupWithUsername:(NSString *)username password:(NSString *)password
 {
     NSLog(@"%@,%@",username ,password);
+    __weak typeof(self) weakSelf = self;
     [MBProgressHUD showMessage:@"正在验证"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         //发请求给服务器进行注册
@@ -76,6 +77,11 @@
               }else{
                   [MBProgressHUD showSuccess:@"注册成功，请等待审核"];
                   //这个页面的工作已经结束了，通知代理
+                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                      if ([weakSelf.delegate respondsToSelector:@selector(signupViewController:didSuccessWithUsername:password:)]) {
+                          [weakSelf.delegate signupViewController:self didSuccessWithUsername:username password:password];
+                      }
+                  });
                   
               }
           }
@@ -87,8 +93,6 @@
 
     
 }
-
-
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

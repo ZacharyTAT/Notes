@@ -14,7 +14,7 @@
 /**
  *  成功登录
  */
-- (void)signupViewControllerDidSuccess:(ZHLoginViewController *)suvc;
+- (void)loginViewControllerDidSuccess:(ZHLoginViewController *)suvc;
 @end
 
 

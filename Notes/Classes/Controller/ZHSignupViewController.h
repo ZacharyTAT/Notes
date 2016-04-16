@@ -15,7 +15,7 @@
 /**
  *  成功注册
  */
-- (void)signupViewControllerDidSuccess:(ZHSignupViewController *)suvc;
+- (void)signupViewController:(ZHSignupViewController *)suvc didSuccessWithUsername:(NSString *)username password:(NSString *)password;
 
 @end
 

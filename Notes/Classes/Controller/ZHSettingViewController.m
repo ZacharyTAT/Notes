@@ -90,7 +90,11 @@
     if (indexPath.row == 0) {
         cell = [ZHLabelCell labelCellWithTableView:tableView];
         ZHLabelCell *lblCell = (ZHLabelCell *)cell;
-        lblCell.label.text = @"未登录";
+        NSString *accountStatus = @"未登录";
+        
+        if (kAccountExistsFromUserDefault) accountStatus = @"已登录";
+        
+        lblCell.label.text = accountStatus;
         cell.textLabel.text = @"账号";
         
         [lblCell setSelectHandler:^{
@@ -158,6 +162,14 @@
     self.passwordStatusLbl.text = @"已开启";
     
     //弹出设置密码控制器
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - ZHLoginViewController Delegate
+- (void)loginViewControllerDidSuccess:(ZHLoginViewController *)suvc
+{
+    [self.tableView reloadData];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

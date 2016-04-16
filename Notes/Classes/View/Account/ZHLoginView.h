@@ -31,8 +31,13 @@
 /** 用户名框变成第一响应者 */
 - (void)userTxtFieldBecomeFirstResponder;
 
-
-
+/**
+ *  通过外界设置用户名和密码
+ *
+ *  @param username 用户名
+ *  @param password 密码
+ */
+- (void)setUsername:(NSString *)username password:(NSString *)password;
 
 
 @end

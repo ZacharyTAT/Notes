@@ -52,6 +52,12 @@
 //根目录
 #define ROOT [NSString stringWithFormat:@"%@/%@",HOST ,@"notes_backend"]
 
+//是否已经登录了
+#define kAccountExists @"kAccountExists"
+
+//沙盒中的登录状态
+#define kAccountExistsFromUserDefault [[NSUserDefaults standardUserDefaults] objectForKey:kAccountExists]
+
 #endif
 
 
