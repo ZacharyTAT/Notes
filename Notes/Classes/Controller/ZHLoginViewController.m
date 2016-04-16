@@ -14,6 +14,9 @@
 #import "MBProgressHUD+MJ.h"
 #import "AFNetworking.h"
 
+#import "ZHUserTool.h"
+#import "ZHUser.h"
+
 @interface ZHLoginViewController ()<ZHLoginViewDelegate,ZHSignupViewControllerDelegate>
 
 @property (nonatomic, weak)ZHLoginView *loginView;
@@ -108,7 +111,7 @@
                       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                           //返回上一页面
                           NSLog(@"登录成功");
-                          [weakSelf accountOK];
+                          [weakSelf accountOKWithUsername:username password:password];
                       });
                   }
               }
@@ -197,10 +200,10 @@
 /**
  *  登录成功
  */
-- (void)accountOK
+- (void)accountOKWithUsername:(NSString *)username password:(NSString *)password
 {
-    //更新沙盒中的登录状态
-    [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:kAccountExists];
+    //保存账号名和密码
+    [ZHUserTool saveUser:[ZHUser userWithUsername:username password:password]];
     
     if ([self.delegate respondsToSelector:@selector(loginViewControllerDidSuccess:)]) {
         [self.delegate loginViewControllerDidSuccess:self];

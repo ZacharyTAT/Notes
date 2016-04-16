@@ -14,6 +14,8 @@
 #import "ZHSwitchCell.h"
 #import "ZHLabelCell.h"
 
+#import "ZHUserTool.h"
+
 @interface ZHSettingViewController ()<ZHLockerSettingViewControllerDelegate,ZHLoginViewControllerDelegate>
 
 /** 密码设置状态标签 */
@@ -92,7 +94,7 @@
         ZHLabelCell *lblCell = (ZHLabelCell *)cell;
         NSString *accountStatus = @"未登录";
         
-        if (kAccountExistsFromUserDefault) accountStatus = @"已登录";
+        if ([ZHUserTool isUserExists]) accountStatus = @"已登录";
         
         lblCell.label.text = accountStatus;
         cell.textLabel.text = @"账号";
