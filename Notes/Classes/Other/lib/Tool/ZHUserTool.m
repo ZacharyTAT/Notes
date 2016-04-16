@@ -27,11 +27,11 @@
 }
 
 #pragma mark - 删除账号
-+ (void)deleteUser
++ (BOOL)deleteUser
 {
     NSFileManager *mgr = [NSFileManager defaultManager];
     
-    [mgr removeItemAtPath:ZHUserFile error:NULL];
+    return [mgr removeItemAtPath:ZHUserFile error:NULL];
 }
 
 #pragma mark - 账号是否存在

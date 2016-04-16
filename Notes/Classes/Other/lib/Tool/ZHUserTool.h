@@ -26,8 +26,10 @@
 
 /**
  *  删除账号
+ *  
+ *  @return 成功删除\YES
  */
-+ (void)deleteUser;
++ (BOOL)deleteUser;
 
 /**
  *  判断账号是否存在

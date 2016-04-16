@@ -15,8 +15,9 @@
 #import "ZHLabelCell.h"
 
 #import "ZHUserTool.h"
+#import "MBProgressHUD+MJ.h"
 
-@interface ZHSettingViewController ()<ZHLockerSettingViewControllerDelegate,ZHLoginViewControllerDelegate>
+@interface ZHSettingViewController ()<ZHLockerSettingViewControllerDelegate,ZHLoginViewControllerDelegate, UIActionSheetDelegate>
 
 /** 密码设置状态标签 */
 @property (nonatomic, weak)ZHLabel *passwordStatusLbl;
@@ -94,16 +95,24 @@
         ZHLabelCell *lblCell = (ZHLabelCell *)cell;
         NSString *accountStatus = @"未登录";
         
-        if ([ZHUserTool isUserExists]) accountStatus = @"已登录";
+        void (^selectHandler)() = ^{
+            ZHLoginViewController *lvc = [[ZHLoginViewController alloc] init];
+            lvc.delegate = weakSelf;
+            [weakSelf.navigationController pushViewController:lvc animated:YES];
+        };
+        
+        if ([ZHUserTool isUserExists]) {
+            accountStatus = @"已登录";
+            
+            selectHandler = ^{ //弹出Action sheet
+                [[[UIActionSheet alloc] initWithTitle:@"选择您要进行的操作" delegate:weakSelf cancelButtonTitle:@"取消" destructiveButtonTitle:@"注销" otherButtonTitles:@"备份笔记", nil] showInView:weakSelf.view];
+            };
+        }
         
         lblCell.label.text = accountStatus;
         cell.textLabel.text = @"账号";
         
-        [lblCell setSelectHandler:^{
-            ZHLoginViewController *lvc = [[ZHLoginViewController alloc] init];
-            lvc.delegate = weakSelf;
-            [weakSelf.navigationController pushViewController:lvc animated:YES];
-        }];
+        [lblCell setSelectHandler:selectHandler];
         
     }else{
         
@@ -146,6 +155,7 @@
 #pragma mark - UITableView Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if ([cell isKindOfClass:[ZHSwitchCell class]]) return;
     
@@ -173,6 +183,24 @@
     [self.tableView reloadData];
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - UIActionSheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"%d",buttonIndex);
+    
+    if (0 == buttonIndex) { //注销,删除账号
+        if ([ZHUserTool deleteUser]) {
+            [MBProgressHUD showSuccess:@"退出成功"];
+        }else{
+            [MBProgressHUD showError:@"退出失败"];
+        }
+        [self.tableView reloadData];
+        
+    }else if (1 == buttonIndex) { //备份
+        //封装备份工具
+    }
 }
 
 #pragma mark - dealloc
