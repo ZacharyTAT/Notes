@@ -20,6 +20,11 @@
  */
 + (void)removeNote:(ZHNote *)note;
 
+/**
+ *  清空数据库
+ */
++ (BOOL)clear;
+
 #pragma mark - Insertition
 
 /**
@@ -27,12 +32,22 @@
  */
 + (void)saveWithNote:(ZHNote *)note;
 
+/**
+ *  添加多条数据
+ */
++ (void)saveNotes:(NSArray *)notes;
+
 #pragma mark - Query
 
 /**
- *  获取所有笔记列表
+ *  获取置顶或者非置顶笔记列表
  */
 + (NSMutableArray *)noteListIfStick:(BOOL)stick;
+
+/**
+ *  所有笔记列表
+ */
++ (NSMutableArray *)noteList;
 
 /**
  *  获取对应Id记录的下一条记录
@@ -40,6 +55,8 @@
  *  @param stick  此下一条记录是否是置顶的
  */
 + (ZHNote *)nextNoteForNoteId:(NSInteger)noteId stick:(BOOL)stick;
+
+
 
 #pragma mark - Update
 /**
@@ -63,6 +80,9 @@
  *  @param noteId 笔记ID
  */
 + (BOOL)changeAuthorityIfLock:(BOOL)lock forId:(NSInteger)noteId;
+
+
+
 
 @end
 

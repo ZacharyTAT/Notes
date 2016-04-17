@@ -62,6 +62,15 @@
     
     NSLog(@"保存文件成功,noteId = %d",note.noteId);
 }
+
+#pragma mark - 添加多条数据
++ (void)saveNotes:(NSArray *)notes
+{
+    for (ZHNote *note in notes) {
+        [ZHDataUtil saveWithNote:note];
+    }
+}
+
 + (void)saveInFileWithNote:(ZHNote *)note
 {
     if (note == nil) return;
@@ -74,11 +83,21 @@
     
     NSLog(@"保存文件成功");
 }
-#pragma mark - 获取所有笔记列表
+#pragma mark - 获取置顶或者非置顶笔记列表
 + (NSMutableArray *)noteListIfStick:(BOOL)stick
 {
     ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
     return [dbUtil noteListIfStick:stick];
+}
+
+#pragma mark - 所有笔记列表
++ (NSMutableArray *)noteList
+{
+    ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
+    
+    NSString *sql = @"select * from note";
+    
+    return [dbUtil queryWithSql:sql];
 }
 
 #pragma mark - 获取对应Id记录的下一条记录
@@ -174,6 +193,20 @@
         return [dbUtil updateWithNote:note ForId:noteId];
     }
     return NO;
+}
+
+#pragma mark - 清空数据库的数据
++ (BOOL)clear
+{
+    ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
+    
+    BOOL deleteOK = [dbUtil deleteAllNotes];
+    
+    if (!deleteOK) return NO;
+    
+    BOOL reorderOK = [dbUtil reorderId];
+    
+    return reorderOK;
 }
 
 

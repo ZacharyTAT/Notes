@@ -65,6 +65,17 @@
 - (BOOL)deleteNoteForId:(NSInteger)noteId;
 
 /**
+ *  删除所有笔记
+ */
+- (BOOL)deleteAllNotes;
+
+/**
+ *  重新排列id，使得之从1开始
+ *
+ */
+- (BOOL)reorderId;
+
+/**
  *  通过修改日期删除笔记
  */
 - (BOOL)deleteNoteForModifyDate:(NSDate *)modifyDate;

@@ -254,6 +254,38 @@
     return NO;
 }
 
+#pragma mark - 删除所有笔记
+- (BOOL)deleteAllNotes
+{
+    if ([self.DB open]) {
+        
+        NSString *sql = [NSString stringWithFormat:@"delete from note"];
+        BOOL res = [self.DB executeUpdate:sql];
+        
+        [self.DB close];
+        
+        return res ? YES : NO;
+    }
+    
+    return NO;
+}
+
+#pragma mark - 重新排列id
+- (BOOL)reorderId
+{
+    if ([self.DB open]) {
+        
+        NSString *sql = [NSString stringWithFormat:@"UPDATE sqlite_sequence set seq = 0 where name = 'note'"];
+        BOOL res = [self.DB executeUpdate:sql];
+        
+        [self.DB close];
+        
+        return res ? YES : NO;
+    }
+    
+    return NO;
+}
+
 #pragma mark - 通过修改日期删除一条记录
 - (BOOL)deleteNoteForModifyDate:(NSDate *)modifyDate
 {

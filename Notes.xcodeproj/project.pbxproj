@@ -30,6 +30,7 @@
 		18CB3F761CA90036006BEEAA /* ZHLockerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB3F751CA90036006BEEAA /* ZHLockerSettingViewController.m */; };
 		18CB3F7B1CA90D81006BEEAA /* ZHTipLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB3F7A1CA90D81006BEEAA /* ZHTipLabel.m */; };
 		18CB3F7E1CA91F3F006BEEAA /* ZHPswdManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB3F7D1CA91F3F006BEEAA /* ZHPswdManageViewController.m */; };
+		18DE8B741CC3672F00E34305 /* ZHSynchronizeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE8B731CC3672F00E34305 /* ZHSynchronizeTool.m */; };
 		18E510B51CA66CD100B2F157 /* NSDate+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510961CA66CD100B2F157 /* NSDate+ZH.m */; };
 		18E510B61CA66CD100B2F157 /* NSString+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E510981CA66CD100B2F157 /* NSString+ZH.m */; };
 		18E510B71CA66CD100B2F157 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5109C1CA66CD100B2F157 /* FMDatabase.m */; };
@@ -140,6 +141,8 @@
 		18CB3F7A1CA90D81006BEEAA /* ZHTipLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTipLabel.m; sourceTree = "<group>"; };
 		18CB3F7C1CA91F3F006BEEAA /* ZHPswdManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPswdManageViewController.h; sourceTree = "<group>"; };
 		18CB3F7D1CA91F3F006BEEAA /* ZHPswdManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPswdManageViewController.m; sourceTree = "<group>"; };
+		18DE8B721CC3672F00E34305 /* ZHSynchronizeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSynchronizeTool.h; sourceTree = "<group>"; };
+		18DE8B731CC3672F00E34305 /* ZHSynchronizeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSynchronizeTool.m; sourceTree = "<group>"; };
 		18E510951CA66CD100B2F157 /* NSDate+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ZH.h"; sourceTree = "<group>"; };
 		18E510961CA66CD100B2F157 /* NSDate+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ZH.m"; sourceTree = "<group>"; };
 		18E510971CA66CD100B2F157 /* NSString+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZH.h"; sourceTree = "<group>"; };
@@ -315,6 +318,8 @@
 			children = (
 				18A480261CC224F9007271A1 /* ZHUserTool.h */,
 				18A480271CC224F9007271A1 /* ZHUserTool.m */,
+				18DE8B721CC3672F00E34305 /* ZHSynchronizeTool.h */,
+				18DE8B731CC3672F00E34305 /* ZHSynchronizeTool.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -761,6 +766,7 @@
 				18E510BA1CA66CD100B2F157 /* FMDatabaseQueue.m in Sources */,
 				182A5A021C33EF2000A07705 /* ZHSearch.m in Sources */,
 				18A480201CC22245007271A1 /* ZHUser.m in Sources */,
+				18DE8B741CC3672F00E34305 /* ZHSynchronizeTool.m in Sources */,
 				18F708A11CC0CB6E00067AEA /* ZHTextField.m in Sources */,
 				18E510BC1CA66CD100B2F157 /* ZHDataUtil.m in Sources */,
 				18EB55021CC1F63400057F98 /* ZHSignupView.m in Sources */,
