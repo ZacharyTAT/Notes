@@ -15,4 +15,9 @@
  */
 + (BOOL)mergeFromServer:(NSArray *)notes;
 
+/**
+ *  数据库中的笔记转为字典形式
+ */
++ (NSArray *)noteDicts;
+
 @end

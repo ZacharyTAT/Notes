@@ -42,6 +42,11 @@
 - (instancetype)initWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content stick:(BOOL)stick lock:(BOOL)lock;
 
 /**
+ *  通过数组创建一个note
+ */
+- (instancetype)initWithDict:(NSDictionary *)dict;
+
+/**
  *  快速创建一个note的方法
  *
  *  @param title      标题
@@ -53,6 +58,12 @@
  *  @return note模型
  */
 + (instancetype)noteWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content stick:(BOOL)stick lock:(BOOL)lock;
+
+/**
+ *  转化为数组
+ */
+- (NSDictionary *)toDictionary;
+
 @end
 
 

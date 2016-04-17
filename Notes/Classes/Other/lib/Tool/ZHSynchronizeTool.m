@@ -10,6 +10,8 @@
 
 #import "ZHDataUtil.h"
 
+#import "ZHNote.h"
+
 @implementation ZHSynchronizeTool
 
 
@@ -17,22 +19,43 @@
 
 + (BOOL)mergeFromServer:(NSArray *)notes
 {
-    //01.合并
-    NSMutableArray *arr = [notes mutableCopy];
+    NSMutableArray *arr = [@{} mutableCopy];
     
+    //01.数组转模型
+    for (NSMutableDictionary *dict in notes) {
+        [arr addObject:[[ZHNote alloc] initWithDict:dict]];
+    }
+    
+    //02.
     [arr addObjectsFromArray:[ZHDataUtil noteList]];
     
-    //02.清空本地数据并重拍id
+    //03.清空本地数据并重拍id
     BOOL result = [ZHDataUtil clear];
     
     if (!result) return NO;
     
-    //03.写入数据库
+    //04.写入数据库
      [ZHDataUtil saveNotes:arr];
     
     return YES;
 
 }
+
+#pragma mark - 数据库中的笔记转为字典形式
+
++ (NSArray *)noteDicts
+{
+    NSMutableArray *dicts = [@[] mutableCopy];
+    
+    NSMutableArray *notes = [ZHDataUtil noteList];
+    
+    for (ZHNote *note in notes) {
+        [dicts addObject:[note toDictionary]];
+    }
+    
+    return dicts;
+}
+
 
 
 

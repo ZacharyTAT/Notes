@@ -15,6 +15,14 @@
 #define kStick @"stick"
 #define kLock @"lock"
 
+//字典键值
+#define kDictkeyId @"id"
+#define kDictkeyTitle @"title"
+#define kDictkeyContent @"content"
+#define kDictkeyStick @"stick"
+#define kDictkeyLock @"lock"
+#define kDictkeyDatetime @"datetime"
+
 @interface ZHNote()<NSCoding>
 
 @end
@@ -34,10 +42,34 @@
     
     return self;
 }
+
+- (instancetype)initWithDict:(NSDictionary *)dict
+{
+    if (self = [super init]) {
+        
+        NSString *datetimeStr = dict[kDictkeyDatetime];
+        
+        double datetime = [datetimeStr longLongValue] / 1000.0;
+        
+        NSDate *modifydate = [NSDate dateWithTimeIntervalSince1970:datetime];
+        
+        self.title = dict[kDictkeyTitle];
+        self.modifydate = modifydate;
+        self.content = dict[kDictkeyContent];
+        self.stick = [dict[kDictkeyStick] integerValue];
+        self.lock = [dict[kDictkeyLock] integerValue];
+        self.noteId = [dict[kDictkeyId] integerValue];
+    }
+    
+    return self;
+}
+
 + (instancetype)noteWithTitle:(NSString *)title modifydate:(NSDate *)modifydate content:(NSString *)content stick:(BOOL)stick lock:(BOOL)lock
 {
     return [[self alloc] initWithTitle:title modifydate:modifydate content:content stick:stick lock:lock];
 }
+
+
 #pragma mark - coding
 
 #pragma mark - decode
@@ -67,6 +99,22 @@
     [encode encodeBool:_lock forKey:kLock];
 }
 
+#pragma mark - 转化为数组
+- (NSDictionary *)toDictionary
+{
+    NSDate *modifyDate = self.modifydate;
+    
+    long long datetime = [modifyDate timeIntervalSince1970] * 1000;
+    
+    return @{
+             kDictkeyId : @(self.noteId), //id
+             kDictkeyTitle : self.title, //标题
+             kDictkeyContent : self.content,//内容
+             kDictkeyDatetime : @(datetime), //日期
+             kDictkeyStick : @((int)self.stick), //是否置顶
+             kDictkeyLock : @((int)self.lock)    //是否加密
+             };
+}
 
 #pragma mark - description
 - (NSString *)description

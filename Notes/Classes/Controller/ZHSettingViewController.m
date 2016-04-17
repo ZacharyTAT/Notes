@@ -16,6 +16,8 @@
 
 #import "ZHUserTool.h"
 #import "ZHUser.h"
+#import "ZHDataUtil.h"
+#import "ZHSynchronizeTool.h"
 
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
@@ -203,6 +205,41 @@
         
     }else if (1 == buttonIndex) { //备份
         
+        [MBProgressHUD showSuccess:@"正在备份"];
+        
+        ZHUser *user = [ZHUserTool user];
+        
+        NSMutableDictionary *params = [@{} mutableCopy];
+        
+        params[@"uid"] = @(user.uid);
+        
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[ZHSynchronizeTool noteDicts] options:0 error:NULL];
+//
+//        
+        params[@"notes"] = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+//        params[@"notes"] = [ZHSynchronizeTool noteDicts];
+        
+        AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+//        mgr.requestSerializer = [[AFJSONRequestSerializer alloc] init];
+        mgr.responseSerializer = [[AFCompoundResponseSerializer alloc] init];
+        
+        [mgr POST:[NSString stringWithFormat:@"%@/%@",ROOT ,@"upload.php"]
+       parameters:params
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              [MBProgressHUD hideHUD];
+              NSLog(@"responseString = \n%@",[operation responseString]);
+              NSInteger result = [[operation responseString] integerValue];
+              if (result == -1) { //没有接收到uid
+                  
+              }else{
+                  [MBProgressHUD showSuccess:[NSString stringWithFormat:@"成功备份%d条数据",result]];
+              }
+        }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              [MBProgressHUD hideHUD];
+              NSLog(@"%@", error);
+        }];
     }
 }
 
