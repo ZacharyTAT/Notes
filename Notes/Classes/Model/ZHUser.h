@@ -10,6 +10,9 @@
 
 @interface ZHUser : NSObject<NSCoding>
 
+/** 用户id */
+@property (nonatomic, assign)NSInteger uid;
+
 /** 用户名 */
 @property (nonatomic, copy)NSString *username;
 
@@ -20,6 +23,6 @@
  *  通过用户名和密码创建一个User对象
  *
  */
-+ (instancetype)userWithUsername:(NSString *)username password:(NSString *)password;
++ (instancetype)userWithUsername:(NSString *)username password:(NSString *)password uid:(NSInteger)uid;
 
 @end

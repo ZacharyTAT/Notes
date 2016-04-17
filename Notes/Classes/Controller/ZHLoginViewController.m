@@ -15,6 +15,7 @@
 #import "AFNetworking.h"
 
 #import "ZHUserTool.h"
+#import "ZHSynchronizeTool.h"
 #import "ZHUser.h"
 
 @interface ZHLoginViewController ()<ZHLoginViewDelegate,ZHSignupViewControllerDelegate>
@@ -107,12 +108,9 @@
                       [MBProgressHUD showError:@"密码错误"];
                   }else{
                       [MBProgressHUD showSuccess:@"登录成功"];
-                      
-                      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                          //返回上一页面
-                          NSLog(@"登录成功");
-                          [weakSelf accountOKWithUsername:username password:password];
-                      });
+                      //返回上一页面
+                      NSLog(@"登录成功");
+                      [weakSelf accountOKWithUsername:username password:password userId:result];
                   }
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -200,14 +198,53 @@
 /**
  *  登录成功
  */
-- (void)accountOKWithUsername:(NSString *)username password:(NSString *)password
+- (void)accountOKWithUsername:(NSString *)username password:(NSString *)password userId:(NSInteger)uid
 {
-    //保存账号名和密码
-    [ZHUserTool saveUser:[ZHUser userWithUsername:username password:password]];
+    __weak typeof(self) weakSelf = self;
     
-    if ([self.delegate respondsToSelector:@selector(loginViewControllerDidSuccess:)]) {
-        [self.delegate loginViewControllerDidSuccess:self];
+    void (^delegateImOK)() = ^{
+        //03.告诉代理我完事儿了
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if ([weakSelf.delegate respondsToSelector:@selector(loginViewControllerDidSuccess:)]) {
+                [weakSelf.delegate loginViewControllerDidSuccess:weakSelf];
+            }
+        });
+
+    };
+    
+    //01.保存用户名和密码
+    [ZHUserTool saveUser:[ZHUser userWithUsername:username password:password uid:uid]];
+    
+    //02.从服务器下载数据
+    [MBProgressHUD showMessage:@""];
+
+    
+    NSMutableDictionary *params = [@{} mutableCopy];
+    
+    params[@"uid"] = @(uid);
+    
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    
+    [mgr GET:[NSString stringWithFormat:@"%@/%@",ROOT ,@"download.php"]
+  parameters:params
+     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+         //合并数据
+         NSArray *notes = (NSArray *)responseObject;
+         if (notes && notes.count > 0) [ZHSynchronizeTool mergeFromServer:notes]; //有记录才同步
+         
+         [MBProgressHUD hideHUD];
+         
+         delegateImOK();
     }
+     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"%@",error);
+         
+         [MBProgressHUD hideHUD];
+         
+         delegateImOK();
+    }];
+    
+
 }
 #pragma mark - ZHSignupViewController Delegate
 

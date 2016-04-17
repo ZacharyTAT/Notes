@@ -15,6 +15,9 @@
 #import "ZHLabelCell.h"
 
 #import "ZHUserTool.h"
+#import "ZHUser.h"
+
+#import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 
 @interface ZHSettingViewController ()<ZHLockerSettingViewControllerDelegate,ZHLoginViewControllerDelegate, UIActionSheetDelegate>
@@ -199,7 +202,7 @@
         [self.tableView reloadData];
         
     }else if (1 == buttonIndex) { //备份
-        //封装备份工具
+        
     }
 }
 
