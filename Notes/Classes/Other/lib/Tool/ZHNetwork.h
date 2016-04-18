@@ -19,7 +19,7 @@
  *  @param success    成功的回调
  *  @param failure    失败的回调
  */
-- (void)post:(NSString *)URLString
++ (void)post:(NSString *)URLString
      message:(NSString *)message
 compoundResponseSerialize:(BOOL)compoundResponseSerialize
   parameters:(id)parameters
@@ -36,7 +36,7 @@ compoundResponseSerialize:(BOOL)compoundResponseSerialize
  *  @param success    成功的回调
  *  @param failure    失败的回调
  */
-- (void)get:(NSString *)URLString
++ (void)get:(NSString *)URLString
      message:(NSString *)message
 compoundResponseSerialize:(BOOL)compoundResponseSerialize
   parameters:(id)parameters

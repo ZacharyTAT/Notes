@@ -12,7 +12,7 @@
 #import "ZHLoginView.h"
 
 #import "MBProgressHUD+MJ.h"
-#import "AFNetworking.h"
+#import "ZHNetwork.h"
 
 #import "ZHUserTool.h"
 #import "ZHSynchronizeTool.h"
@@ -76,48 +76,44 @@
 - (void)loginView:(ZHLoginView *)loginView didLoginWithUserName:(NSString *)username password:(NSString *)password
 {
     NSLog(@"login");
-    [MBProgressHUD showMessage:@"正在验证"];
+    
     __weak typeof(self) weakSelf = self;
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
         //发请求给服务器
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        
-        //http://www.bubuko.com/infodetail-189698.html
-        
-        manager.responseSerializer = [[AFCompoundResponseSerializer alloc] init];
         
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         
         params[@"username"] = username;
         params[@"password"] = password;
         
-        [manager POST:[NSString stringWithFormat:@"%@/%@",ROOT,@"login.php"]
-           parameters:params
-              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  
-                  [MBProgressHUD hideHUD];
-                  NSLog(@"success = %@",operation.responseString);
-                  
-                  NSInteger result = [operation.responseString intValue];
-                  
-                  if (result == -2) {
-                      [MBProgressHUD showError:@"用户名不存在"];
-                  }else if (result == -1) {
-                      [MBProgressHUD showError:@"用户未通过审核"];
-                  }else if (result == 0) {
-                      [MBProgressHUD showError:@"密码错误"];
-                  }else{
-                      [MBProgressHUD showSuccess:@"登录成功"];
-                      //返回上一页面
-                      NSLog(@"登录成功");
-                      [weakSelf accountOKWithUsername:username password:password userId:result];
-                  }
-              }
-              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                  NSLog(@"error = %@",error);
-                  //调试的时候要在这里显示错误信息，用AlertView
-                  [MBProgressHUD hideHUD];
-              }];
+        [ZHNetwork post:[NSString stringWithFormat:@"%@/%@",ROOT,@"login.php"]
+                message:@"正在验证"
+compoundResponseSerialize:YES
+             parameters:params success:^(NSString *responseString, id responseObject) {
+                 NSInteger result = [responseString intValue];
+                 
+                 if (result == -2) {
+                     [MBProgressHUD showError:@"用户名不存在"];
+                 }else if (result == -1) {
+                     [MBProgressHUD showError:@"用户未通过审核"];
+                 }else if (result == 0) {
+                     [MBProgressHUD showError:@"密码错误"];
+                 }else{
+                     [MBProgressHUD showSuccess:@"登录成功"];
+                     //返回上一页面
+                     NSLog(@"登录成功");
+                     [weakSelf accountOKWithUsername:username password:password userId:result];
+                 }
+                 
+             }
+                failure:^(NSString *responseString, NSError *error) {
+                    
+#warning 调试的时候要在这里显示错误信息，用AlertView
+             }];
+        
+        
     });
 
 }
@@ -216,38 +212,28 @@
     [ZHUserTool saveUser:[ZHUser userWithUsername:username password:password uid:uid]];
     
     //02.从服务器下载数据
-    [MBProgressHUD showMessage:@""];
+    //[MBProgressHUD showMessage:@""];
 
     
     NSMutableDictionary *params = [@{} mutableCopy];
     
     params[@"uid"] = @(uid);
     
-    
-    
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
-    [mgr GET:[NSString stringWithFormat:@"%@/%@",ROOT ,@"download.php"]
-  parameters:params
-     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-         //合并数据
-         NSArray *notes = (NSArray *)responseObject;
-         if (notes && notes.count > 0) [ZHSynchronizeTool mergeFromServer:notes]; //有记录才同步
-         
-         [MBProgressHUD hideHUD];
-         
-         delegateImOK();
-    }
-     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"%@",error);
-         
-         [MBProgressHUD hideHUD];
-         
-         delegateImOK();
-    }];
-    
-    
-    
+    [ZHNetwork get:[NSString stringWithFormat:@"%@/%@",ROOT ,@"download.php"]
+           message:@""
+compoundResponseSerialize:NO
+        parameters:params
+           success:^(NSString *responseString, id responseObject) {
+               
+               //合并数据
+               NSArray *notes = (NSArray *)responseObject;
+               if (notes && notes.count > 0) [ZHSynchronizeTool mergeFromServer:notes]; //有记录才同步
+               
+               delegateImOK();
+           }
+           failure:^(NSString *responseString, NSError *error) {
+               delegateImOK();
+           }];
 
 }
 #pragma mark - ZHSignupViewController Delegate

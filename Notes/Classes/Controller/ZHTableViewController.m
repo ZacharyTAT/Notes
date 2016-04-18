@@ -91,6 +91,13 @@
         
         //更新表格数据
         [self.tableView reloadData];
+        
+        //更新标题
+        if (!self.dataArr || self.dataArr.count == 0) {
+            self.title = @"Notes";
+        }else{
+            self.title = [NSString stringWithFormat:@"Note(%d)", self.dataArr.count];
+        }
     }
     
     return _dataArr;
@@ -127,7 +134,11 @@
     }
     
     //更新标题
-    self.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
+    if (self.dataArr == nil || [self.dataArr count] == 0) {
+        self.title = @"Notes";
+    }else{
+        self.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
+    }
 }
 
 #pragma mark - 搜索结果数据源
@@ -154,7 +165,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"新建" style:UIBarButtonItemStylePlain target:self action:@selector(newBtnClick)];
     
     //02.中间
-    self.navigationItem.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
+    if (self.dataArr.count == 0) {
+        self.navigationItem.title = @"Notes";
+    }else{
+        self.navigationItem.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
+    }
     
     //03.左侧
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(settingClick)];
@@ -597,6 +612,9 @@
 
 - (void)settingViewControllerDidSucceedLogin:(ZHSettingViewController *)svc
 {
+    //清空数据源
+    [[self mutableArrayValueForKey:@"dataArr"] removeAllObjects];
+    
     //更新数据源
     self.dataArr = nil;
     

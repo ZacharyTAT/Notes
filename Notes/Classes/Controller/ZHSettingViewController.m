@@ -19,7 +19,7 @@
 #import "ZHDataUtil.h"
 #import "ZHSynchronizeTool.h"
 
-#import "AFNetworking.h"
+#import "ZHNetwork.h"
 #import "MBProgressHUD+MJ.h"
 
 @interface ZHSettingViewController ()<ZHLockerSettingViewControllerDelegate,ZHLoginViewControllerDelegate, UIActionSheetDelegate>
@@ -218,8 +218,6 @@
         
     }else if (1 == buttonIndex) { //备份
         
-        [MBProgressHUD showMessage:@"正在备份"];
-        
         ZHUser *user = [ZHUserTool user];
         
         NSMutableDictionary *params = [@{} mutableCopy];
@@ -233,31 +231,27 @@
         
 //        params[@"notes"] = [ZHSynchronizeTool noteDicts];
         
-        AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-//        mgr.requestSerializer = [[AFJSONRequestSerializer alloc] init];
-        mgr.responseSerializer = [[AFCompoundResponseSerializer alloc] init];
         
-        [mgr POST:[NSString stringWithFormat:@"%@/%@",ROOT ,@"upload.php"]
-       parameters:params
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                  [MBProgressHUD hideHUD];
-                  NSLog(@"responseString = \n%@",[operation responseString]);
-                  
-                  NSString *trimedStr = [[operation responseString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                  
-                  NSInteger result = [trimedStr integerValue];
-                  if (result == -1 || result == 0) { //没有接收到uid或出错
-                      
-                  }else{
-                      [MBProgressHUD showSuccess:[NSString stringWithFormat:@"成功备份了%d条数据",result]];
-                  }
-              });
-        }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              [MBProgressHUD hideHUD];
-              NSLog(@"%@", error);
-        }];
+        [ZHNetwork post:[NSString stringWithFormat:@"%@/%@",ROOT ,@"upload.php"]
+                message:@"正在备份"
+compoundResponseSerialize:YES
+             parameters:params
+                success:^(NSString *responseString, id responseObject) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        NSString *trimedStr = [responseString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                        
+                        NSInteger result = [trimedStr integerValue];
+                        if (result == -1 || result == 0) { //没有接收到uid或出错
+                            
+                        }else{
+                            [MBProgressHUD showSuccess:[NSString stringWithFormat:@"成功备份了%d条数据",result]];
+                        }
+                    });
+
+                } failure:^(NSString *responseString, NSError *error) {
+                    
+                }];
     }
 }
 

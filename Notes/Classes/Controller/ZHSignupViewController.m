@@ -10,7 +10,7 @@
 
 #import "ZHSignupView.h"
 
-#import "AFNetworking.h"
+#import "ZHNetwork.h"
 #import "MBProgressHUD+MJ.h"
 
 @interface ZHSignupViewController ()<ZHSignupViewDelegate>
@@ -54,41 +54,38 @@
 - (void)signupView:(ZHSignupView *)signupView didSignupWithUsername:(NSString *)username password:(NSString *)password
 {
     NSLog(@"%@,%@",username ,password);
+    
     __weak typeof(self) weakSelf = self;
-    [MBProgressHUD showMessage:@"正在验证"];
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         //发请求给服务器进行注册
-        AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-        
-        mgr.responseSerializer = [[AFCompoundResponseSerializer alloc] init];
         
         NSMutableDictionary *params = [@{} mutableCopy];
         params[@"username"] = username;
         params[@"password"] = password;
         
-        [mgr POST:[NSString stringWithFormat:@"%@/%@",ROOT ,@"register.php"]
-       parameters:params
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"%@",operation.responseString);
-              [MBProgressHUD hideHUD];
-              NSInteger result = [operation.responseString integerValue];
-              if (result == -1) {//用户名已存在
-                  [MBProgressHUD showError:@"用户名已存在"];
-              }else{
-                  [MBProgressHUD showSuccess:@"注册成功，请等待审核"];
-                  //这个页面的工作已经结束了，通知代理
-                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                      if ([weakSelf.delegate respondsToSelector:@selector(signupViewController:didSuccessWithUsername:password:)]) {
-                          [weakSelf.delegate signupViewController:self didSuccessWithUsername:username password:password];
-                      }
-                  });
-                  
-              }
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"%@",error);
-              [MBProgressHUD hideHUD];
-          }];
+        [ZHNetwork post:[NSString stringWithFormat:@"%@/%@",ROOT ,@"register.php"]
+                message:@"正在验证"
+compoundResponseSerialize:YES
+             parameters:params
+                success:^(NSString *responseString, id responseObject) {
+                    NSInteger result = [responseString integerValue];
+                    if (result == -1) {//用户名已存在
+                        [MBProgressHUD showError:@"用户名已存在"];
+                    }else{
+                        [MBProgressHUD showSuccess:@"注册成功，请等待审核"];
+                        //这个页面的工作已经结束了，通知代理
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            if ([weakSelf.delegate respondsToSelector:@selector(signupViewController:didSuccessWithUsername:password:)]) {
+                                [weakSelf.delegate signupViewController:self didSuccessWithUsername:username password:password];
+                            }
+                        });
+                        
+                    }
+
+                } failure:^(NSString *responseString, NSError *error) {
+                    
+                }];
     });
 
     
