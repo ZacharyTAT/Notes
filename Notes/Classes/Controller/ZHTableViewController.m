@@ -604,6 +604,12 @@
     [self.tableView reloadData];
 }
 
+- (void)settingViewControllerDidLogout:(ZHSettingViewController *)svc
+{
+    //同样是更新视图，所以调用成功登录的方法
+    [self settingViewControllerDidSucceedLogin:svc];
+}
+
 #pragma mark - ZHSearchDelegate
 
 #pragma mark - 返回新的搜索结果数据源

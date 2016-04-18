@@ -20,7 +20,7 @@
 #define kDictkeyTitle @"title"
 #define kDictkeyContent @"content"
 #define kDictkeyStick @"stick"
-#define kDictkeyLock @"isLock"
+#define kDictkeyLock @"lock"
 #define kDictkeyDatetime @"datetime"
 
 @interface ZHNote()<NSCoding>
@@ -57,7 +57,7 @@
         self.modifydate = modifydate;
         self.content = dict[kDictkeyContent];
         self.stick = (BOOL)[dict[kDictkeyStick] integerValue];
-        self.lock = (BOOL)[dict[kDictkeyLock] integerValue];
+        self.lock = (BOOL)[dict[@"isLock"] integerValue];
         self.noteId = [dict[kDictkeyId] integerValue];
     }
     

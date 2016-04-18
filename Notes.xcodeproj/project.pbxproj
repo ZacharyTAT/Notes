@@ -82,6 +82,7 @@
 		18F708C61CC0E62800067AEA /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F708BC1CC0E62800067AEA /* AFURLResponseSerialization.m */; };
 		18F708C71CC0E62800067AEA /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F708BE1CC0E62800067AEA /* AFURLSessionManager.m */; };
 		18F708CA1CC0ECB900067AEA /* ZHSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F708C91CC0ECB900067AEA /* ZHSignupViewController.m */; };
+		18F70FAC1CC4BA900069A14A /* ZHNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F70FAB1CC4BA900069A14A /* ZHNetwork.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,6 +238,8 @@
 		18F708BE1CC0E62800067AEA /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		18F708C81CC0ECB900067AEA /* ZHSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSignupViewController.h; sourceTree = "<group>"; };
 		18F708C91CC0ECB900067AEA /* ZHSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSignupViewController.m; sourceTree = "<group>"; };
+		18F70FAA1CC4BA900069A14A /* ZHNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNetwork.h; sourceTree = "<group>"; };
+		18F70FAB1CC4BA900069A14A /* ZHNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNetwork.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,6 +323,8 @@
 				18A480271CC224F9007271A1 /* ZHUserTool.m */,
 				18DE8B721CC3672F00E34305 /* ZHSynchronizeTool.h */,
 				18DE8B731CC3672F00E34305 /* ZHSynchronizeTool.m */,
+				18F70FAA1CC4BA900069A14A /* ZHNetwork.h */,
+				18F70FAB1CC4BA900069A14A /* ZHNetwork.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -775,6 +780,7 @@
 				18F708BF1CC0E62800067AEA /* AFHTTPRequestOperation.m in Sources */,
 				18F708C11CC0E62800067AEA /* AFHTTPSessionManager.m in Sources */,
 				182A5A001C33EF2000A07705 /* ZHMultiButtonTableViewCell.m in Sources */,
+				18F70FAC1CC4BA900069A14A /* ZHNetwork.m in Sources */,
 				18F301E41C0D6EFF00D9C398 /* ZHTableViewController.m in Sources */,
 				185794C01C1467460050F62D /* ZHNewViewController.m in Sources */,
 				18F7089A1CC088C600067AEA /* ZHLoginViewController.m in Sources */,

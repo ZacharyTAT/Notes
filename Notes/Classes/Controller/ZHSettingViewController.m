@@ -201,8 +201,16 @@
     NSLog(@"%d",buttonIndex);
     
     if (0 == buttonIndex) { //注销,删除账号
+        
         if ([ZHUserTool deleteUser]) {
             [MBProgressHUD showSuccess:@"退出成功"];
+            //删除所有记录
+            [ZHDataUtil clear];
+            
+            if ([self.delegate respondsToSelector:@selector(settingViewControllerDidLogout:)]) {
+                [self.delegate settingViewControllerDidLogout:self];
+            }
+            
         }else{
             [MBProgressHUD showError:@"退出失败"];
         }
@@ -239,7 +247,7 @@
                   NSString *trimedStr = [[operation responseString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                   
                   NSInteger result = [trimedStr integerValue];
-                  if (result == -1) { //没有接收到uid
+                  if (result == -1 || result == 0) { //没有接收到uid或出错
                       
                   }else{
                       [MBProgressHUD showSuccess:[NSString stringWithFormat:@"成功备份了%d条数据",result]];

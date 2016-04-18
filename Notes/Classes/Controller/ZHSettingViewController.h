@@ -22,6 +22,11 @@
  */
 - (void)settingViewControllerDidSucceedLogin:(ZHSettingViewController *)svc;
 
+/**
+ *  注销，表格视图应该更新数据源
+ */
+- (void)settingViewControllerDidLogout:(ZHSettingViewController *)svc;
+
 @end
 
 @interface ZHSettingViewController : UITableViewController

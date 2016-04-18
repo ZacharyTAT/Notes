@@ -223,6 +223,8 @@
     
     params[@"uid"] = @(uid);
     
+    
+    
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     
     [mgr GET:[NSString stringWithFormat:@"%@/%@",ROOT ,@"download.php"]
@@ -243,6 +245,8 @@
          
          delegateImOK();
     }];
+    
+    
     
 
 }
