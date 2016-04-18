@@ -595,6 +595,14 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+- (void)settingViewControllerDidSucceedLogin:(ZHSettingViewController *)svc
+{
+    //更新数据源
+    self.dataArr = nil;
+    
+    //更新表格
+    [self.tableView reloadData];
+}
 
 #pragma mark - ZHSearchDelegate
 

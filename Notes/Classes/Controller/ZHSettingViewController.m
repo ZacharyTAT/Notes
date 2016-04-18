@@ -188,6 +188,11 @@
     [self.tableView reloadData];
     
     [self.navigationController popViewControllerAnimated:YES];
+    
+    if ([self.delegate respondsToSelector:@selector(settingViewControllerDidSucceedLogin:)]) {
+        [self.delegate settingViewControllerDidSucceedLogin:self];
+    }
+    
 }
 
 #pragma mark - UIActionSheet Delegate
@@ -205,7 +210,7 @@
         
     }else if (1 == buttonIndex) { //备份
         
-        [MBProgressHUD showSuccess:@"正在备份"];
+        [MBProgressHUD showMessage:@"正在备份"];
         
         ZHUser *user = [ZHUserTool user];
         
@@ -227,14 +232,19 @@
         [mgr POST:[NSString stringWithFormat:@"%@/%@",ROOT ,@"upload.php"]
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              [MBProgressHUD hideHUD];
-              NSLog(@"responseString = \n%@",[operation responseString]);
-              NSInteger result = [[operation responseString] integerValue];
-              if (result == -1) { //没有接收到uid
+              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                  [MBProgressHUD hideHUD];
+                  NSLog(@"responseString = \n%@",[operation responseString]);
                   
-              }else{
-                  [MBProgressHUD showSuccess:[NSString stringWithFormat:@"成功备份%d条数据",result]];
-              }
+                  NSString *trimedStr = [[operation responseString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                  
+                  NSInteger result = [trimedStr integerValue];
+                  if (result == -1) { //没有接收到uid
+                      
+                  }else{
+                      [MBProgressHUD showSuccess:[NSString stringWithFormat:@"成功备份了%d条数据",result]];
+                  }
+              });
         }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               [MBProgressHUD hideHUD];

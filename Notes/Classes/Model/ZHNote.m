@@ -20,7 +20,7 @@
 #define kDictkeyTitle @"title"
 #define kDictkeyContent @"content"
 #define kDictkeyStick @"stick"
-#define kDictkeyLock @"lock"
+#define kDictkeyLock @"isLock"
 #define kDictkeyDatetime @"datetime"
 
 @interface ZHNote()<NSCoding>
@@ -49,15 +49,15 @@
         
         NSString *datetimeStr = dict[kDictkeyDatetime];
         
-        double datetime = [datetimeStr longLongValue] / 1000.0;
+        double datetime = [datetimeStr longLongValue] / 1000000.0;
         
         NSDate *modifydate = [NSDate dateWithTimeIntervalSince1970:datetime];
         
         self.title = dict[kDictkeyTitle];
         self.modifydate = modifydate;
         self.content = dict[kDictkeyContent];
-        self.stick = [dict[kDictkeyStick] integerValue];
-        self.lock = [dict[kDictkeyLock] integerValue];
+        self.stick = (BOOL)[dict[kDictkeyStick] integerValue];
+        self.lock = (BOOL)[dict[kDictkeyLock] integerValue];
         self.noteId = [dict[kDictkeyId] integerValue];
     }
     
@@ -104,7 +104,7 @@
 {
     NSDate *modifyDate = self.modifydate;
     
-    long long datetime = [modifyDate timeIntervalSince1970] * 1000;
+    long long datetime = [modifyDate timeIntervalSince1970] * 1000000;
     
     return @{
              kDictkeyId : @(self.noteId), //id

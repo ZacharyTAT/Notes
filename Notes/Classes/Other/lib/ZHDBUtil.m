@@ -109,12 +109,12 @@
 }
 
 #pragma mark - 插入一条数据
-- (BOOL)insertNoteWithTitle:(NSString *)title content:(NSString *)content modifyDate:(NSDate *)modifyDate
+- (BOOL)insertNoteWithTitle:(NSString *)title content:(NSString *)content modifyDate:(NSDate *)modifyDate stick:(BOOL)stick lock:(BOOL)lock
 {
     if ([self.DB open]) {
         
 //        NSString * sql = @"insert into note (title, content,modifyDate) values(?, ?, ?) ";
-        NSString * sql = [NSString stringWithFormat:@"insert into note (%@, %@,%@) values(?, ?, ?) ",kNoteColumnTitle,kNoteColumnContent,kNoteColumnModifyDate];
+        NSString * sql = [NSString stringWithFormat:@"insert into note (%@, %@,%@,%@,%@) values(?, ?, ?, %d, %d) ",kNoteColumnTitle,kNoteColumnContent,kNoteColumnModifyDate,kNoteColumnIsStick,kNoteColumnIsLock, stick, lock];
         
         NSLog(@"sql = %@",sql);
         
@@ -127,7 +127,7 @@
 }
 - (BOOL)insertWithNote:(ZHNote *)note
 {
-    return [self insertNoteWithTitle:note.title content:note.content modifyDate:note.modifydate];
+    return [self insertNoteWithTitle:note.title content:note.content modifyDate:note.modifydate stick:note.isStick lock:note.isLock];
 }
 #pragma mark - 通过id查询一条记录
 - (ZHNote *)noteForId:(NSInteger)noteId

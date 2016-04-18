@@ -17,6 +17,11 @@
  */
 - (void)settingViewControllerDidClickClose:(ZHSettingViewController *)svc;
 
+/**
+ *  成功登录，表格视图应该更新数据源
+ */
+- (void)settingViewControllerDidSucceedLogin:(ZHSettingViewController *)svc;
+
 @end
 
 @interface ZHSettingViewController : UITableViewController

@@ -19,7 +19,7 @@
 
 + (BOOL)mergeFromServer:(NSArray *)notes
 {
-    NSMutableArray *arr = [@{} mutableCopy];
+    NSMutableArray *arr = [@[] mutableCopy];
     
     //01.数组转模型
     for (NSMutableDictionary *dict in notes) {
