@@ -52,6 +52,13 @@
 //根目录
 #define ROOT [NSString stringWithFormat:@"%@/%@",HOST ,@"notes_backend"]
 
+//备份标志键(YES\还有没备份过的笔记 NO\所有笔记已经备份过了,同时若为nil，也是NO，代表都备份过了)
+#define kNotesTobeUpdated @"kNotesTobeUpdated"
+
+//沙盒中备份标志值
+#define kNotesUpdatedFromUserDefault [[NSUserDefaults standardUserDefaults] boolForKey:kNotesTobeUpdated]
+
+
 #endif
 
 

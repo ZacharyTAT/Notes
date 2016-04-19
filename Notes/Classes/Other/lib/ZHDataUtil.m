@@ -27,10 +27,13 @@
     ZHDBUtil *dbUtil = [[ZHDBUtil alloc] init];
     BOOL res = [dbUtil deleteNoteForId:note.noteId];
 //    BOOL res = [dbUtil deleteNoteForModifyDate:note.modifydate];
-    if (res)
+    if (res) {
         NSLog(@"删除成功");
-    else
+        //修改未同步标志
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNotesTobeUpdated];
+    }else {
         NSLog(@"删除失败");
+    }
 }
 + (void)removeNoteInFile:(ZHNote *)note
 {
@@ -59,6 +62,8 @@
     
     //保存后获取加上id
     note.noteId = [dbUtil noteIdForModifyDate:note.modifydate];
+    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNotesTobeUpdated];
     
     NSLog(@"保存文件成功,noteId = %d",note.noteId);
 }
@@ -163,7 +168,10 @@
     
     BOOL res = res1 && res2;
     
-    if (res) NSLog(@"交换成功");
+    if (res) {
+        NSLog(@"交换成功");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNotesTobeUpdated];
+    }
     
     return res;
 }
@@ -177,6 +185,7 @@
     
     if (note) {
         note.stick = stick;
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNotesTobeUpdated];
         return [dbUtil updateWithNote:note ForId:noteId];
     }
     return NO;
@@ -190,6 +199,7 @@
     
     if (note) {
         note.lock = lock;
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNotesTobeUpdated];
         return [dbUtil updateWithNote:note ForId:noteId];
     }
     return NO;

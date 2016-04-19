@@ -78,9 +78,7 @@
     NSLog(@"login");
     
     __weak typeof(self) weakSelf = self;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
+
         //发请求给服务器
         
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -93,28 +91,27 @@
 compoundResponseSerialize:YES
              parameters:params success:^(NSString *responseString, id responseObject) {
                  NSInteger result = [responseString intValue];
+                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                         if (result == -2) {
+                             [MBProgressHUD showError:@"用户名不存在"];
+                         }else if (result == -1) {
+                             [MBProgressHUD showError:@"用户未通过审核"];
+                         }else if (result == 0) {
+                             [MBProgressHUD showError:@"密码错误"];
+                         }else{
+                             [MBProgressHUD showSuccess:@"登录成功"];
+                             //返回上一页面
+                             NSLog(@"登录成功");
+                             [weakSelf accountOKWithUsername:username password:password userId:result];
+                         }
+                 });
                  
-                 if (result == -2) {
-                     [MBProgressHUD showError:@"用户名不存在"];
-                 }else if (result == -1) {
-                     [MBProgressHUD showError:@"用户未通过审核"];
-                 }else if (result == 0) {
-                     [MBProgressHUD showError:@"密码错误"];
-                 }else{
-                     [MBProgressHUD showSuccess:@"登录成功"];
-                     //返回上一页面
-                     NSLog(@"登录成功");
-                     [weakSelf accountOKWithUsername:username password:password userId:result];
-                 }
                  
              }
                 failure:^(NSString *responseString, NSError *error) {
                     
 #warning 调试的时候要在这里显示错误信息，用AlertView
              }];
-        
-        
-    });
 
 }
 

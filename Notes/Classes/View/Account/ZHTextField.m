@@ -27,12 +27,14 @@
 {
 //    self.backgroundColor = [UIColor blueColor];
 
-    
     //01.关闭自动检查
     self.autocorrectionType = UITextAutocorrectionTypeNo;
     
     //02.关闭自动打开大写键
     self.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
+    //03.自动调整字体
+    self.adjustsFontSizeToFitWidth = YES;
     
 
 }

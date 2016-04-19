@@ -41,6 +41,9 @@
     bottomLine.backgroundColor = [UIColor lightGrayColor];
     self.bottomLine = bottomLine;
     [self addSubview:bottomLine];
+    
+    //05.弹出键盘类型
+    self.keyboardType = UIKeyboardTypeASCIICapable;
 }
 
 - (void)layoutSubviews
