@@ -13,6 +13,7 @@
 
 #import "ZHSwitchCell.h"
 #import "ZHLabelCell.h"
+#import "UIAlertView+Block.h"
 
 #import "ZHUserTool.h"
 #import "ZHUser.h"
@@ -22,7 +23,7 @@
 #import "ZHNetwork.h"
 #import "MBProgressHUD+MJ.h"
 
-@interface ZHSettingViewController ()<ZHLockerSettingViewControllerDelegate,ZHLoginViewControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
+@interface ZHSettingViewController ()<ZHLockerSettingViewControllerDelegate,ZHLoginViewControllerDelegate, UIActionSheetDelegate>
 
 /** 密码设置状态标签 */
 @property (nonatomic, weak)ZHLabel *passwordStatusLbl;
@@ -265,11 +266,27 @@ compoundResponseSerialize:YES
     if (0 == buttonIndex) { //注销,删除账号
         
         if (YES == kNotesTobeUpdatedFromUserDefault) { //还有未备份的笔记,弹框提示
+            /*
             [[[UIAlertView alloc] initWithTitle:@"注销"
                                        message:@"您还有笔记未备份，是否先备份后退出"
                                       delegate:self
                              cancelButtonTitle:@"先备份再退出"
                              otherButtonTitles:@"直接退出", nil] show];
+             */
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"注销"
+                                        message:@"您还有笔记未备份，是否先备份后退出"
+                                       delegate:nil
+                              cancelButtonTitle:@"先备份再退出"
+                              otherButtonTitles:@"直接退出", nil];
+            
+            __weak typeof(self) weakSelf = self;
+            
+            [alertView setClickHandler:^(UIAlertView *alertView, NSUInteger btnIdx) {
+                [weakSelf alertView:alertView clickedButtonAtIndex:btnIdx];
+            }];
+            
+            [alertView show];
+            
         }else{ //直接退出
             [self logout];
         }

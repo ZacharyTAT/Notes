@@ -101,10 +101,12 @@
 {
     ZHLockerView *lockerView = [[ZHLockerView alloc] init];
     
-    CGFloat lockerViewX = 10;
+    CGFloat marginBottom = 50;
+    
+    CGFloat lockerViewX = 20;
     CGFloat lockerViewY = 150;
     CGFloat lockerViewW = self.view.frame.size.width - lockerViewX * 2;
-    CGFloat lockerViewH = self.view.frame.size.height - lockerViewY - 40;
+    CGFloat lockerViewH = self.view.frame.size.height - lockerViewY - marginBottom;
     
     lockerView.frame = CGRectMake(lockerViewX, lockerViewY, lockerViewW, lockerViewH);
     
