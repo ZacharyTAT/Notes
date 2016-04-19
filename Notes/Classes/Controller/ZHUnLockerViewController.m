@@ -11,10 +11,15 @@
 #import "ZHLockerView.h"
 #import "ZHTipLabel.h"
 
+#import "ZHUserTool.h"
+
 @interface ZHUnLockerViewController ()<ZHLockerViewDelegate>
 
 /** 错误提示文字标签 */
 @property (nonatomic, weak)ZHTipLabel *resultLbl;
+
+/** 忘记按钮 */
+@property (nonatomic, weak)UIButton *forgetBtn;
 
 @end
 
@@ -34,6 +39,9 @@
     
     //显示提示文字
     [self.resultLbl showNormalTip:self.tip];
+    
+    //登录了才显示 忘记手势 按钮
+    self.forgetBtn.hidden = ![ZHUserTool isUserExists];
 }
 - (void)test
 {
@@ -76,24 +84,22 @@
     
     //03.提示文字
     [self setupResultLbl];
+    
+    //04.忘记手势按钮
+    [self setupForgetBtn];
 }
 
+
+#pragma mark - 初始化背景视图
 /**
  *  初始化背景视图
  */
 - (void)setupBackGroundView
 {
-    /*
-    UIImageView *backView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Home_refresh_bg"]];
-    
-    backView.frame = self.view.bounds;
-    
-    [self.view addSubview:backView];
-     */
-    
     self.view.backgroundColor = ZHColor(233, 233, 233);
 }
 
+#pragma mark - 初始化手势解锁视图
 /**
  *  初始化手势解锁视图
  */
@@ -115,6 +121,7 @@
     lockerView.delegate = self;
 }
 
+#pragma mark - 初始化密码错误提示标签
 /**
  *  初始化密码错误提示标签
  */
@@ -126,6 +133,45 @@
     lbl.textAlignment = NSTextAlignmentCenter;
     lbl.font = [UIFont systemFontOfSize:15.0];
     [self.view addSubview:lbl];
+}
+
+/**
+ *  忘记手势按钮
+ */
+- (void)setupForgetBtn
+{
+    UIButton *forgetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+//    forgetBtn.backgroundColor = [UIColor redColor];
+    
+    self.forgetBtn = forgetBtn;
+    
+    [self.view addSubview:forgetBtn];
+    
+    [forgetBtn setTitle:@"忘记手势？" forState:UIControlStateNormal];
+    
+    [forgetBtn addTarget:self action:@selector(forget) forControlEvents:UIControlEventTouchUpInside];
+    
+    forgetBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    forgetBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    
+    [forgetBtn setTitleColor:ZHColor(10, 95, 255) forState:UIControlStateNormal];
+    
+    CGFloat marginBottom = 10;
+    
+    //样式
+    CGFloat forgetBtnX = 80;
+    CGFloat forgetBtnW = self.view.frame.size.width - 2 * forgetBtnX;
+    CGFloat forgetBtnH = 20;
+    CGFloat forgetBtnY = self.view.frame.size.height - marginBottom - forgetBtnH;
+    
+    forgetBtn.frame = CGRectMake(forgetBtnX, forgetBtnY, forgetBtnW, forgetBtnH);
+}
+
+- (void)forget
+{
+    
 }
 
 /**

@@ -246,6 +246,8 @@
  */
 - (void)logout
 {
+    __weak typeof(self) weakSelf = self;
+    
     if ([ZHUserTool deleteUser]) {
         //删除所有记录
         [ZHDataUtil clear];
@@ -253,11 +255,33 @@
         if ([self.delegate respondsToSelector:@selector(settingViewControllerDidLogout:)]) {
             [self.delegate settingViewControllerDidLogout:self];
         }
-        [MBProgressHUD showSuccess:@"退出成功" toView:self.view];
+//        [MBProgressHUD showSuccess:@"退出成功" toView:self.view];
+        
+        //若之前设置了手势密码，让用户选择是否保留手势密码
+        if (kPasswordFromUserDefault) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"退出" message:@"退出成功，是否保留手势密码" delegate:nil cancelButtonTitle:@"保留" otherButtonTitles:@"不用了", nil];
+            
+            [alertView setClickHandler:^(UIAlertView *alertView, NSUInteger btnIdx) {
+                if (1 == btnIdx) { //不保留
+                    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kPasswordKey];
+                    
+                    //这里还要再更新一遍UI
+                    [weakSelf.tableView reloadData];
+                }
+            }];
+            
+            [alertView show];
+            
+        }else{ //没有设置手势密码，则直接退出
+            
+            [MBProgressHUD showSuccess:@"退出成功" toView:self.view];
+        }
         
     }else{
         [MBProgressHUD showError:@"退出失败" toView:self.view];
     }
+    
+    //更新UI
     [self.tableView reloadData];
 }
 
