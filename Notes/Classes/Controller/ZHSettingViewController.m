@@ -84,6 +84,39 @@
     }
 }
 
+#pragma mark - 跳转到密码设置界面
+/**
+ *  跳转到密码设置界面
+ */
+- (void)toLockerSettingVc
+{
+    ZHLockerSettingViewController *lsvc = [[ZHLockerSettingViewController alloc] init];
+    lsvc.delegate = self;
+    [self.navigationController pushViewController:lsvc animated:YES];
+}
+
+#pragma mark - 跳转到登录界面
+/**
+ *  跳转到登录界面
+ */
+- (void)toLoginVc
+{
+    ZHLoginViewController *lvc = [[ZHLoginViewController alloc] init];
+    lvc.delegate = self;
+    [self.navigationController pushViewController:lvc animated:YES];
+}
+
+#pragma mark - 跳转到密码管理界面
+/**
+ *  跳转到密码管理界面
+ */
+- (void)toPswdManageVc
+{
+    ZHPswdManageViewController *pswdmvc = [[ZHPswdManageViewController alloc] init];
+    
+    [self.navigationController pushViewController:pswdmvc animated:YES];
+}
+
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -102,9 +135,7 @@
         NSString *accountStatus = @"未登录";
         
         void (^selectHandler)() = ^{
-            ZHLoginViewController *lvc = [[ZHLoginViewController alloc] init];
-            lvc.delegate = weakSelf;
-            [weakSelf.navigationController pushViewController:lvc animated:YES];
+            [weakSelf toLoginVc];
         };
         
         if ([ZHUserTool isUserExists]) {
@@ -137,15 +168,29 @@
         [lblCell setSelectHandler:^{
             if (kPasswordFromUserDefault){//已经开启，则跳转到密码管理界面
                 
-                ZHPswdManageViewController *pswdmvc = [[ZHPswdManageViewController alloc] init];
-                
-                [weakSelf.navigationController pushViewController:pswdmvc animated:YES];
+                [weakSelf toPswdManageVc];
                 
             }else{//没有开启密码，则直接跳转到密码设置界面
                 
-                ZHLockerSettingViewController *lsvc = [[ZHLockerSettingViewController alloc] init];
-                lsvc.delegate = weakSelf;
-                [weakSelf.navigationController pushViewController:lsvc animated:YES];
+                if ([ZHUserTool isUserExists]) { //账号存在，则直接去密码设置界面
+                    
+                    [weakSelf toLockerSettingVc];
+                    
+                }else{ //账号不存在，弹框让用户选择
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"还未登录，要是忘记手势密码怎么办？" delegate:nil cancelButtonTitle:@"去登录" otherButtonTitles:@"打死都不会忘记的", nil];
+                    
+                    [alertView setClickHandler:^(UIAlertView *alertView, NSUInteger btnIdx) {
+                        if (0 == btnIdx) { //去登录
+                            [weakSelf toLoginVc];
+                        }else{ //直接去密码设置界面
+                            [weakSelf toLockerSettingVc];
+                        }
+                    }];
+                    
+                    [alertView show];
+                }
+                
+                
             }
         }];
         
