@@ -23,4 +23,9 @@
 /** 代理 */
 @property (nonatomic, weak) id<ZHLoginViewControllerDelegate> delegate;
 
+/**
+ *  是否隐藏注册按钮
+ */
+@property (nonatomic, assign)BOOL hideSignupBtn;
+
 @end

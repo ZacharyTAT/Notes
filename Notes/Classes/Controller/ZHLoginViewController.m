@@ -22,6 +22,9 @@
 
 @property (nonatomic, weak)ZHLoginView *loginView;
 
+/** 注册按钮 */
+@property (nonatomic, weak)UIButton *signupBtn;
+
 @end
 
 @implementation ZHLoginViewController
@@ -33,6 +36,13 @@
     self.title = @"登录";
     
     [self setup];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.signupBtn.hidden = self.hideSignupBtn;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -121,6 +131,7 @@ compoundResponseSerialize:YES
 - (void)setupSignUpBtn
 {
     UIButton *btn = [[UIButton alloc] init];
+    self.signupBtn = btn;
     [self.view addSubview:btn];
     
     [btn setTitle:@"注册" forState:UIControlStateNormal];

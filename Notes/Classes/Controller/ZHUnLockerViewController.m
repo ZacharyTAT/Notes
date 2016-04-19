@@ -21,6 +21,9 @@
 /** 忘记按钮 */
 @property (nonatomic, weak)UIButton *forgetBtn;
 
+/** 记录手势密码输入错误了几次 */
+@property (nonatomic, assign)NSUInteger count;
+
 @end
 
 @implementation ZHUnLockerViewController
@@ -154,7 +157,7 @@
     
     forgetBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     
-    forgetBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    forgetBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     
     [forgetBtn setTitleColor:ZHColor(10, 95, 255) forState:UIControlStateNormal];
     
@@ -171,7 +174,7 @@
 
 - (void)forget
 {
-    
+    NSLog(@"I forgot");
 }
 
 /**
@@ -192,7 +195,26 @@
 //    self.completionHander(self, NO);
     //提示文字
 //    self.resultLbl.text = @"密码错误，请重新输入";
-    [self.resultLbl showWarningTip:@"密码错误，请重新输入"];
+    
+    if ([ZHUserTool isUserExists]) { //登录了,则最多错5次
+        if ((5 - self.count) > 1) {//还有机会
+            
+            self.count += 1;
+            
+            [self.resultLbl showWarningTip:[NSString stringWithFormat:@"手势错误，还有%d次机会", 5 - self.count]];
+        
+        }else{//没有机会了,调到登录页面(按忘记密码处理)
+        
+            [self forget];
+        
+        }
+    
+    }else{//没有登录
+    
+        [self.resultLbl showWarningTip:@"手势错误，请重新输入"];
+    }
+    
+    
 }
 
 /**
