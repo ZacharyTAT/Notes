@@ -56,7 +56,7 @@
 #define kNotesTobeUpdated @"kNotesTobeUpdated"
 
 //沙盒中备份标志值
-#define kNotesUpdatedFromUserDefault [[NSUserDefaults standardUserDefaults] boolForKey:kNotesTobeUpdated]
+#define kNotesTobeUpdatedFromUserDefault [[NSUserDefaults standardUserDefaults] boolForKey:kNotesTobeUpdated]
 
 
 #endif

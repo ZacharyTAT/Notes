@@ -22,7 +22,7 @@
 #import "ZHNetwork.h"
 #import "MBProgressHUD+MJ.h"
 
-@interface ZHSettingViewController ()<ZHLockerSettingViewControllerDelegate,ZHLoginViewControllerDelegate, UIActionSheetDelegate>
+@interface ZHSettingViewController ()<ZHLockerSettingViewControllerDelegate,ZHLoginViewControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 /** 密码设置状态标签 */
 @property (nonatomic, weak)ZHLabel *passwordStatusLbl;
@@ -195,6 +195,68 @@
     
 }
 
+/**
+ *  登出
+ */
+- (void)logout
+{
+    if ([ZHUserTool deleteUser]) {
+        //删除所有记录
+        [ZHDataUtil clear];
+        
+        if ([self.delegate respondsToSelector:@selector(settingViewControllerDidLogout:)]) {
+            [self.delegate settingViewControllerDidLogout:self];
+        }
+        [MBProgressHUD showSuccess:@"退出成功" toView:self.view];
+        
+    }else{
+        [MBProgressHUD showError:@"退出失败" toView:self.view];
+    }
+    [self.tableView reloadData];
+}
+
+/**
+ *  备份
+ */
+- (void)backupWithComplitionHandler:(void (^) ()) complitionHandler
+{
+    ZHUser *user = [ZHUserTool user];
+    
+    NSMutableDictionary *params = [@{} mutableCopy];
+    
+    params[@"uid"] = @(user.uid);
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[ZHSynchronizeTool noteDicts] options:0 error:NULL];
+    //
+    //
+    params[@"notes"] = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    //        params[@"notes"] = [ZHSynchronizeTool noteDicts];
+    
+    
+    [ZHNetwork post:[NSString stringWithFormat:@"%@/%@",ROOT ,@"upload.php"]
+            message:@"正在备份"
+compoundResponseSerialize:YES
+         parameters:params
+            success:^(NSString *responseString, id responseObject) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    NSString *trimedStr = [responseString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    
+                    NSInteger result = [trimedStr integerValue];
+                    if (result == -1 || result == 0) { //没有接收到uid或出错
+                        
+                    }else{
+                        [MBProgressHUD showSuccess:[NSString stringWithFormat:@"成功备份了%d条数据",result]];
+                        if (complitionHandler) complitionHandler();
+                    }
+                });
+                
+            } failure:^(NSString *responseString, NSError *error) {
+                if (complitionHandler) complitionHandler();
+            }];
+}
+
 #pragma mark - UIActionSheet Delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -202,57 +264,43 @@
     
     if (0 == buttonIndex) { //注销,删除账号
         
-        if ([ZHUserTool deleteUser]) {
-            [MBProgressHUD showSuccess:@"退出成功"];
-            //删除所有记录
-            [ZHDataUtil clear];
-            
-            if ([self.delegate respondsToSelector:@selector(settingViewControllerDidLogout:)]) {
-                [self.delegate settingViewControllerDidLogout:self];
-            }
-            
-        }else{
-            [MBProgressHUD showError:@"退出失败"];
+        if (YES == kNotesTobeUpdatedFromUserDefault) { //还有未备份的笔记,弹框提示
+            [[[UIAlertView alloc] initWithTitle:@"注销"
+                                       message:@"您还有笔记未备份，是否先备份后退出"
+                                      delegate:self
+                             cancelButtonTitle:@"先备份再退出"
+                             otherButtonTitles:@"直接退出", nil] show];
+        }else{ //直接退出
+            [self logout];
         }
-        [self.tableView reloadData];
         
     }else if (1 == buttonIndex) { //备份
-        
-        ZHUser *user = [ZHUserTool user];
-        
-        NSMutableDictionary *params = [@{} mutableCopy];
-        
-        params[@"uid"] = @(user.uid);
-        
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[ZHSynchronizeTool noteDicts] options:0 error:NULL];
-//
-//        
-        params[@"notes"] = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
-//        params[@"notes"] = [ZHSynchronizeTool noteDicts];
-        
-        
-        [ZHNetwork post:[NSString stringWithFormat:@"%@/%@",ROOT ,@"upload.php"]
-                message:@"正在备份"
-compoundResponseSerialize:YES
-             parameters:params
-                success:^(NSString *responseString, id responseObject) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        
-                        NSString *trimedStr = [responseString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                        
-                        NSInteger result = [trimedStr integerValue];
-                        if (result == -1 || result == 0) { //没有接收到uid或出错
-                            
-                        }else{
-                            [MBProgressHUD showSuccess:[NSString stringWithFormat:@"成功备份了%d条数据",result]];
-                        }
-                    });
-
-                } failure:^(NSString *responseString, NSError *error) {
-                    
-                }];
+        [self backupWithComplitionHandler:NULL];
     }
+}
+
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"%d",buttonIndex);
+    
+    if (0 == buttonIndex) { //先备份再退出
+        
+        __weak typeof(self) weakSelf = self;
+        
+        [self backupWithComplitionHandler:^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakSelf logout];
+            });
+            
+        }];
+        
+    }else{ //直接退出
+        [self logout];
+    }
+    
+    
 }
 
 #pragma mark - dealloc

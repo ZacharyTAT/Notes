@@ -217,7 +217,7 @@ compoundResponseSerialize:YES
     params[@"uid"] = @(uid);
     
     [ZHNetwork get:[NSString stringWithFormat:@"%@/%@",ROOT ,@"download.php"]
-           message:@""
+           message:nil
 compoundResponseSerialize:NO
         parameters:params
            success:^(NSString *responseString, id responseObject) {

@@ -21,7 +21,7 @@ compoundResponseSerialize:(BOOL)compoundResponseSerialize
      failure:(void (^)(NSString *, NSError *))failure
 {
     //显示提示信息
-    [MBProgressHUD showMessage:message];
+    if (message) [MBProgressHUD showMessage:message];
     
     //打开网络指示器
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -40,21 +40,21 @@ compoundResponseSerialize:(BOOL)compoundResponseSerialize
    parameters:parameters
       success:^(AFHTTPRequestOperation *operation, id responseObject) {
           //关掉提示消息
-          [MBProgressHUD hideHUD];
+          if (message) [MBProgressHUD hideHUD];
           
           //关闭网络指示器
           [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
           
-          success(operation.responseString, responseObject);
+          if (success) success(operation.responseString, responseObject);
       }
       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
           //关掉提示消息
-          [MBProgressHUD hideHUD];
+          if (message) [MBProgressHUD hideHUD];
           
           //关闭网络指示器
           [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
           NSLog(@"%@", error);
-          failure(operation.responseString, error);
+          if (failure) failure(operation.responseString, error);
       }];
 
 }
@@ -68,7 +68,7 @@ compoundResponseSerialize:(BOOL)compoundResponseSerialize
     failure:(void (^)(NSString *, NSError *))failure
 {
     //显示提示信息
-    [MBProgressHUD showMessage:message];
+    if (message) [MBProgressHUD showMessage:message];
     
     //打开网络指示器
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -87,23 +87,23 @@ compoundResponseSerialize:(BOOL)compoundResponseSerialize
   parameters:parameters
      success:^(AFHTTPRequestOperation *operation, id responseObject) {
          //关掉提示消息
-         [MBProgressHUD hideHUD];
+         if (message) [MBProgressHUD hideHUD];
          
          //关闭网络指示器
          [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
          
-         success(operation.responseString, responseObject);
+         if (success) success(operation.responseString, responseObject);
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          NSLog(@"%@",error);
          
          //关掉提示消息
-         [MBProgressHUD hideHUD];
+         if (message) [MBProgressHUD hideHUD];
          
          //关闭网络指示器
          [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
          
-         failure(operation.responseString, error);
+         if (failure) failure(operation.responseString, error);
      }];
 }
 

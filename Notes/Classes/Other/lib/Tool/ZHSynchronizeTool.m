@@ -26,8 +26,11 @@
         [arr addObject:[[ZHNote alloc] initWithDict:dict]];
     }
     
-    //02.
-    [arr addObjectsFromArray:[ZHDataUtil noteList]];
+    //02.合并
+    
+    NSMutableArray *noteList = [ZHDataUtil noteList];
+    
+    [arr addObjectsFromArray:noteList];
     
     //03.清空本地数据并重拍id
     BOOL result = [ZHDataUtil clear];
@@ -36,6 +39,13 @@
     
     //04.写入数据库
      [ZHDataUtil saveNotes:arr];
+    
+    //最后更新一下未备份标记
+    if ([noteList count] > 0) { //还有未备份的笔记
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNotesTobeUpdated];
+    }else{ //没有未备份的笔记了
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNotesTobeUpdated];
+    }
     
     return YES;
 

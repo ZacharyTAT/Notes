@@ -216,6 +216,8 @@
     
     BOOL reorderOK = [dbUtil reorderId];
     
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNotesTobeUpdated];
+    
     return reorderOK;
 }
 
