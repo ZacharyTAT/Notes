@@ -58,6 +58,11 @@
 //沙盒中备份标志值
 #define kNotesTobeUpdatedFromUserDefault [[NSUserDefaults standardUserDefaults] boolForKey:kNotesTobeUpdated]
 
+//由于忘记手势密码而锁住应用，需要登录成功才能使用
+#define kAppLocked @"kAppLocked"
+
+//沙盒中的锁标志
+#define kAppLockedFromUserDefault [[NSUserDefaults standardUserDefaults] boolForKey:kAppLocked]
 
 #endif
 

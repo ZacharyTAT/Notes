@@ -7,13 +7,15 @@
 //
 
 #import "ZHUnLockerViewController.h"
+#import "ZHLoginViewController.h"
+#import "ZHNavigationController.h"
 
 #import "ZHLockerView.h"
 #import "ZHTipLabel.h"
 
 #import "ZHUserTool.h"
 
-@interface ZHUnLockerViewController ()<ZHLockerViewDelegate>
+@interface ZHUnLockerViewController ()<ZHLockerViewDelegate, ZHLoginViewControllerDelegate>
 
 /** 错误提示文字标签 */
 @property (nonatomic, weak)ZHTipLabel *resultLbl;
@@ -175,6 +177,14 @@
 - (void)forget
 {
     NSLog(@"I forgot");
+    
+    //锁定
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kAppLocked];
+    
+    ZHLoginViewController *lvc = [[ZHLoginViewController alloc] init];
+    lvc.delegate = self;
+    lvc.hideSignupBtn = YES;
+    [self presentViewController:[[ZHNavigationController alloc] initWithRootViewController:lvc] animated:NO completion:NULL];
 }
 
 /**
@@ -238,9 +248,23 @@
     return NO;
 }
 
+#pragma mark - ZHLoginViewController Delegate
+- (void)loginViewControllerDidSuccess:(ZHLoginViewController *)suvc
+{
+    [self dismissViewControllerAnimated:NO completion:NULL];
+    
+    [self success];
+    
+    //删除手势密码，因为已经忘记了
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kPasswordKey];
+}
+
 - (void)dealloc
 {
     NSLog(@"%@ dealloc", [self class]);
 }
+
+
+
 
 @end

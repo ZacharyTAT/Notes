@@ -87,10 +87,31 @@
 {
     NSLog(@"login");
     
-    __weak typeof(self) weakSelf = self;
-
-        //发请求给服务器
+    if ([ZHUserTool isUserExists]) {
+        ZHUser *user = [ZHUserTool user];
+        //若用户已存在，则不需要发请求再次登录
+        //此种情况针对忘记手势密码
         
+        if (![username isEqualToString:user.username]) {
+            [MBProgressHUD showError:@"用户名不正确"];
+        }else if ([password isEqualToString:user.password]) {
+            [MBProgressHUD showError:@"密码错误"];
+        }else{
+            [MBProgressHUD showSuccess:@"登录成功"];
+            //返回上一页面
+            NSLog(@"登录成功");
+            [self accountOKWithUsername:user.username password:user.password userId:user.uid];
+        }
+        
+
+        
+        return;
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    
+        //发请求给服务器
+    
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         
         params[@"username"] = username;
@@ -215,6 +236,11 @@ compoundResponseSerialize:YES
         });
 
     };
+    
+    if ([ZHUserTool isUserExists]) { //若用户已登录直接返回，不用发请求
+        delegateImOK();
+        return;
+    }
     
     //01.保存用户名和密码
     [ZHUserTool saveUser:[ZHUser userWithUsername:username password:password uid:uid]];

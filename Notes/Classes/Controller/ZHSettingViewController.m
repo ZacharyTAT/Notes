@@ -241,6 +241,7 @@
     
 }
 
+#pragma mark - 登出
 /**
  *  登出
  */
@@ -285,6 +286,7 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - 备份
 /**
  *  备份
  */
