@@ -15,8 +15,6 @@
 
 #import "ZHUserTool.h"
 
-
-//导航栏标题
 #define UNLOCKER_VIEW_CONTROLLER_CANCEL NSLocalizedStringFromTable(@"UNLOCKER_VIEW_CONTROLLER_CANCEL", @"ZHUnLockerViewController", @"取消")
 #define UNLOCKER_VIEW_CONTROLLER_FORGET NSLocalizedStringFromTable(@"UNLOCKER_VIEW_CONTROLLER_FORGET", @"ZHUnLockerViewController", @"忘记手势？")
 #define UNLOCKER_VIEW_CONTROLLER_REMAIN_CHANCES NSLocalizedStringFromTable(@"UNLOCKER_VIEW_CONTROLLER_REMAIN_CHANCES", @"ZHUnLockerViewController", @"手势错误，还有%d次机会")

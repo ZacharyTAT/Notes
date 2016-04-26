@@ -19,6 +19,15 @@
 #import "ZHDataUtil.h"
 #import "ZHLocker.h"
 
+
+#define DETAIL_NOTE_VIEW_CONTROLLER_NAV_BACK NSLocalizedStringFromTable(@"DETAIL_NOTE_VIEW_CONTROLLER_NAV_BACK", @"ZHDetailNoteViewController", @"返回")
+#define DETAIL_NOTE_VIEW_CONTROLLER_NAV_DONE NSLocalizedStringFromTable(@"DETAIL_NOTE_VIEW_CONTROLLER_NAV_DONE", @"ZHDetailNoteViewController", @"完成")
+#define DETAIL_NOTE_VIEW_CONTROLLER_ACTIONSHEET_CANCEL NSLocalizedStringFromTable(@"DETAIL_NOTE_VIEW_CONTROLLER_ACTIONSHEET_CANCEL", @"ZHDetailNoteViewController", @"取消")
+#define DETAIL_NOTE_VIEW_CONTROLLER_ACTIONSHEET_DELETE NSLocalizedStringFromTable(@"DETAIL_NOTE_VIEW_CONTROLLER_ACTIONSHEET_DELETE", @"ZHDetailNoteViewController", @"删除笔记")
+#define DETAIL_NOTE_VIEW_CONTROLLER_VERIFY_TITLE NSLocalizedStringFromTable(@"DETAIL_NOTE_VIEW_CONTROLLER_VERIFY_TITLE", @"ZHDetailNoteViewController", @"请输入解锁手势")
+#define DETAIL_NOTE_VIEW_CONTROLLER_PUBLIC NSLocalizedStringFromTable(@"DETAIL_NOTE_VIEW_CONTROLLER_PUBLIC", @"ZHDetailNoteViewController", @"公开")
+#define DETAIL_NOTE_VIEW_CONTROLLER_PRIVATE NSLocalizedStringFromTable(@"DETAIL_NOTE_VIEW_CONTROLLER_PRIVATE", @"ZHDetailNoteViewController", @"加密")
+
 @interface ZHDetailNoteViewController ()<UIActionSheetDelegate,ZHBottomBarDelegate>
 
 /** 展示笔记内容的文本框 */
@@ -135,7 +144,10 @@
 - (void)setupLeftNavItem
 {
     [self.navigationItem setHidesBackButton:YES];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:0 target:self action:@selector(backBtnClick)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:DETAIL_NOTE_VIEW_CONTROLLER_NAV_BACK //@"返回"
+                                                                             style:0
+                                                                            target:self
+                                                                            action:@selector(backBtnClick)];
 }
 
 #pragma mark - 初始化所有子视图
@@ -203,7 +215,10 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:0 target:self action:@selector(doneBtnClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:DETAIL_NOTE_VIEW_CONTROLLER_NAV_DONE //@"完成"
+                                                                              style:0
+                                                                             target:self
+                                                                             action:@selector(doneBtnClick)];
     
     //修改frame和contentInset
     //[(ZHTextView *)textView changeFrameInset];
@@ -260,7 +275,11 @@
 #pragma mark - 点击删除按钮
 - (void)deleteItemHandler
 {
-    [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除笔记" otherButtonTitles:nil, nil] showInView:self.view];
+    [[[UIActionSheet alloc] initWithTitle:nil
+                                 delegate:self
+                        cancelButtonTitle: DETAIL_NOTE_VIEW_CONTROLLER_ACTIONSHEET_CANCEL //@"取消"
+                   destructiveButtonTitle:DETAIL_NOTE_VIEW_CONTROLLER_ACTIONSHEET_DELETE //@"删除笔记"
+                        otherButtonTitles:nil, nil] showInView:self.view];
 }
 
 #pragma mark - 点击新建按钮
@@ -341,7 +360,7 @@
             __weak typeof(self) weakSelf = self;
             
             [ZHLocker verifyInViewControlloer:self
-                                        title:@"请输入解锁手势"
+                                        title:DETAIL_NOTE_VIEW_CONTROLLER_VERIFY_TITLE //@"请输入解锁手势"
                             completionHandler:
              ^(ZHUnLockerViewController *ulvc, BOOL result) {
                 
@@ -417,7 +436,7 @@
     
     if (self.latestNote) note = self.latestNote;
     
-    NSString *btnTitle = note.isLock ? @"公开" : @"加密";
+    NSString *btnTitle = note.isLock ? DETAIL_NOTE_VIEW_CONTROLLER_PUBLIC/*@"公开"*/ : DETAIL_NOTE_VIEW_CONTROLLER_PRIVATE/*@"加密"*/;
     
     [self.authorityBtn setTitle:btnTitle];
     
@@ -436,7 +455,7 @@
         
         note.lock = !note.lock;
         
-        NSString *btnTitle = note.isLock ? @"公开" : @"加密";
+        NSString *btnTitle = note.isLock ? DETAIL_NOTE_VIEW_CONTROLLER_PUBLIC/*@"公开"*/ : DETAIL_NOTE_VIEW_CONTROLLER_PRIVATE/*@"加密"*/;
         
         //01.更改标题
         [authorityBtn setTitle:btnTitle];
@@ -452,7 +471,7 @@
     
     if (note.isLock && kPasswordFromUserDefault) { //若是私密记录，将之公开，需要验证
             [ZHLocker verifyInViewControlloer:self
-                                        title:@"请输入解锁手势"
+                                        title:DETAIL_NOTE_VIEW_CONTROLLER_VERIFY_TITLE //@"请输入解锁手势"
                             completionHandler:^(ZHUnLockerViewController *ulvc, BOOL result) {
                 [weakSelf dismissViewControllerAnimated:YES completion:NULL];
                 if (result) {
