@@ -12,6 +12,9 @@
 #import "ZHNoteCell.h"
 #import "ZHDataUtil.h"
 
+#define SEARCH_PLACEHOLDER NSLocalizedStringFromTable(@"SEARCH_PLACEHOLDER", @"ZHSearch", @"搜索")
+#define SEARCH_NO_RESULT NSLocalizedStringFromTable(@"SEARCH_NO_RESULT", @"ZHSearch", @"没有结果")
+
 @interface ZHSearch()<UISearchBarDelegate,UISearchDisplayDelegate,UITableViewDataSource,UITableViewDelegate,ZHMultiButtonTableViewCellDelegate>
 
 
@@ -91,7 +94,7 @@
     searchBar.delegate = self;
     
     //02.未开始编辑时显示的占位文字
-    searchBar.placeholder = @"搜索";
+    searchBar.placeholder = SEARCH_PLACEHOLDER;//@"搜索";
 //    [ZHHierarchy processWithView:searchBar];
     //03.隐藏背景视图 & 设置文本框的背景色
     UIView *fatherView = searchBar.subviews[0];
@@ -363,7 +366,7 @@
                 if (self.noResultsText)
                     label.text = self.noResultsText;
                 else
-                    label.text = @"没有结果";
+                    label.text = SEARCH_NO_RESULT;//@"没有结果";
                 break;
             }
         }

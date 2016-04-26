@@ -8,6 +8,9 @@
 
 #import "ZHSearchBar.h"
 
+#define SEARCH_BAR_CANCEL NSLocalizedStringFromTable(@"SEARCH_BAR_CANCEL", @"ZHSearchBar", @"取消")
+
+
 @interface ZHSearchBar()
 
 @end
@@ -23,13 +26,13 @@
         for (UIView *subView in [fatherView subviews]) {
             if ([subView isKindOfClass:[UIButton class]]) {
                 UIButton *systemCancelBtn = (UIButton *)subView;
-                [systemCancelBtn setTitle:@"\t" forState:UIControlStateNormal];
+                [systemCancelBtn setTitle:@"\t\t" forState:UIControlStateNormal];
                 
                 //创建一个label覆盖在上面
                 UILabel *cancelLbl = [[UILabel alloc] init];
                 cancelLbl.frame = systemCancelBtn.bounds;
                 [systemCancelBtn addSubview:cancelLbl];
-                cancelLbl.text = @"取消";
+                cancelLbl.text = SEARCH_BAR_CANCEL;//@"取消";
                 cancelLbl.font = [UIFont systemFontOfSize:15.0];
                 cancelLbl.textColor = [UIColor blackColor];
                 break;
