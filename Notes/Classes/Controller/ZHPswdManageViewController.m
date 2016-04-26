@@ -14,6 +14,13 @@
 
 #import "ZHLocker.h"
 
+//导航栏标题
+#define PSWD_MANAGE_VIEW_CONTROLLER_NAV_TITLE NSLocalizedStringFromTable(@"PSWD_MANAGE_VIEW_CONTROLLER_NAV_TITLE", @"ZHPswdManageViewController", @"手势密码")
+#define PSWD_MANAGE_VIEW_CONTROLLER_SWITCHCELL_TEXT NSLocalizedStringFromTable(@"PSWD_MANAGE_VIEW_CONTROLLER_SWITCHCELL_TEXT", @"ZHPswdManageViewController", @"手势密码")
+#define PSWD_MANAGE_VIEW_CONTROLLER_VERIFY_TITLE NSLocalizedStringFromTable(@"PSWD_MANAGE_VIEW_CONTROLLER_VERIFY_TITLE", @"ZHPswdManageViewController", @"验证手势密码")
+#define PSWD_MANAGE_VIEW_CONTROLLER_VERIFY_TIP NSLocalizedStringFromTable(@"PSWD_MANAGE_VIEW_CONTROLLER_VERIFY_TIP", @"ZHPswdManageViewController", @"请使用原手势密码验证")
+#define PSWD_MANAGE_VIEW_CONTROLLER_LABELCELL_TEXT NSLocalizedStringFromTable(@"PSWD_MANAGE_VIEW_CONTROLLER_LABELCELL_TEXT", @"ZHPswdManageViewController", @"修改手势密码")
+
 @interface ZHPswdManageViewController ()<ZHLockerSettingViewControllerDelegate>
 
 /** 表格行数 */
@@ -28,7 +35,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"手势密码";
+    self.title = PSWD_MANAGE_VIEW_CONTROLLER_NAV_TITLE; //@"手势密码";
     
     self.rowCount = 2;
 }
@@ -48,7 +55,7 @@
     if (indexPath.row == 0) {//带开关
         ZHSwitchCell *switchCell = [ZHSwitchCell switchCellWithTableView:tableView];
         
-        switchCell.textLabel.text = @"手势密码";
+        switchCell.textLabel.text = PSWD_MANAGE_VIEW_CONTROLLER_SWITCHCELL_TEXT; //@"手势密码";
         
         BOOL on = NO;
         
@@ -65,8 +72,8 @@
                 
             }else{//现在是关闭状态，之前是开启，点击之后应该关闭密码功能,需要弹出验证视图
                 [ZHLocker verifyInViewControlloer:weakSelf
-                                            title:@"验证手势密码"
-                                              tip:@"请使用原手势密码验证"
+                                            title:PSWD_MANAGE_VIEW_CONTROLLER_VERIFY_TITLE //@"验证手势密码"
+                                              tip:PSWD_MANAGE_VIEW_CONTROLLER_VERIFY_TIP //@"请使用原手势密码验证"
                                 completionHandler:
                  ^(ZHUnLockerViewController *ulvc, BOOL result) {
                      [weakSelf dismissViewControllerAnimated:YES
@@ -84,13 +91,13 @@
     }else{ //可点击,修改手势密码
         ZHLabelCell *lblCell = [ZHLabelCell labelCellWithTableView:tableView];
         
-        lblCell.textLabel.text = @"修改手势密码";
+        lblCell.textLabel.text = PSWD_MANAGE_VIEW_CONTROLLER_LABELCELL_TEXT;//@"修改手势密码";
         
         [lblCell setSelectHandler:^{ //修改密码视图
             
             [ZHLocker verifyInViewControlloer:weakSelf
-                                        title:@"验证手势密码"
-                                          tip:@"请使用原手势密码验证"
+                                        title:PSWD_MANAGE_VIEW_CONTROLLER_VERIFY_TITLE //@"验证手势密码"
+                                          tip:PSWD_MANAGE_VIEW_CONTROLLER_VERIFY_TIP //@"请使用原手势密码验证"
                             completionHandler:
              ^(ZHUnLockerViewController *ulvc, BOOL result) {
                  [weakSelf dismissViewControllerAnimated:!result completion:NULL];
