@@ -1,5 +1,5 @@
 //
-//  ZHTableViewCell.m
+//  ZHMultiButtonTableViewCell.m
 //  Notes
 //
 //  Created by apple on 12/23/15.
@@ -8,6 +8,11 @@
 
 #import "ZHMultiButtonTableViewCell.h"
 #import "ZHNote.h"
+
+#define MULTI_BUTTON_CELL_DELETE NSLocalizedStringFromTable(@"MULTI_BUTTON_CELL_DELETE", @"ZHMultiButtonTableViewCell", @"删除")
+#define MULTI_BUTTON_CELL_STICK NSLocalizedStringFromTable(@"MULTI_BUTTON_CELL_STICK", @"ZHMultiButtonTableViewCell", @"置顶")
+//取消置顶
+#define MULTI_BUTTON_CELL_CANCEL_STICK NSLocalizedStringFromTable(@"MULTI_BUTTON_CELL_CANCEL_STICK", @"ZHMultiButtonTableViewCell", @"取消置顶")
 
 @interface ZHMultiButtonTableViewCell()
 
@@ -43,7 +48,7 @@
             UIButton *btn1 = [[UIButton alloc] initWithFrame:lastBtn.frame];
             //与系统颜色一致
             btn1.backgroundColor = lastBtn.backgroundColor;
-            [btn1 setTitle:@"删除" forState:UIControlStateNormal];
+            [btn1 setTitle:MULTI_BUTTON_CELL_DELETE /*@"删除"*/ forState:UIControlStateNormal];
             [subView addSubview:btn1];
             //点击事件
             [btn1 addTarget:self action:@selector(cellBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -57,7 +62,7 @@
             //居中
             btn2.titleLabel.textAlignment = NSTextAlignmentCenter;
             
-            [btn2 setTitle:@"置顶" forState:UIControlStateNormal];
+            [btn2 setTitle:MULTI_BUTTON_CELL_STICK /*@"置顶"*/ forState:UIControlStateNormal];
             
             CGRect lastBtnframe = lastBtn.frame;
             CGFloat btnW = lastBtnframe.size.width;
@@ -66,7 +71,7 @@
             CGFloat btnY = lastBtnframe.origin.y;
             
             if (self.note.isStick) { //是置顶项
-                [btn2 setTitle:@"取消置顶" forState:UIControlStateNormal];
+                [btn2 setTitle:MULTI_BUTTON_CELL_CANCEL_STICK /*@"取消置顶"*/ forState:UIControlStateNormal];
             }
             
             btn2.frame = CGRectMake(btnX, btnY, btnW, btnH);
