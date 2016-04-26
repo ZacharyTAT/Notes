@@ -15,6 +15,13 @@
 
 #import "ZHUserTool.h"
 
+
+//导航栏标题
+#define UNLOCKER_VIEW_CONTROLLER_CANCEL NSLocalizedStringFromTable(@"UNLOCKER_VIEW_CONTROLLER_CANCEL", @"ZHUnLockerViewController", @"取消")
+#define UNLOCKER_VIEW_CONTROLLER_FORGET NSLocalizedStringFromTable(@"UNLOCKER_VIEW_CONTROLLER_FORGET", @"ZHUnLockerViewController", @"忘记手势？")
+#define UNLOCKER_VIEW_CONTROLLER_REMAIN_CHANCES NSLocalizedStringFromTable(@"UNLOCKER_VIEW_CONTROLLER_REMAIN_CHANCES", @"ZHUnLockerViewController", @"手势错误，还有%d次机会")
+#define UNLOCKER_VIEW_CONTROLLER_INCORRECT NSLocalizedStringFromTable(@"UNLOCKER_VIEW_CONTROLLER_INCORRECT", @"ZHUnLockerViewController", @"手势错误，请重新输入")
+
 @interface ZHUnLockerViewController ()<ZHLockerViewDelegate, ZHLoginViewControllerDelegate>
 
 /** 错误提示文字标签 */
@@ -36,7 +43,10 @@
 //    [self test];
     [self setup];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:0 target:self action:@selector(cancel)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:UNLOCKER_VIEW_CONTROLLER_CANCEL //@"取消"
+                                                                             style:0
+                                                                            target:self
+                                                                            action:@selector(cancel)];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -47,28 +57,6 @@
     
     //登录了才显示 忘记手势 按钮
     self.forgetBtn.hidden = ![ZHUserTool isUserExists];
-}
-- (void)test
-{
-    self.view.backgroundColor = [UIColor lightGrayColor];
-    
-    UIButton *success = [[UIButton alloc] init];
-    success.backgroundColor = [UIColor greenColor];
-    [success setTitle:@"成功" forState:UIControlStateNormal];
-    [success addTarget:self action:@selector(success) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:success];
-    //    success.center = CGPointMake(100, 100);
-    success.frame = CGRectMake(100, 100, 50, 50);
-    
-    UIButton *fail = [[UIButton alloc] init];
-    fail.backgroundColor = [UIColor redColor];
-    [fail setTitle:@"失败" forState:UIControlStateNormal];
-    [fail addTarget:self action:@selector(fail) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:fail];
-    //    fail.center = CGPointMake(100, 200);
-    fail.frame = CGRectMake(100, 200, 50, 50);
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:0 target:self action:@selector(cancel)];
 }
 
 /**
@@ -153,7 +141,7 @@
     
     [self.view addSubview:forgetBtn];
     
-    [forgetBtn setTitle:@"忘记手势？" forState:UIControlStateNormal];
+    [forgetBtn setTitle:UNLOCKER_VIEW_CONTROLLER_FORGET /*@"忘记手势？"*/ forState:UIControlStateNormal];
     
     [forgetBtn addTarget:self action:@selector(forget) forControlEvents:UIControlEventTouchUpInside];
     
@@ -211,7 +199,7 @@
             
             self.count += 1;
             
-            [self.resultLbl showWarningTip:[NSString stringWithFormat:@"手势错误，还有%d次机会", 5 - self.count]];
+            [self.resultLbl showWarningTip:[NSString stringWithFormat:UNLOCKER_VIEW_CONTROLLER_REMAIN_CHANCES /*@"手势错误，还有%d次机会"*/, 5 - self.count]];
         
         }else{//没有机会了,调到登录页面(按忘记密码处理)
         
@@ -221,7 +209,7 @@
     
     }else{//没有登录
     
-        [self.resultLbl showWarningTip:@"手势错误，请重新输入"];
+        [self.resultLbl showWarningTip:UNLOCKER_VIEW_CONTROLLER_INCORRECT /*@"手势错误，请重新输入"*/];
     }
     
     
