@@ -53,6 +53,7 @@
 		18EB55021CC1F63400057F98 /* ZHSignupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB55011CC1F63400057F98 /* ZHSignupView.m */; };
 		18EB55051CC1F91000057F98 /* ZHBottomLineTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB55041CC1F91000057F98 /* ZHBottomLineTextField.m */; };
 		18EB874F1CCF130D0093DCEA /* ZHSettingViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EB87511CCF130D0093DCEA /* ZHSettingViewController.strings */; };
+		18EB87551CCF1C7D0093DCEA /* ZHLoginViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EB87571CCF1C7D0093DCEA /* ZHLoginViewController.strings */; };
 		18EDC1901CC5FDCF00337C00 /* UIAlertView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDC18F1CC5FDCF00337C00 /* UIAlertView+Block.m */; };
 		18EF25DA1C25522100873A68 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EF25D91C25522100873A68 /* libsqlite3.0.dylib */; };
 		18F301A11C0D6C4A00D9C398 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A01C0D6C4A00D9C398 /* Foundation.framework */; };
@@ -193,6 +194,8 @@
 		18EB874C1CCF04330093DCEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		18EB87501CCF130D0093DCEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZHSettingViewController.strings; sourceTree = "<group>"; };
 		18EB87521CCF13100093DCEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ZHSettingViewController.strings"; sourceTree = "<group>"; };
+		18EB87561CCF1C7D0093DCEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZHLoginViewController.strings; sourceTree = "<group>"; };
+		18EB87581CCF1C7F0093DCEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ZHLoginViewController.strings"; sourceTree = "<group>"; };
 		18EDC18E1CC5FDCF00337C00 /* UIAlertView+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Block.h"; sourceTree = "<group>"; };
 		18EDC18F1CC5FDCF00337C00 /* UIAlertView+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Block.m"; sourceTree = "<group>"; };
 		18EF25D91C25522100873A68 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -356,6 +359,7 @@
 				18EB87511CCF130D0093DCEA /* ZHSettingViewController.strings */,
 				18F708981CC088C600067AEA /* ZHLoginViewController.h */,
 				18F708991CC088C600067AEA /* ZHLoginViewController.m */,
+				18EB87571CCF1C7D0093DCEA /* ZHLoginViewController.strings */,
 				18F708C81CC0ECB900067AEA /* ZHSignupViewController.h */,
 				18F708C91CC0ECB900067AEA /* ZHSignupViewController.m */,
 				18CB3F741CA90036006BEEAA /* ZHLockerSettingViewController.h */,
@@ -732,6 +736,7 @@
 				18F301AB1C0D6C4A00D9C398 /* InfoPlist.strings in Resources */,
 				18F301B31C0D6C4A00D9C398 /* Images.xcassets in Resources */,
 				18EB874F1CCF130D0093DCEA /* ZHSettingViewController.strings in Resources */,
+				18EB87551CCF1C7D0093DCEA /* ZHLoginViewController.strings in Resources */,
 				18F708A91CC0DFF600067AEA /* MBProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -845,6 +850,15 @@
 				18EB87521CCF13100093DCEA /* zh-Hans */,
 			);
 			name = ZHSettingViewController.strings;
+			sourceTree = "<group>";
+		};
+		18EB87571CCF1C7D0093DCEA /* ZHLoginViewController.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18EB87561CCF1C7D0093DCEA /* en */,
+				18EB87581CCF1C7F0093DCEA /* zh-Hans */,
+			);
+			name = ZHLoginViewController.strings;
 			sourceTree = "<group>";
 		};
 		18F301A91C0D6C4A00D9C398 /* InfoPlist.strings */ = {

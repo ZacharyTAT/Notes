@@ -18,6 +18,22 @@
 #import "ZHSynchronizeTool.h"
 #import "ZHUser.h"
 
+//导航栏标题
+#define LOGIN_VIEW_CONTROLLER_NAV_TITLE NSLocalizedStringFromTable(@"LOGIN_VIEW_CONTROLLER_NAV_TITLE", @"ZHLoginViewController", @"登录")
+//
+#define LOGIN_VIEW_CONTROLLER_NO_SUCH_USER NSLocalizedStringFromTable(@"LOGIN_VIEW_CONTROLLER_NO_SUCH_USER", @"ZHLoginViewController", @"用户名不存在")
+
+#define LOGIN_VIEW_CONTROLLER_TOBE_REVIEWED NSLocalizedStringFromTable(@"LOGIN_VIEW_CONTROLLER_TOBE_REVIEWED", @"ZHLoginViewController", @"用户未通过审核")
+//
+#define LOGIN_VIEW_CONTROLLER_INCORRECT_PSWD NSLocalizedStringFromTable(@"LOGIN_VIEW_CONTROLLER_INCORRECT_PSWD", @"ZHLoginViewController", @"密码错误")
+
+#define LOGIN_VIEW_CONTROLLER_LOGIN_SUCCESS NSLocalizedStringFromTable(@"LOGIN_VIEW_CONTROLLER_LOGIN_SUCCESS", @"ZHLoginViewController", @"登录成功")
+
+#define LOGIN_VIEW_CONTROLLER_VERIFYING NSLocalizedStringFromTable(@"LOGIN_VIEW_CONTROLLER_VERIFYING", @"ZHLoginViewController", @"正在验证")
+
+#define LOGIN_VIEW_CONTROLLER_SIGNUP NSLocalizedStringFromTable(@"LOGIN_VIEW_CONTROLLER_SIGNUP", @"ZHLoginViewController", @"注册")
+
+
 @interface ZHLoginViewController ()<ZHLoginViewDelegate,ZHSignupViewControllerDelegate>
 
 @property (nonatomic, weak)ZHLoginView *loginView;
@@ -33,7 +49,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"登录";
+    self.title = LOGIN_VIEW_CONTROLLER_NAV_TITLE; //@"登录";
     
     [self setup];
 }
@@ -93,11 +109,11 @@
         //此种情况针对忘记手势密码
         
         if (![username isEqualToString:user.username]) {
-            [MBProgressHUD showError:@"用户名不正确"];
+            [MBProgressHUD showError:LOGIN_VIEW_CONTROLLER_NO_SUCH_USER/*@"用户名不正确"*/];
         }else if ([password isEqualToString:user.password]) {
-            [MBProgressHUD showError:@"密码错误"];
+            [MBProgressHUD showError:LOGIN_VIEW_CONTROLLER_INCORRECT_PSWD/*@"密码错误"*/];
         }else{
-            [MBProgressHUD showSuccess:@"登录成功"];
+            [MBProgressHUD showSuccess:LOGIN_VIEW_CONTROLLER_LOGIN_SUCCESS/*@"登录成功"*/];
             //返回上一页面
             NSLog(@"登录成功");
             [self accountOKWithUsername:user.username password:user.password userId:user.uid];
@@ -118,19 +134,19 @@
         params[@"password"] = password;
         
         [ZHNetwork post:[NSString stringWithFormat:@"%@/%@",ROOT,@"login.php"]
-                message:@"正在验证"
+                message:LOGIN_VIEW_CONTROLLER_VERIFYING //@"正在验证"
 compoundResponseSerialize:YES
              parameters:params success:^(NSString *responseString, id responseObject) {
                  NSInteger result = [responseString intValue];
                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                          if (result == -2) {
-                             [MBProgressHUD showError:@"用户名不存在"];
+                             [MBProgressHUD showError:LOGIN_VIEW_CONTROLLER_NO_SUCH_USER /*@"用户名不存在"*/];
                          }else if (result == -1) {
-                             [MBProgressHUD showError:@"用户未通过审核"];
+                             [MBProgressHUD showError:LOGIN_VIEW_CONTROLLER_TOBE_REVIEWED /*@"用户未通过审核"*/];
                          }else if (result == 0) {
-                             [MBProgressHUD showError:@"密码错误"];
+                             [MBProgressHUD showError:LOGIN_VIEW_CONTROLLER_INCORRECT_PSWD /*@"密码错误"*/];
                          }else{
-                             [MBProgressHUD showSuccess:@"登录成功"];
+                             [MBProgressHUD showSuccess:LOGIN_VIEW_CONTROLLER_LOGIN_SUCCESS /*@"登录成功"*/];
                              //返回上一页面
                              NSLog(@"登录成功");
                              [weakSelf accountOKWithUsername:username password:password userId:result];
@@ -155,8 +171,8 @@ compoundResponseSerialize:YES
     self.signupBtn = btn;
     [self.view addSubview:btn];
     
-    [btn setTitle:@"注册" forState:UIControlStateNormal];
-    [btn setTitle:@"注册" forState:UIControlStateHighlighted];
+    [btn setTitle:LOGIN_VIEW_CONTROLLER_SIGNUP /*@"注册"*/ forState:UIControlStateNormal];
+    [btn setTitle:LOGIN_VIEW_CONTROLLER_SIGNUP /*@"注册"*/ forState:UIControlStateHighlighted];
     btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     
     //http://blog.it985.com/11543.html
