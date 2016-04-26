@@ -1,0 +1,4 @@
+/* Localized versions of Info.plist keys */
+
+//应用名称
+"CFBundleDisplayName" = "备忘录";
