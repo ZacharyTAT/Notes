@@ -19,7 +19,10 @@
  *  传的两个note都应该删掉，若不为空的话
  */
 - (void)detailNoteViewController:(ZHDetailNoteViewController *)dnvc DidClickDeleteItemWithNote:(ZHNote *)note latestNote:(ZHNote *)latestNote;
-
+/**
+ *  更换数据
+ */
+- (void)detailNoteViewController:(ZHDetailNoteViewController *)dnvc DidChangeWithNote:(ZHNote *)note;
 /**
  *  点击了权限按钮
  *  @param lock 是否为私密

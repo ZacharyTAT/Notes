@@ -347,12 +347,18 @@
 
 - (void)changeNote:(ZHNote *)note
 {
+    __weak typeof(self) weakSelf = self;
+    
     void (^doSame)() = ^{
+        /*
         self.note = note;
         self.latestNote = nil;
         
         [self updateUI];
-        
+        */
+        if ([weakSelf.delegate respondsToSelector:@selector(detailNoteViewController:DidChangeWithNote:)]) {
+            [weakSelf.delegate detailNoteViewController:weakSelf DidChangeWithNote:note];
+        }
         NSLog(@"preNote = %@",note);
     };
     //更新模型

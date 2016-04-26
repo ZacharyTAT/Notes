@@ -473,6 +473,18 @@
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:ZHNoteDataSourceDidChangeNotification object:nil]];
 }
 
+/**
+ *  需要更改数据
+ */
+- (void)detailNoteViewController:(ZHDetailNoteViewController *)dnvc DidChangeWithNote:(ZHNote *)note
+{
+    //01.弹出内容视图
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    
+    //02.压入新视图
+    [self showScanViewController:note animated:NO];
+}
+
 #pragma mark - 更改了权限
 - (void)detailNoteViewController:(ZHDetailNoteViewController *)dnvc DidChangeAuthority:(BOOL)lock
 {
