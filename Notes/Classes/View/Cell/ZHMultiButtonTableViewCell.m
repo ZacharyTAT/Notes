@@ -31,7 +31,7 @@
     if (scrollView.contentOffset.x > 30) return;
     for (UIView *subView in scrollView.subviews) {
         if ([subView isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")]) {
-            NSLog(@"%@",subView.subviews);
+            //NSLog(@"%@",subView.subviews);
             
             UIButton *lastBtn = (UIButton *)[subView.subviews lastObject];
             

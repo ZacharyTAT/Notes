@@ -94,37 +94,17 @@
             self.bottomBar.nextPageItem.enabled = NO;
         }
     }
+    
+    //权限
+    [self showAuthorityBtn];
 }
 
 #pragma mark - 更新UI，当模型改了之后更新信息
-- (void)updateUI
+- (void)updateUIWithNote:(ZHNote *)note
 {
-    //使用的数据保存在self.note
-    self.textView.text = self.note.content;
-    self.textView.modifydateLbl.text = [self.note.modifydate toLocaleString];
-    
-    //禁止\打开 上一页\下一页
-    
-    //上一页
-    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:isNoteTopNote:)]) {
-        if ([self.dataSource detailNoteViewController:self isNoteTopNote:self.note]) { //是最上面一条，禁止
-            self.bottomBar.prePageItem.enabled = NO;
-        }else{  //解禁,这句不能少，不然当不是最上面一条时，还是处于禁止状态
-            self.bottomBar.prePageItem.enabled = YES;
-        }
+    if ([self.delegate respondsToSelector:@selector(detailNoteViewController:DidChangeWithNote:)]) {
+        [self.delegate detailNoteViewController:self DidChangeWithNote:note];
     }
-    
-    //下一页
-    if ([self.dataSource respondsToSelector:@selector(detailNoteViewController:isNoteBottomNote:)]) {
-        if ([self.dataSource detailNoteViewController:self isNoteBottomNote:self.note]) { // 是最下面一条，禁止下一页
-            self.bottomBar.nextPageItem.enabled = NO;
-        }else{//不是最下面一条，使用
-            self.bottomBar.nextPageItem.enabled = YES;
-        }
-    }
-    
-    //权限(当设置了密码时)
-    [self showAuthorityBtn];
     
 }
 
@@ -356,9 +336,7 @@
         
         [self updateUI];
         */
-        if ([weakSelf.delegate respondsToSelector:@selector(detailNoteViewController:DidChangeWithNote:)]) {
-            [weakSelf.delegate detailNoteViewController:weakSelf DidChangeWithNote:note];
-        }
+        [weakSelf updateUIWithNote:note];
         NSLog(@"preNote = %@",note);
     };
     //更新模型
@@ -416,9 +394,7 @@
             [self.navigationController popViewControllerAnimated:YES];
             
         }else{//显示之
-            self.note = nextNoteToDisplay;
-            self.latestNote = nil;
-            [self updateUI];
+            [self updateUIWithNote:nextNoteToDisplay];
             
         }
     }
