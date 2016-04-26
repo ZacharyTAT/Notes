@@ -12,6 +12,13 @@
 
 #import "MBProgressHUD+MJ.h"
 
+//用户名框占位字符串
+#define LOGIN_VIEW_USER_TXTFIELD_PLACEHOLDER NSLocalizedStringFromTable(@"LOGIN_VIEW_USER_TXTFIELD_PLACEHOLDER", @"ZHLoginView", @"用户名")
+//密码框占位字符串
+#define LOGIN_VIEW_PSWD_TXTFIELD_PLACEHOLDER NSLocalizedStringFromTable(@"LOGIN_VIEW_PSWD_TXTFIELD_PLACEHOLDER", @"ZHLoginView", @"密码")
+#define LOGIN_VIEW_LOGIN_TEXT NSLocalizedStringFromTable(@"LOGIN_VIEW_LOGIN_TEXT", @"ZHLoginView", @"登录")
+#define LOGIN_VIEW_EMPTY NSLocalizedStringFromTable(@"LOGIN_VIEW_EMPTY", @"ZHLoginView", @"用户名和密码不能为空")
+
 @interface ZHLoginView()<UITextFieldDelegate>
 
 /** 头像 */
@@ -60,14 +67,14 @@
     //02.用户名框
     ZHBottomLineTextField *userTxtField = [[ZHBottomLineTextField alloc] init];
     self.userTxtField = userTxtField;
-    userTxtField.placeholder = @"用户名";
+    userTxtField.placeholder = LOGIN_VIEW_USER_TXTFIELD_PLACEHOLDER;//@"用户名";
     [self addSubview:userTxtField];
     
     //03.密码框
     ZHBottomLineTextField *pswdTxtField = [[ZHBottomLineTextField alloc] init];
     self.pswdTxtField = pswdTxtField;
     pswdTxtField.secureTextEntry = YES;
-    pswdTxtField.placeholder = @"密码";
+    pswdTxtField.placeholder = LOGIN_VIEW_PSWD_TXTFIELD_PLACEHOLDER;//@"密码";
     pswdTxtField.returnKeyType = UIReturnKeyJoin;
     pswdTxtField.delegate = self;
     [self addSubview:pswdTxtField];
@@ -79,9 +86,9 @@
     [self addSubview:loginBtn];
     UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
     [loginBtn setBackgroundImage:[[UIImage imageNamed:@"login_btn_blue_nor"] resizableImageWithCapInsets:insets] forState:UIControlStateNormal];
-    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [loginBtn setTitle:LOGIN_VIEW_LOGIN_TEXT /*@"登录"*/ forState:UIControlStateNormal];
     [loginBtn setBackgroundImage:[[UIImage imageNamed:@"login_btn_blue_press"] resizableImageWithCapInsets:insets] forState:UIControlStateHighlighted];
-    [loginBtn setTitle:@"登录" forState:UIControlStateHighlighted];
+    [loginBtn setTitle:LOGIN_VIEW_LOGIN_TEXT /*@"登录"*/ forState:UIControlStateHighlighted];
     [loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -118,7 +125,7 @@
     
     if (![self isTxtFieldOK]) {
         
-        [MBProgressHUD showError:@"用户名和密码不能为空"];
+        [MBProgressHUD showError:LOGIN_VIEW_EMPTY /*@"用户名和密码不能为空"*/];
         
         return;
     }
