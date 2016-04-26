@@ -12,6 +12,14 @@
 
 #import "MBProgressHUD+MJ.h"
 
+//用户名框占位字符串
+#define SIGNUP_VIEW_USER_TXTFIELD_PLACEHOLDER NSLocalizedStringFromTable(@"SIGNUP_VIEW_USER_TXTFIELD_PLACEHOLDER", @"ZHSignupView", @"请输入用户名")
+//密码框占位字符串
+#define SIGNUP_VIEW_PSWD_TXTFIELD_PLACEHOLDER NSLocalizedStringFromTable(@"SIGNUP_VIEW_PSWD_TXTFIELD_PLACEHOLDER", @"ZHSignupView", @"请输入密码，试试右边的眼睛")
+#define SIGNUP_VIEW_SIGNUP_TEXT NSLocalizedStringFromTable(@"SIGNUP_VIEW_SIGNUP_TEXT", @"ZHSignupView", @"注册")
+//用户名和密码不能为空
+#define SIGNUP_VIEW_EMPTY NSLocalizedStringFromTable(@"SIGNUP_VIEW_EMPTY", @"ZHSignupView", @"用户名和密码不能为空")
+
 @interface ZHSignupView()<UITextFieldDelegate>
 
 /** 用户名框 */
@@ -41,7 +49,7 @@
     //01.用户名框
     ZHSignUpTextField *userTxtField = [[ZHSignUpTextField alloc] init];
     self.userTxtField = userTxtField;
-    userTxtField.placeholder = @"请输入用户名";
+    userTxtField.placeholder = SIGNUP_VIEW_USER_TXTFIELD_PLACEHOLDER; //@"请输入用户名";
     
     //leftView
     UIButton *userLeftView = [[UIButton alloc] init];
@@ -57,7 +65,7 @@
     ZHSignUpTextField *pswdTxtField = [[ZHSignUpTextField alloc] init];
     self.pswdTxtField = pswdTxtField;
     pswdTxtField.secureTextEntry = YES;
-    pswdTxtField.placeholder = @"请输入密码，试试右边的眼睛";
+    pswdTxtField.placeholder = SIGNUP_VIEW_PSWD_TXTFIELD_PLACEHOLDER;//@"请输入密码，试试右边的眼睛";
     pswdTxtField.returnKeyType = UIReturnKeyJoin;
     pswdTxtField.delegate = self;
     
@@ -86,9 +94,9 @@
     [self addSubview:signupBtn];
     UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
     [signupBtn setBackgroundImage:[[UIImage imageNamed:@"login_btn_blue_nor"] resizableImageWithCapInsets:insets] forState:UIControlStateNormal];
-    [signupBtn setTitle:@"注册" forState:UIControlStateNormal];
+    [signupBtn setTitle:SIGNUP_VIEW_SIGNUP_TEXT /*@"注册"*/ forState:UIControlStateNormal];
     [signupBtn setBackgroundImage:[[UIImage imageNamed:@"login_btn_blue_press"] resizableImageWithCapInsets:insets] forState:UIControlStateHighlighted];
-    [signupBtn setTitle:@"注册" forState:UIControlStateHighlighted];
+    [signupBtn setTitle:SIGNUP_VIEW_SIGNUP_TEXT /*@"注册"*/ forState:UIControlStateHighlighted];
     [signupBtn addTarget:self action:@selector(signup) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -109,7 +117,7 @@
 {
     if (![self isTextFieldOK]) {
         
-        [MBProgressHUD showError:@"用户名和密码不能为空"];
+        [MBProgressHUD showError:SIGNUP_VIEW_EMPTY /*@"用户名和密码不能为空"*/];
         
         return;
     }

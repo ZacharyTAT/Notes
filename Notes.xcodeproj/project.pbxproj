@@ -60,6 +60,7 @@
 		18EB87731CCF3F900093DCEA /* ZHTableViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EB87751CCF3F900093DCEA /* ZHTableViewController.strings */; };
 		18EB87791CCF43120093DCEA /* ZHUnLockerViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EB877B1CCF43120093DCEA /* ZHUnLockerViewController.strings */; };
 		18EB877F1CCF46E60093DCEA /* ZHDetailNoteViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EB87811CCF46E60093DCEA /* ZHDetailNoteViewController.strings */; };
+		18EB87851CCF4BF90093DCEA /* ZHSignupView.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EB87871CCF4BF90093DCEA /* ZHSignupView.strings */; };
 		18EDC1901CC5FDCF00337C00 /* UIAlertView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDC18F1CC5FDCF00337C00 /* UIAlertView+Block.m */; };
 		18EF25DA1C25522100873A68 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EF25D91C25522100873A68 /* libsqlite3.0.dylib */; };
 		18F301A11C0D6C4A00D9C398 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F301A01C0D6C4A00D9C398 /* Foundation.framework */; };
@@ -214,6 +215,8 @@
 		18EB877C1CCF43150093DCEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ZHUnLockerViewController.strings"; sourceTree = "<group>"; };
 		18EB87801CCF46E60093DCEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZHDetailNoteViewController.strings; sourceTree = "<group>"; };
 		18EB87821CCF46E80093DCEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ZHDetailNoteViewController.strings"; sourceTree = "<group>"; };
+		18EB87861CCF4BF90093DCEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZHSignupView.strings; sourceTree = "<group>"; };
+		18EB87881CCF4BFB0093DCEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ZHSignupView.strings"; sourceTree = "<group>"; };
 		18EDC18E1CC5FDCF00337C00 /* UIAlertView+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Block.h"; sourceTree = "<group>"; };
 		18EDC18F1CC5FDCF00337C00 /* UIAlertView+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Block.m"; sourceTree = "<group>"; };
 		18EF25D91C25522100873A68 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -630,6 +633,7 @@
 			children = (
 				18EB55001CC1F63400057F98 /* ZHSignupView.h */,
 				18EB55011CC1F63400057F98 /* ZHSignupView.m */,
+				18EB87871CCF4BF90093DCEA /* ZHSignupView.strings */,
 				1855A6E61CC20B7D0034928D /* ZHSignUpTextField.h */,
 				1855A6E71CC20B7D0034928D /* ZHSignUpTextField.m */,
 				18F7089C1CC08B7800067AEA /* ZHLoginView.h */,
@@ -764,6 +768,7 @@
 				18EB87551CCF1C7D0093DCEA /* ZHLoginViewController.strings in Resources */,
 				18F708A91CC0DFF600067AEA /* MBProgressHUD.bundle in Resources */,
 				18EB877F1CCF46E60093DCEA /* ZHDetailNoteViewController.strings in Resources */,
+				18EB87851CCF4BF90093DCEA /* ZHSignupView.strings in Resources */,
 				18EB875B1CCF1F250093DCEA /* ZHSignupViewController.strings in Resources */,
 				18EB87731CCF3F900093DCEA /* ZHTableViewController.strings in Resources */,
 				18EB87791CCF43120093DCEA /* ZHUnLockerViewController.strings in Resources */,
@@ -943,6 +948,15 @@
 				18EB87821CCF46E80093DCEA /* zh-Hans */,
 			);
 			name = ZHDetailNoteViewController.strings;
+			sourceTree = "<group>";
+		};
+		18EB87871CCF4BF90093DCEA /* ZHSignupView.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18EB87861CCF4BF90093DCEA /* en */,
+				18EB87881CCF4BFB0093DCEA /* zh-Hans */,
+			);
+			name = ZHSignupView.strings;
 			sourceTree = "<group>";
 		};
 		18F301A91C0D6C4A00D9C398 /* InfoPlist.strings */ = {
