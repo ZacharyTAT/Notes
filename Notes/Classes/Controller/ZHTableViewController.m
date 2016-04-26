@@ -21,6 +21,16 @@
 #import "ZHDataUtil.h"
 #import "ZHLocker.h"
 
+//导航栏标题
+#define TABLE_VIEW_CONTROLLER_NAV_TITLE NSLocalizedStringFromTable(@"TABLE_VIEW_CONTROLLER_NAV_TITLE", @"ZHTableViewController", @"备忘录")
+//导航栏标题
+#define TABLE_VIEW_CONTROLLER_NAV_TITLE_WITHNUMBERS NSLocalizedStringFromTable(@"TABLE_VIEW_CONTROLLER_NAV_TITLE_WITHNUMBERS", @"ZHTableViewController", @"备忘录(%d)")
+//右侧新建按钮
+#define TABLE_VIEW_CONTROLLER_NAV_NEW NSLocalizedStringFromTable(@"TABLE_VIEW_CONTROLLER_NAV_NEW", @"ZHTableViewController", @"新建(右侧新建按钮)")
+//左侧设置按钮
+#define TABLE_VIEW_CONTROLLER_NAV_SETTINGS NSLocalizedStringFromTable(@"TABLE_VIEW_CONTROLLER_NAV_SETTINGS", @"ZHTableViewController", @"设置(左侧设置按钮)")
+//验证视图的提示信息
+#define TABLE_VIEW_CONTROLLER_VERIFY_TITLE NSLocalizedStringFromTable(@"TABLE_VIEW_CONTROLLER_VERIFY_TITLE", @"ZHTableViewController", @"请输入解锁手势")
 
 @interface ZHTableViewController ()<ZHDetailNoteViewControllerDelegate,ZHDetailNoteViewControllerDataSource,ZHNewViewControllerDelegate,ZHScanEditViewControllerDelegate, ZHSettingViewControllerDelegate,ZHSearchDelegate,ZHMultiButtonTableViewCellDelegate>
 
@@ -94,9 +104,9 @@
         
         //更新标题
         if (!self.dataArr || self.dataArr.count == 0) {
-            self.title = @"Notes";
+            self.title = TABLE_VIEW_CONTROLLER_NAV_TITLE; //@"Notes";
         }else{
-            self.title = [NSString stringWithFormat:@"Note(%d)", self.dataArr.count];
+            self.title = [NSString stringWithFormat:TABLE_VIEW_CONTROLLER_NAV_TITLE_WITHNUMBERS /*@"Note(%d)"*/, self.dataArr.count];
         }
     }
     
@@ -118,7 +128,7 @@
     [self.dataArr insertObject:object atIndex:index];
     
     //更新标题
-    self.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
+    self.title = [NSString stringWithFormat:TABLE_VIEW_CONTROLLER_NAV_TITLE_WITHNUMBERS /*@"Notes(%d)"*/,self.dataArr.count];
 }
 
 - (void)removeObjectFromDataArrAtIndex:(NSUInteger)index
@@ -135,9 +145,9 @@
     
     //更新标题
     if (self.dataArr == nil || [self.dataArr count] == 0) {
-        self.title = @"Notes";
+        self.title = TABLE_VIEW_CONTROLLER_NAV_TITLE; //@"Notes";
     }else{
-        self.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
+        self.title = [NSString stringWithFormat:TABLE_VIEW_CONTROLLER_NAV_TITLE_WITHNUMBERS /*@"Notes(%d)"*/,self.dataArr.count];
     }
 }
 
@@ -162,17 +172,23 @@
 - (void)setupNavItem
 {
     //01.右侧
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"新建" style:UIBarButtonItemStylePlain target:self action:@selector(newBtnClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:TABLE_VIEW_CONTROLLER_NAV_NEW //@"新建"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(newBtnClick)];
     
     //02.中间
     if (self.dataArr.count == 0) {
-        self.navigationItem.title = @"Notes";
+        self.navigationItem.title = TABLE_VIEW_CONTROLLER_NAV_TITLE;//@"Notes";
     }else{
-        self.navigationItem.title = [NSString stringWithFormat:@"Notes(%d)",self.dataArr.count];
+        self.navigationItem.title = [NSString stringWithFormat:TABLE_VIEW_CONTROLLER_NAV_TITLE_WITHNUMBERS /*@"Notes(%d)"*/,self.dataArr.count];
     }
     
     //03.左侧
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(settingClick)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:TABLE_VIEW_CONTROLLER_NAV_SETTINGS//@"设置"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(settingClick)];
     
 }
 
@@ -241,7 +257,7 @@
             __weak typeof(self) weakSelf = self;
             
             [ZHLocker verifyInViewControlloer:self
-                                        title:@"请输入解锁手势"
+                                        title:TABLE_VIEW_CONTROLLER_VERIFY_TITLE //@"请输入解锁手势"
                             completionHandler:
              ^(ZHUnLockerViewController *ulvc, BOOL result) {
                 
@@ -668,7 +684,7 @@
         __weak typeof(self) weakSelf = self;
         
         [ZHLocker verifyInViewControlloer:self
-                                    title:@"请输入解锁手势"
+                                    title:TABLE_VIEW_CONTROLLER_VERIFY_TITLE //@"请输入解锁手势"
                         completionHandler:
          ^(ZHUnLockerViewController *ulvc, BOOL result) {
             
