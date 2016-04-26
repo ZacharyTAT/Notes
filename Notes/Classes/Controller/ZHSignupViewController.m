@@ -13,6 +13,16 @@
 #import "ZHNetwork.h"
 #import "MBProgressHUD+MJ.h"
 
+
+//导航栏标题
+#define SIGNUP_VIEW_CONTROLLER_NAV_TITLE NSLocalizedStringFromTable(@"SIGNUP_VIEW_CONTROLLER_NAV_TITLE", @"ZHSignupViewController", @"注册")
+//
+#define SIGNUP_VIEW_CONTROLLER_VERIFYING NSLocalizedStringFromTable(@"SIGNUP_VIEW_CONTROLLER_VERIFYING", @"ZHSignupViewController", @"正在验证")
+//
+#define SIGNUP_VIEW_CONTROLLER_USER_EXISTS NSLocalizedStringFromTable(@"SIGNUP_VIEW_CONTROLLER_USER_EXISTS", @"ZHSignupViewController", @"用户名已存在")
+//
+#define SIGNUP_VIEW_CONTROLLER_TOBE_REVIEWED NSLocalizedStringFromTable(@"SIGNUP_VIEW_CONTROLLER_TOBE_REVIEWED", @"ZHSignupViewController", @"注册成功，请等待审核")
+
 @interface ZHSignupViewController ()<ZHSignupViewDelegate>
 
 /** 注册视图 */
@@ -26,7 +36,7 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"注册";
+    self.title = SIGNUP_VIEW_CONTROLLER_NAV_TITLE; //@"注册";
     [self setup];
 }
 - (void)viewDidAppear:(BOOL)animated
@@ -56,37 +66,36 @@
     NSLog(@"%@,%@",username ,password);
     
     __weak typeof(self) weakSelf = self;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
         //发请求给服务器进行注册
         
-        NSMutableDictionary *params = [@{} mutableCopy];
-        params[@"username"] = username;
-        params[@"password"] = password;
-        
-        [ZHNetwork post:[NSString stringWithFormat:@"%@/%@",ROOT ,@"register.php"]
-                message:@"正在验证"
+    NSMutableDictionary *params = [@{} mutableCopy];
+    params[@"username"] = username;
+    params[@"password"] = password;
+    
+    [ZHNetwork post:[NSString stringWithFormat:@"%@/%@",ROOT ,@"register.php"]
+            message:SIGNUP_VIEW_CONTROLLER_VERIFYING//@"正在验证"
 compoundResponseSerialize:YES
-             parameters:params
-                success:^(NSString *responseString, id responseObject) {
-                    NSInteger result = [responseString integerValue];
-                    if (result == -1) {//用户名已存在
-                        [MBProgressHUD showError:@"用户名已存在"];
-                    }else{
-                        [MBProgressHUD showSuccess:@"注册成功，请等待审核"];
-                        //这个页面的工作已经结束了，通知代理
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            if ([weakSelf.delegate respondsToSelector:@selector(signupViewController:didSuccessWithUsername:password:)]) {
-                                [weakSelf.delegate signupViewController:self didSuccessWithUsername:username password:password];
-                            }
-                        });
-                        
-                    }
-
-                } failure:^(NSString *responseString, NSError *error) {
+         parameters:params
+            success:^(NSString *responseString, id responseObject) {
+                NSInteger result = [responseString integerValue];
+                if (result == -1) {//用户名已存在
+                    [MBProgressHUD showError:SIGNUP_VIEW_CONTROLLER_USER_EXISTS/*@"用户名已存在"*/];
+                }else{
+                    [MBProgressHUD showSuccess:SIGNUP_VIEW_CONTROLLER_TOBE_REVIEWED/*@"注册成功，请等待审核"*/];
+                    //这个页面的工作已经结束了，通知代理
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        if ([weakSelf.delegate respondsToSelector:@selector(signupViewController:didSuccessWithUsername:password:)]) {
+                            [weakSelf.delegate signupViewController:self didSuccessWithUsername:username password:password];
+                        }
+                    });
                     
-                }];
-    });
+                }
+
+            }
+            failure:^(NSString *responseString, NSError *error) {
+                
+            }];
 
     
 }
