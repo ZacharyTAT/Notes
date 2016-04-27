@@ -8,9 +8,7 @@
 
 #import "ZHLockerView.h"
 #import "ZHCircleView.h"
-
-#define SUCCEED_COLOR ZHColor(10, 95, 255)
-#define FIALED_COLOR ZHColor(249, 41, 29)
+#import "ZHPathView.h"
 
 @interface ZHLockerView()
 
@@ -25,6 +23,9 @@
 
 /** 手势正确还是错误,错误则手势路径为失败时的颜色 */
 @property (nonatomic, assign, getter = isFailed)BOOL failed;
+
+/** 添加的用于画线的view */
+@property (nonatomic, weak)ZHPathView *pathView;
 
 @end
 
@@ -44,7 +45,7 @@
  */
 - (void)setup
 {
-    //添加9个按钮
+    //01.添加9个按钮
     for (int i = 0; i < 9; i++) {
         
         UIButton *btn = [ZHCircleView buttonWithType:UIButtonTypeCustom];
@@ -54,6 +55,14 @@
         [self addSubview:btn];
     }
     
+    //02.覆盖一层用于画线的view
+    ZHPathView *pathView = [[ZHPathView alloc] init];
+    
+    self.pathView = pathView;
+    
+    [self addSubview:pathView];
+    
+    //03.背景色
     self.backgroundColor = [UIColor clearColor];
 }
 
@@ -99,6 +108,9 @@
         
         btn.frame = (CGRect){{btnX, btnY}, self.btnSize};
     }
+    
+    //pathView
+    self.pathView.frame = self.bounds;
 }
 
 /**
@@ -108,7 +120,7 @@
 {
     UITouch *touch = [touches anyObject];
     
-    return [touch locationInView:touch.view];
+    return [touch locationInView:self];
 }
 
 /**
@@ -116,9 +128,11 @@
  */
 - (UIButton *)btnForPoint:(CGPoint)pnt
 {
-    for (UIButton *btn in self.subviews) {
-        if (CGRectContainsPoint(btn.frame, pnt)) {
-            return btn;
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            if (CGRectContainsPoint(view.frame, pnt)) {
+                return (UIButton *)view;
+            }
         }
     }
     
@@ -145,7 +159,9 @@
 - (void)clear
 {
     [self clearAllSelectedBtn];
-    [self setNeedsDisplay];
+//    [self setNeedsDisplay];
+    [self.pathView setNeedsDisplayWithSelectedBtns:self.selectedBtns currentPoint:self.currentPoint failed:self.failed];
+    
     
     //如果密码错误，不会立刻清除，暂时不能响应用户绘制，在这里要恢复
     self.userInteractionEnabled = YES;
@@ -198,7 +214,8 @@
     
     self.currentPoint = pnt;
     
-    [self setNeedsDisplay];
+//    [self setNeedsDisplay];
+    [self.pathView setNeedsDisplayWithSelectedBtns:self.selectedBtns currentPoint:self.currentPoint failed:self.failed];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -237,7 +254,8 @@
     }
     
     //重新绘制，线条改成红色
-    [self setNeedsDisplay];
+//    [self setNeedsDisplay];
+    [self.pathView setNeedsDisplayWithSelectedBtns:self.selectedBtns currentPoint:self.currentPoint failed:self.failed];
     
     //显示一秒后，清除所有
     [self performSelector:@selector(clear) withObject:nil afterDelay:1.0];
@@ -249,38 +267,6 @@
 }
 
 #pragma mark - 画线方法
-- (void)drawRect:(CGRect)rect
-{
-    
-    if (self.selectedBtns.count == 0) return;
-    
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    
-    for (int i = 0; i < self.selectedBtns.count; i++) {
-        
-        UIButton *btn = (UIButton *)self.selectedBtns[i];
-        
-        if (i == 0) {
-            [path moveToPoint:btn.center];
-        }else{
-            [path addLineToPoint:btn.center];
-        }
-    }
-    
-    [path addLineToPoint:self.currentPoint];
-    
-    //线颜色
-    [self.failed ? FIALED_COLOR : SUCCEED_COLOR set];
-    
-    //线宽
-    [path setLineWidth:3];
-    
-    //线条样式
-    [path setLineJoinStyle:kCGLineJoinBevel];
-    
-    //画线
-    [path stroke];
-}
 
 - (void)dealloc
 {
