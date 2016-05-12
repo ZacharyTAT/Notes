@@ -12,8 +12,12 @@
 
 @interface ZHSwitchCell : ZHSettingCell
 
+/** 开关控件 */
+@property (nonatomic, weak)UISwitch *swt;
+
+
 /** 开关值修改后句柄 */
-@property (nonatomic, strong)void (^switchValueChangedHander)(BOOL);
+@property (nonatomic, strong)void (^switchValueChangedHander)(ZHSwitchCell *, BOOL);
 
 /**
  *  快速创建一个带有开关的cell

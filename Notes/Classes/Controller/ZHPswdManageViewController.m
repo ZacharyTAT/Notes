@@ -63,7 +63,7 @@
         
         [switchCell setSwitchOn:on];
         
-        [switchCell setSwitchValueChangedHander:^(BOOL on) {
+        [switchCell setSwitchValueChangedHander:^(ZHSwitchCell *swc, BOOL on) {
             if (on) {//现在是开启状态，则之前是关闭，点击了之后，应该开启密码功能
                 
                 ZHLockerSettingViewController *lsvc = [[ZHLockerSettingViewController alloc] init];
@@ -78,10 +78,14 @@
                  ^(ZHUnLockerViewController *ulvc, BOOL result) {
                      [weakSelf dismissViewControllerAnimated:YES
                                                   completion:NULL];
-                     //在磁盘上清除密码
-                     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kPasswordKey];
-                     if (result) weakSelf.rowCount = 1;
-                     [weakSelf.tableView reloadData];
+                     if (result) {
+                         //在磁盘上清除密码
+                         [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kPasswordKey];
+                         weakSelf.rowCount = 1;
+                         [weakSelf.tableView reloadData];
+                     }else{ //将开关重新打开
+                         [swc.swt setOn:YES animated:NO];
+                     }
                 }];
             }
         }];

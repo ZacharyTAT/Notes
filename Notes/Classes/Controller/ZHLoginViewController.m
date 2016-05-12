@@ -110,7 +110,7 @@
         
         if (![username isEqualToString:user.username]) {
             [MBProgressHUD showError:LOGIN_VIEW_CONTROLLER_NO_SUCH_USER/*@"用户名不正确"*/];
-        }else if ([password isEqualToString:user.password]) {
+        }else if (![password isEqualToString:user.password]) {
             [MBProgressHUD showError:LOGIN_VIEW_CONTROLLER_INCORRECT_PSWD/*@"密码错误"*/];
         }else{
             [MBProgressHUD showSuccess:LOGIN_VIEW_CONTROLLER_LOGIN_SUCCESS/*@"登录成功"*/];
@@ -118,8 +118,6 @@
             NSLog(@"登录成功");
             [self accountOKWithUsername:user.username password:user.password userId:user.uid];
         }
-        
-
         
         return;
     }

@@ -10,7 +10,6 @@
 
 @interface ZHSwitchCell()
 
-@property (nonatomic, weak)UISwitch *swt;
 
 @end
 
@@ -72,7 +71,7 @@
 - (void)switchValueChanged:(UISwitch *)swc
 {
     NSLog(@"%d",swc.isOn);
-    if (self.switchValueChangedHander) self.switchValueChangedHander(swc.isOn);
+    if (self.switchValueChangedHander) self.switchValueChangedHander(self, swc.isOn);
 }
 
 
